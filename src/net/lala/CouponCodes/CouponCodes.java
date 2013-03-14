@@ -317,11 +317,11 @@ public class CouponCodes extends JavaPlugin {
 	
 	public void setUpdateInfo() {
 		try {
-			URL url = new URL("http://www.craftmod.net/jar/CouponCodes/version.txt");
+			URL url = new URL("http://sgkminecraft.beastnode.net/Drepic/CouponCodes/version.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			newversion = br.readLine();
 			
-			url = new URL("http://www.craftmod.net/jar/CouponCodes/info.txt");
+			url = new URL("http://sgkminecraft.beastnode.net/Drepic/CouponCodes/info.txt");
 			br = new BufferedReader(new InputStreamReader(url.openStream()));
 			verinfo = br.readLine();
 			
