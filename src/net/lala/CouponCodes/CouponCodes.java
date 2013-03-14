@@ -105,11 +105,11 @@ public class CouponCodes extends JavaPlugin {
 		
 		// Timers!
 		if (usethread) {
-			getServer().getScheduler().scheduleAsyncRepeatingTask(this, new CouponTimer(), 200L, 200L);
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, new CouponTimer(), 200L, 200L);
 		}
 		
 		// This timer is required, so it can't be in (usethread)!
-		getServer().getScheduler().scheduleAsyncDelayedTask(this, new CustomDataSender(this, mt));
+		getServer().getScheduler().scheduleSyncDelayedTask(this, new CustomDataSender(this, mt));
 		
 		send("is now enabled! Version: "+version);
 	}
@@ -200,7 +200,7 @@ public class CouponCodes extends JavaPlugin {
 				return true;
 			}
 			if (has(sender, "cc.add")) {
-				server.getScheduler().scheduleAsyncDelayedTask(this, new QuedAddCommand(this, sender, args));
+				server.getScheduler().scheduleSyncDelayedTask(this, new QuedAddCommand(this, sender, args));
 				return true;
 			} else {
 				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command.");
@@ -211,7 +211,7 @@ public class CouponCodes extends JavaPlugin {
 		// Remove command
 		else if (args[0].equalsIgnoreCase("remove")) {
 			if (has(sender, "cc.remove")) {
-				server.getScheduler().scheduleAsyncDelayedTask(this, new QuedRemoveCommand(sender, args));
+				server.getScheduler().scheduleSyncDelayedTask(this, new QuedRemoveCommand(sender, args));
 				return true;
 			} else {
 				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
@@ -227,7 +227,7 @@ public class CouponCodes extends JavaPlugin {
 			} else {
 				Player player = (Player) sender;
 				if (has(player, "cc.redeem")) {
-					server.getScheduler().scheduleAsyncDelayedTask(this, new QuedRedeemCommand(this, player, args));
+					server.getScheduler().scheduleSyncDelayedTask(this, new QuedRedeemCommand(this, player, args));
 					return true;
 				} else {
 					player.sendMessage(ChatColor.RED+"You do not have permission to use this command");
@@ -239,7 +239,7 @@ public class CouponCodes extends JavaPlugin {
 		// List command
 		else if (args[0].equalsIgnoreCase("list")) {
 			if (has(sender, "cc.list")) {
-				server.getScheduler().scheduleAsyncDelayedTask(this, new QuedListCommand(sender));
+				server.getScheduler().scheduleSyncDelayedTask(this, new QuedListCommand(sender));
 				return true;
 			} else {
 				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
@@ -250,7 +250,7 @@ public class CouponCodes extends JavaPlugin {
 		// Info command
 		else if (args[0].equalsIgnoreCase("info")) {
 			if (has(sender, "cc.info")) {
-				server.getScheduler().scheduleAsyncDelayedTask(this, new QuedInfoCommand(this, sender, args));
+				server.getScheduler().scheduleSyncDelayedTask(this, new QuedInfoCommand(this, sender, args));
 				return true;
 			} else {
 				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");

@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-@SuppressWarnings("serial")
 public class CouponRemoveFromDatabaseEvent extends Event {
 
 	private static final HandlerList h = new HandlerList();
