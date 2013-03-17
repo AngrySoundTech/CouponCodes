@@ -32,3 +32,6 @@ use-thread: true
 
 # I recommend to leave this at false. Your console will be spammed with debug messages
 debug: false
+
+# If you set this to false, The plugin won't check for updates
+check-update: true

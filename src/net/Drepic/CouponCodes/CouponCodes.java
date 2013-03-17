@@ -51,7 +51,7 @@ public class CouponCodes extends JavaPlugin {
 	private boolean va = false;
 	private boolean debug = false;
 	private boolean usethread = true;
-	
+	public boolean checkupdate;
 	private SQL sql;
 	private Metrics mt = null;
 	
@@ -62,6 +62,7 @@ public class CouponCodes extends JavaPlugin {
 	public String version;
 	public String newversion;
 	public String verinfo;
+
 	
 	@Override
 	public void onEnable() {
@@ -71,6 +72,7 @@ public class CouponCodes extends JavaPlugin {
 		debug = config.getDebug();
 		version = getDescription().getVersion();
 		usethread = config.getUseThread();
+		checkupdate = config.getCheckUpdate();
 		
 		try {
 			mt = new Metrics();
@@ -88,7 +90,7 @@ public class CouponCodes extends JavaPlugin {
 			va = true;
 		}
 		
-		if (!version.equals(newversion) && !version.contains("TEST"))
+		if (!version.equals(newversion) && !version.contains("TEST") && !(newversion == null))
 			send("New update is available for CouponCodes! Current version: "+version+" New version: "+newversion);
 		
 		// This is for this plugin's own events!
@@ -316,20 +318,22 @@ public class CouponCodes extends JavaPlugin {
 	}
 	
 	public void setUpdateInfo() {
-		try {
-			URL url = new URL("http://sgkminecraft.beastnode.net/Drepic/CouponCodes/version.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-			newversion = br.readLine();
+		if (config.getCheckUpdate()) {
+			try {
+				URL url = new URL("http://sgkminecraft.beastnode.net/Drepic/CouponCodes/version.txt");
+				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+				newversion = br.readLine();
 			
-			url = new URL("http://sgkminecraft.beastnode.net/Drepic/CouponCodes/info.txt");
-			br = new BufferedReader(new InputStreamReader(url.openStream()));
-			verinfo = br.readLine();
+				url = new URL("http://sgkminecraft.beastnode.net/Drepic/CouponCodes/info.txt");
+				br = new BufferedReader(new InputStreamReader(url.openStream()));
+				verinfo = br.readLine();
 			
-			br.close();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+				br.close();
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

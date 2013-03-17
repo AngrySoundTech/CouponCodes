@@ -31,6 +31,10 @@ public class Config {
 		return config.getBoolean("debug", false);
 	}
 	
+	public boolean getCheckUpdate() {
+		return config.getBoolean("check-update", false);
+	}
+	
 	public String getSQLValue() {
 		return config.getString("sql-type");
 	}
@@ -54,4 +58,6 @@ public class Config {
 	public String getPassword() {
 		return config.getString("MySQL-options.password");
 	}
+
+
 }
