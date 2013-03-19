@@ -289,15 +289,15 @@ public class CouponCodes extends JavaPlugin {
 	}
 	
 	private void help(CommandSender sender) {
-		sender.sendMessage(ChatColor.GOLD+"|-[] = required-"+ChatColor.DARK_RED+"CouponCodes Help"+ChatColor.GOLD+"-() = optional-|");
-		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"add item [name] [item1:amount,item2:amount,..] (usetimes) (time)");
-		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"add econ [name] [money] (usetimes) (time)");
-		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"add rank [name] [group] (usetimes) (time)");
-		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"add xp [name] [xp] (usetimes) (time)");
-		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"redeem [name]");
-		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"remove [name]");
+		sender.sendMessage(ChatColor.GOLD+"|-<> = required-"+ChatColor.DARK_RED+"CouponCodes Help"+ChatColor.GOLD+"-[] = optional-|");
+		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"add item <name> <item1:amount,item2:amount,..> [usetimes] [time]");
+		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"add econ <name> <money> [usetimes] [time]");
+		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"add rank <name> <group> [usetimes] [time]");
+		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"add xp <name> <xp> [usetimes] [time]");
+		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"redeem <name>");
+		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"remove <name>");
 		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"list");
-		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"info (name)");
+		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"info <name>");
 		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"reload");
 	}
 	
