@@ -32,7 +32,7 @@ public class Config {
 	}
 	
 	public boolean getCheckUpdate() {
-		return config.getBoolean("check-update", false);
+		return config.getBoolean("check-update", true);
 	}
 	
 	public String getSQLValue() {
