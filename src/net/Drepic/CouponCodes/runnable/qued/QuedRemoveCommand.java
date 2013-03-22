@@ -41,7 +41,7 @@ public class QuedRemoveCommand implements Runnable {
 					return;
 				}
 				api.removeCouponFromDatabase(api.createNewItemCoupon(args[1], 0, -1, null, null));
-				sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("THE_COUPON")+" "+ChatColor.GOLD+args[1]+ChatColor.GREEN+" "+CouponCodes.l.getMessage("HAS_BEEN_REMOVED"));
+				sender.sendMessage(ChatColor.GOLD+args[1]+ChatColor.GREEN+" "+CouponCodes.l.getMessage("HAS_BEEN_REMOVED"));
 				return;
 			} catch (SQLException e) {
 				sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("SQL_INTERACT_ERROR"));
