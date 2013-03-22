@@ -22,7 +22,7 @@ COUPON_TIMEOUT|This coupon has ran out of time to be redeemed!
 
 COUPON_USED_UP|This coupon has been used up!
 
-CURRENT_VERSION|Current version
+CURRENT_VERSION|Current version:
 
 DATABASE_FIND_ERROR|in the database. Please check the console for more info.
 
@@ -70,7 +70,7 @@ MONEY|Money:
 
 NAME|Name
 
-NEW_VERSION|New version
+NEW_VERSION|New version:
 
 NONE|None
 

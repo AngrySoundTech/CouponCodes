@@ -33,19 +33,19 @@ public class QuedRemoveCommand implements Runnable {
 						api.removeCouponFromDatabase(i);
 						j++;
 					}
-					sender.sendMessage(ChatColor.GREEN+"A total of "+ChatColor.GOLD+j+ChatColor.GREEN+" coupons have been removed.");
+					sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("TOTAL_OF")+" "+ChatColor.GOLD+j+" "+ChatColor.GREEN+CouponCodes.l.getMessage("HAVE_REMOVED"));
 					return;
 				}
 				if (!api.couponExists(args[1])) {
-					sender.sendMessage(ChatColor.RED+"That coupon doesn't exist!");
+					sender.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_NOT_EXIST"));
 					return;
 				}
 				api.removeCouponFromDatabase(api.createNewItemCoupon(args[1], 0, -1, null, null));
-				sender.sendMessage(ChatColor.GREEN+"The coupon "+ChatColor.GOLD+args[1]+ChatColor.GREEN+" has been removed.");
+				sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("THE_COUPON")+" "+ChatColor.GOLD+args[1]+ChatColor.GREEN+" "+CouponCodes.l.getMessage("HAS_BEEN_REMOVED"));
 				return;
 			} catch (SQLException e) {
-				sender.sendMessage(ChatColor.DARK_RED+"Error while removing coupon from the database. Please check the console for more info.");
-				sender.sendMessage(ChatColor.DARK_RED+"If this error persists, please report it.");
+				sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("SQL_INTERACT_ERROR"));
+				sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("ERROR_PERSISTS"));
 				e.printStackTrace();
 				return;
 			}

@@ -113,17 +113,16 @@ public class CouponCodes extends JavaPlugin {
 		}
 		
 		setUpdateInfo();
-		
 		if (!setupVault()) {
-			send("Vault support is disabled. This option can be changed in the config.");
+			send(l.getMessage("VAULT_DISABLED"));
 			va = false;
 		} else {
-			send("Vault support is enabled.");
+			send(l.getMessage("VAULT_ENABLED"));
 			va = true;
 		}
 		
 		if (!version.equals(newversion) && !version.contains("TEST") && !(newversion == null))
-			send("New update is available for CouponCodes! Current version: "+version+" New version: "+newversion);
+			send(l.getMessage("UPDATE_AVAILABLE")+" "+l.getMessage("CURRENT_VERSION") +version+" "+ l.getMessage("NEW_VERSION")+newversion);
 		
 		// This is for this plugin's own events!
 		server.getPluginManager().registerEvents(new DebugListen(this), this);
@@ -132,7 +131,7 @@ public class CouponCodes extends JavaPlugin {
 		server.getPluginManager().registerEvents(new PlayerListen(this), this);
 		
 		if (!setupSQL()) {
-			send("Database could not be setup. CouponCodes will now disable");
+			send(l.getMessage("SQL_FAILURE"));
 			server.getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -145,21 +144,21 @@ public class CouponCodes extends JavaPlugin {
 		// This timer is required, so it can't be in (usethread)!
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new CustomDataSender(this, mt));
 		
-		send("is now enabled! Version: "+version);
+		send(l.getMessage("ENABLED"));
 	}
 	
 	@Override
 	public void onDisable() {
 		server.getScheduler().cancelTasks(this);
-		send("Tasks cancelled");
+		send(l.getMessage("CANCEL_TASKS"));
 		try {
 			sql.close();
 		} catch (SQLException e) {
-			sendErr("Could not close SQL connection");
+			sendErr(l.getMessage("SQL_EXCEPTION"));
 		} catch (NullPointerException e) {
-			sendErr("SQL is null. Connection doesn't exist");
+			sendErr(l.getMessage("SQL_NULL"));
 		}
-		send("SQL connection closed");
+		send(l.getMessage("CLOSE_SQL"));
 		cm = null;
 		send("is now disabled.");
 	}
@@ -172,7 +171,7 @@ public class CouponCodes extends JavaPlugin {
 			dataop = new SQLiteOptions(new File(getDataFolder()+"/coupon_data.db"));
 		}
 		else if (!config.getSQLValue().equalsIgnoreCase("MySQL") && !config.getSQLValue().equalsIgnoreCase("SQLite")) {
-			sendErr("The SQLType has the unknown value of: "+config.getSQLValue());
+			sendErr(l.getMessage("UNKNOWN_SQL")+" "+config.getSQLValue());
 			return false;
 		}
 		
@@ -237,7 +236,7 @@ public class CouponCodes extends JavaPlugin {
 				server.getScheduler().scheduleSyncDelayedTask(this, new QuedAddCommand(this, sender, args));
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command.");
+				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
 				return true;
 			}
 		}
@@ -248,7 +247,7 @@ public class CouponCodes extends JavaPlugin {
 				server.getScheduler().scheduleSyncDelayedTask(this, new QuedRemoveCommand(sender, args));
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
+				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
 				return true;
 			}
 		}
@@ -256,7 +255,7 @@ public class CouponCodes extends JavaPlugin {
 		// Redeem command
 		else if (args[0].equalsIgnoreCase("redeem")) {
 			if (!pl) {
-				sender.sendMessage("You must be a player to redeem a coupon");
+				sender.sendMessage(l.getMessage("NOT_PLAYER_REDEEM"));
 				return true;
 			} else {
 				Player player = (Player) sender;
@@ -264,7 +263,7 @@ public class CouponCodes extends JavaPlugin {
 					server.getScheduler().scheduleSyncDelayedTask(this, new QuedRedeemCommand(this, player, args));
 					return true;
 				} else {
-					player.sendMessage(ChatColor.RED+"You do not have permission to use this command");
+					player.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
 					return true;
 				}
 			}
@@ -276,7 +275,7 @@ public class CouponCodes extends JavaPlugin {
 				server.getScheduler().scheduleSyncDelayedTask(this, new QuedListCommand(sender));
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
+				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
 				return true;
 			}
 		}
@@ -287,7 +286,7 @@ public class CouponCodes extends JavaPlugin {
 				server.getScheduler().scheduleSyncDelayedTask(this, new QuedInfoCommand(this, sender, args));
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
+				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
 				return true;
 			}
 		}
@@ -296,16 +295,16 @@ public class CouponCodes extends JavaPlugin {
 		else if (args[0].equalsIgnoreCase("reload")) {
 			if (has(sender, "cc.reload")) {
 				if (!sql.reload())
-					sender.sendMessage(ChatColor.DARK_RED+"Could not reload the database");
+					sender.sendMessage(ChatColor.DARK_RED+" "+l.getMessage("SQL_RELOAD_FAIL"));
 				else
-					sender.sendMessage(ChatColor.GREEN+"Database reloaded");
+					sender.sendMessage(ChatColor.GREEN+" "+l.getMessage("SQL_RELOAD"));
 				reloadConfig();
 				config = new Config(this);
 				debug = config.getDebug();
-				sender.sendMessage(ChatColor.GREEN+"Config reloaded");
+				sender.sendMessage(ChatColor.GREEN+" "+l.getMessage("CONFIG_RELOAD"));
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
+				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
 				return true;
 			}
 		} else {
@@ -331,7 +330,6 @@ public class CouponCodes extends JavaPlugin {
 		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"list");
 		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"info <name>");
 		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"reload");
-		sender.sendMessage(l.getMessage("SQL_EXCEPTION"));
 	}
 	
 	public void helpAdd(CommandSender sender) {

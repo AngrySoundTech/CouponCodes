@@ -37,6 +37,6 @@ debug: false
 check-update: true
 
 #This determines what language the plugin will be in
-#Supported languages as of now are: English
+#Supported languages as of now are: English, Deutsch
 #If you would like this plugin in more languages, You can help with localization here: http://dev.bukkit.org/server-mods/couponcodes-revived/localization/
 language: English

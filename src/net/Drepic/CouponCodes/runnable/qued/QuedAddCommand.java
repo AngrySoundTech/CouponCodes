@@ -49,18 +49,18 @@ public class QuedAddCommand implements Runnable {
 					ItemCoupon ic = api.createNewItemCoupon(name, usetimes, time, plugin.convertStringToHash(args[3]), new HashMap<String, Boolean>());
 					
 					if (ic.addToDatabase()) {
-						sender.sendMessage(ChatColor.GREEN+"Coupon "+ChatColor.GOLD+name+ChatColor.GREEN+" has been added!");
+						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+ChatColor.GOLD+name+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
 						return;
 					} else {
-						sender.sendMessage(ChatColor.RED+"This coupon already exists!");
+						sender.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_EXISTS"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(ChatColor.DARK_RED+"Expected a number, but got a string. Please check your syntax.");
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("NUMER_FORMAT_EXCEPTION"));
 					return;
 				} catch (SQLException e) {
-					sender.sendMessage(ChatColor.DARK_RED+"Error while interacting with the database. See console for more info.");
-					sender.sendMessage(ChatColor.DARK_RED+"If this error persists, please report it.");
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("SQL_INTERACT_ERROR"));
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("ERROR_PERSISTS"));
 					e.printStackTrace();
 					return;
 				}
@@ -89,18 +89,18 @@ public class QuedAddCommand implements Runnable {
 					EconomyCoupon ec = api.createNewEconomyCoupon(name, usetimes, time, new HashMap<String, Boolean>(), money);
 					
 					if (ec.addToDatabase()) {
-						sender.sendMessage(ChatColor.GREEN+"Coupon "+ChatColor.GOLD+name+ChatColor.GREEN+" has been added!");
+						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+ChatColor.GOLD+name+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
 						return;
 					} else {
-						sender.sendMessage(ChatColor.RED+"This coupon already exists!");
+						sender.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_EXISTS"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(ChatColor.DARK_RED+"Expected a number, but got a string. Please check your syntax.");
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("NUMER_FORMAT_EXCEPTION"));
 					return;
 				} catch (SQLException e) {
-					sender.sendMessage(ChatColor.DARK_RED+"Error while interacting with the database. See console for more info.");
-					sender.sendMessage(ChatColor.DARK_RED+"If this error persists, please report it.");
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("SQL_INTERACT_ERROR"));
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("ERROR_PERSISTS"));
 					e.printStackTrace();
 					return;
 				}
@@ -129,18 +129,18 @@ public class QuedAddCommand implements Runnable {
 					RankCoupon rc = api.createNewRankCoupon(name, group, usetimes, time, new HashMap<String, Boolean>());
 					
 					if (rc.addToDatabase()) {
-						sender.sendMessage(ChatColor.GREEN+"Coupon "+ChatColor.GOLD+name+ChatColor.GREEN+" has been added!");
+						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+ChatColor.GOLD+name+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
 						return;
 					} else {
-						sender.sendMessage(ChatColor.RED+"This coupon already exists!");
+						sender.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_EXISTS"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(ChatColor.DARK_RED+"Expected a number, but got a string. Please check your syntax.");
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("NUMER_FORMAT_EXCEPTION"));
 					return;
 				} catch (SQLException e) {
-					sender.sendMessage(ChatColor.DARK_RED+"Error while interacting with the database. See console for more info.");
-					sender.sendMessage(ChatColor.DARK_RED+"If this error persists, please report it.");
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("SQL_INTERACT_ERROR"));
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("ERROR_PERSISTS"));
 					e.printStackTrace();
 					return;
 				}
@@ -169,18 +169,18 @@ public class QuedAddCommand implements Runnable {
 					XpCoupon xc = api.createNewXpCoupon(name, xp, usetimes, time, new HashMap<String, Boolean>());
 					
 					if (xc.addToDatabase()) {
-						sender.sendMessage(ChatColor.GREEN+"Coupon "+ChatColor.GOLD+name+ChatColor.GREEN+" has been added!");
+						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+ChatColor.GOLD+name+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
 						return;
 					} else {
-						sender.sendMessage(ChatColor.RED+"This coupon already exists!");
+						sender.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_EXISTS"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(ChatColor.DARK_RED+"Expected a number, but got a string. Please check your syntax.");
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("NUMER_FORMAT_EXCEPTION"));
 					return;
 				} catch (SQLException e) {
-					sender.sendMessage(ChatColor.DARK_RED+"Error while interacting with the database. See console for more info.");
-					sender.sendMessage(ChatColor.DARK_RED+"If this error persists, please report it.");
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("SQL_INTERACT_ERROR"));
+					sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("ERROR_PERSISTS"));
 					e.printStackTrace();
 					return;
 				}

@@ -1,0 +1,134 @@
+
+CANCEL_TASKS|Aufgaben abgesagt
+
+CLOSE_SQL|SQL-Verbindung geschlossen
+
+CONFIG_RELOAD|Die Config wird neu geladen.
+
+COUPON|Gutschein
+
+COUPON_ADDED|wird hinzugefügt
+
+COUPON_ALREADY_USED|Du hast bereits diesen Gutschein verwendet.
+
+COUPON_EXISTS|Dieser Gutschein ist bereits vorhanden.
+
+COUPON_EXPIRED|Dieser Gutschein ist abgelaufen
+
+COUPON_NOT_EXIST|Dass Gutschein bestellt nicht. 
+
+COUPON_PRECENT|Von denjenigen, 0% Artikel, 0% Wirtschaft, und 0% Rang Gutschine.
+
+COUPON_TIMEOUT|Dieser Gutschein ist abgelaufen
+
+COUPON_USED_UP|Diese Gutschein ist aufgebraucht
+
+CURRENT_VERSION|Aktuelle Version:
+
+DATABASE_FIND_ERROR|in der Datenbank. überprüfen Konsole für weitere Informationen.
+
+DEBUG_COUPON_ADDED|Gutschein hinzugefügt zu Datenbank. Name:
+
+DEBUG_COUPON_EXPIRED|Gutschein abgelaufen. Name:
+
+DEBUG_COUPON_REMOVED|Gutschein aus Datenbank entfernt werden. Name:
+
+DEBUG_DATABASE_CONNECTED|Verbindung geöffnet zur Datenbank
+
+DEBUG_DATABASE_DISCONNECTED|Verbindung geschlossen zur Datenbank
+
+DEBUG_DATABASE_QUERY|Anfrage gesendet zur Datenbank:
+
+DEBUG_TIME_CHANGED|Gutschein Zeit geändert. Name:
+
+DEBUG_TIME_CHANGED_NEW|Neue Zeit:
+
+ECONOMY_VAULT_DISABLED|Vault Unterstützung ist deaktiviert. Eine Wirtschaft Gutschein kann nicht eingelöst sein
+
+ENABLED|ist nun aktiviert! Version:
+
+ERROR_COUPON_FIND|Fehler während der Suche nach Coupons in der Datenbank. Bitte überprüfen Sie die Konsole für weitere Informationen.
+
+ERROR_PERSISTS|Wenn dieser Fehler weiterhin besteht, melden Sie dies
+
+EXPIRED|abgelaufen:
+
+FINDING_ERROR|Fehler beim Versuch zu finden
+
+FULL_INV_DROP|Deine Inventar ist voll, so die Elemente sind auf dem Boden. 
+
+HAS_BEEN_REDEEMED|erlöst hat, und die Elemente wurden in eurem Inventar aufgenommen.
+
+HAS_BEEN_REMOVED|entfernt wurde
+
+HAVE_REMOVED|Gutscheinen wurden entfernt.
+
+INFO|Info
+
+ITEMS|Artikel:
+
+MONEY|Geld:
+
+NAME|Name
+
+NEW_VERSION|Neue Version
+
+NONE|Keiner
+
+NO_PERMISSION|Sie dürfen nicht für diesen Befehl
+
+NOT_PLAYER_REDEEM|Du muss ein Spieler sein um einen Gutschein einzulösen. 
+
+NUMBER_FORMAT_EXCEPTION|eine Zahl erwartet wurde, aber ein String wurde empfangen.
+
+RANDOM_NAME|Völlig zufälligen Namen:
+
+RANK|Rang:
+
+REDEEM_ECON|hat erlöst, und das Geld hinzugefügt zu Ihrem Konto!
+
+REDEEM_RANK|hat erlöst, und deine Gruppe worden ist gesetzt zum
+
+SECONDS|Sekunden
+
+SQL_EXCEPTION|SQL-Verbindung konnte nicht geschlossen werden.
+
+SQL_FAILURE|Datenbank konnte nicht hergestellt werden. CouponCodes wird nun deaktiviert.
+
+SQL_INTERACT_ERROR|Fehler während der Interaktion mit der Datenbank. Schau auf die Konsole für weitere Informationen. 
+
+SQL_NULL|SQL ist Null. Die Verbindung ist nicht vorhanden.
+
+SQL_RELOAD|Die Datenbank wurde geladen
+
+SQL_RELOAD_FAIL|Die Datenbank wurde nicht geladen.
+
+THE_COUPON|der Gutschein
+
+TIME_LEFT|Zeit mehr
+
+TOTAL_OF|Insgesamt
+
+UNKNOWN_SQL|der Typ der SLQ hat einen unbekannten Typ:
+
+UNLIMITED|unbegrenzt
+
+UPDATE_AVAILBLE|Ein neues Update ist verfügbar für CouponCodes!
+
+UPDATE_INFO|Über das Update:
+
+USED_PLAYERS|benützte Ersatzspieler:
+
+USES_LEFT|nutzt links:
+
+VAULT_DISABLED|Vault-Unterstützung deaktiviert ist. Dies kann in der Config geändert werden.
+
+VAULT_DISABLED_RANK|Vault Unterstützung ist deaktiviert.  Eine Rang Gutschein kann nicht eingelöst sein
+
+VAULT_ENABLED|Vault-Unterstützung aktiviert ist
+
+XP|XP:
+
+XP_LEVELS|XP Ebenen!
+
+XP_REDEEM|hat erlöst, und du erhalten haben
