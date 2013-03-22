@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,7 @@ import net.Drepic.CouponCodes.listeners.DebugListen;
 import net.Drepic.CouponCodes.listeners.PlayerListen;
 import net.Drepic.CouponCodes.localization.Localization;
 import net.Drepic.CouponCodes.misc.CommandUsage;
+import net.Drepic.CouponCodes.misc.JarUtils;
 import net.Drepic.CouponCodes.misc.Metrics;
 import net.Drepic.CouponCodes.runnable.CouponTimer;
 import net.Drepic.CouponCodes.runnable.CustomDataSender;
@@ -32,6 +35,7 @@ import net.Drepic.CouponCodes.sql.options.SQLiteOptions;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -78,6 +82,29 @@ public class CouponCodes extends JavaPlugin {
 		usethread = config.getUseThread();
 		checkupdate = config.getCheckUpdate();
 		CouponCodes.lang = getConfig().getString("language");
+		
+		try {
+            final File[] libs = new File[] {
+                    new File(getDataFolder(), "commons-io.jar") };
+            for (final File lib : libs) {
+                if (!lib.exists()) {
+                    JarUtils.extractFromJar(lib.getName(),
+                            lib.getAbsolutePath());
+                }
+            }
+            for (final File lib : libs) {
+                if (!lib.exists()) {
+                    getLogger().warning(
+                            "There was a critical error loading My plugin! Could not find lib: "
+                                    + lib.getName());
+                    Bukkit.getServer().getPluginManager().disablePlugin(this);
+                    return;
+                }
+                addClassPath(JarUtils.getJarUrl(lib));
+            }
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
 		
 		try {
 			mt = new Metrics();
@@ -342,6 +369,22 @@ public class CouponCodes extends JavaPlugin {
 			}
 		}
 	}
+	
+	private void addClassPath(final URL url) throws IOException {
+        final URLClassLoader sysloader = (URLClassLoader) ClassLoader
+                .getSystemClassLoader();
+        final Class<URLClassLoader> sysclass = URLClassLoader.class;
+        try {
+            final Method method = sysclass.getDeclaredMethod("addURL",
+                    new Class[] { URL.class });
+            method.setAccessible(true);
+            method.invoke(sysloader, new Object[] { url });
+        } catch (final Throwable t) {
+            t.printStackTrace();
+            throw new IOException("Error adding " + url
+                    + " to system classloader");
+        }
+    }
 
 	
 	public HashMap<Integer, Integer> convertStringToHash(String args) {
