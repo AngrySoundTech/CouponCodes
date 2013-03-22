@@ -15,6 +15,7 @@ import net.Drepic.CouponCodes.api.events.EventHandle;
 import net.Drepic.CouponCodes.api.events.plugin.CouponCodesCommandEvent;
 import net.Drepic.CouponCodes.listeners.DebugListen;
 import net.Drepic.CouponCodes.listeners.PlayerListen;
+import net.Drepic.CouponCodes.localization.Localization;
 import net.Drepic.CouponCodes.misc.CommandUsage;
 import net.Drepic.CouponCodes.misc.Metrics;
 import net.Drepic.CouponCodes.runnable.CouponTimer;
@@ -44,6 +45,9 @@ public class CouponCodes extends JavaPlugin {
 	
 	private static CouponCodes instance;
 	private static CouponManager cm;
+	public static CouponCodes plugin = new CouponCodes();
+	public static Localization l = new Localization();
+	public static String lang;
 	
 	private DatabaseOptions dataop;
 	private Config config;
@@ -73,6 +77,7 @@ public class CouponCodes extends JavaPlugin {
 		version = getDescription().getVersion();
 		usethread = config.getUseThread();
 		checkupdate = config.getCheckUpdate();
+		CouponCodes.lang = getConfig().getString("language");
 		
 		try {
 			mt = new Metrics();
@@ -299,6 +304,7 @@ public class CouponCodes extends JavaPlugin {
 		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"list");
 		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"info <name>");
 		sender.sendMessage(ChatColor.GOLD+"|--"+ChatColor.YELLOW+"reload");
+		sender.sendMessage(l.getMessage("SQL_EXCEPTION"));
 	}
 	
 	public void helpAdd(CommandSender sender) {
@@ -336,6 +342,7 @@ public class CouponCodes extends JavaPlugin {
 			}
 		}
 	}
+
 	
 	public HashMap<Integer, Integer> convertStringToHash(String args) {
 		HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
