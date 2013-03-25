@@ -49,7 +49,7 @@ public class QuedAddCommand implements Runnable {
 					ItemCoupon ic = api.createNewItemCoupon(name, usetimes, time, plugin.convertStringToHash(args[3]), new HashMap<String, Boolean>());
 					
 					if (ic.addToDatabase()) {
-						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+ChatColor.GOLD+name+" "+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
+						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+" "+ChatColor.GOLD+name+" "+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
 						return;
 					} else {
 						sender.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_EXISTS"));
@@ -89,7 +89,7 @@ public class QuedAddCommand implements Runnable {
 					EconomyCoupon ec = api.createNewEconomyCoupon(name, usetimes, time, new HashMap<String, Boolean>(), money);
 					
 					if (ec.addToDatabase()) {
-						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+ChatColor.GOLD+name+" "+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
+						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+" "+ChatColor.GOLD+name+" "+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
 						return;
 					} else {
 						sender.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_EXISTS"));
@@ -129,7 +129,7 @@ public class QuedAddCommand implements Runnable {
 					RankCoupon rc = api.createNewRankCoupon(name, group, usetimes, time, new HashMap<String, Boolean>());
 					
 					if (rc.addToDatabase()) {
-						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+ChatColor.GOLD+name+" "+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
+						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+" "+ChatColor.GOLD+name+" "+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
 						
 						return;
 					} else {
@@ -170,7 +170,7 @@ public class QuedAddCommand implements Runnable {
 					XpCoupon xc = api.createNewXpCoupon(name, xp, usetimes, time, new HashMap<String, Boolean>());
 					
 					if (xc.addToDatabase()) {
-						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+ChatColor.GOLD+name+" "+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
+						sender.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+" "+ChatColor.GOLD+name+" "+ChatColor.GREEN+CouponCodes.l.getMessage("COUPON_ADDED"));
 						return;
 					} else {
 						sender.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_EXISTS"));
