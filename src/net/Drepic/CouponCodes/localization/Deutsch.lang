@@ -113,7 +113,7 @@ UNKNOWN_SQL|der Typ der SLQ hat einen unbekannten Typ:
 
 UNLIMITED|unbegrenzt
 
-UPDATE_AVAILBLE|Ein neues Update ist verfügbar für CouponCodes!
+UPDATE_AVAILABLE|Ein neues Update ist verfügbar für CouponCodes!
 
 UPDATE_INFO|Über das Update:
 

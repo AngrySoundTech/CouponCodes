@@ -80,8 +80,8 @@ public class CouponCodes extends JavaPlugin {
 		debug = config.getDebug();
 		version = getDescription().getVersion();
 		usethread = config.getUseThread();
-		checkupdate = config.getCheckUpdate();
 		CouponCodes.lang = getConfig().getString("language");
+		checkupdate = config.getCheckUpdate();
 		
 		try {
             final File[] libs = new File[] {
