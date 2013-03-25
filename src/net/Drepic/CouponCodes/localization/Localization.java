@@ -22,7 +22,8 @@ public class Localization {
 		try {
 			IOUtils.copy(is, writer, "ISO-8859-1");
 			String contents = writer.toString();
-			String[] lines = contents.split("\n");
+			String contentsstr = contents.replace("\r", "");
+			String[] lines = contentsstr.split("\n");
 			for (int i = 0; i < lines.length; i++){
 				String[] params = lines[i].split("\\|");
 				if (params[0].equalsIgnoreCase(key))
