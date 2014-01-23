@@ -27,6 +27,7 @@ import net.Drepic.CouponCodes.sql.options.SQLiteOptions;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -35,6 +36,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Material;
 
 public class CouponCodes extends JavaPlugin {
 	
@@ -305,9 +307,14 @@ public class CouponCodes extends JavaPlugin {
 		String[] sp = args.split(",");
 		try {
 			for (int i = 0; i < sp.length; i++) {
-				int a = Integer.parseInt(sp[i].split(":")[0]);
+				int a = 1;
+				if (StringUtils.isNumeric(sp[i].split(":")[0])) {
+					a = Integer.parseInt(sp[i].split(":")[0]);
+				} else {
+					a = Material.matchMaterial(sp[i].split(":")[0]).getId();
+				}
 				int b = Integer.parseInt(sp[i].split(":")[1]);
-				ids.put(a, b);
+					ids.put(a, b);
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
