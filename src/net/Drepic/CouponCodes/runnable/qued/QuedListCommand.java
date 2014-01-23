@@ -39,8 +39,8 @@ public class QuedListCommand implements Runnable {
 				return;
 			}
 		} catch (SQLException e) {
-			sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("SQL_INTERACT_ERROR"));
-			sender.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("ERROR_PERSISTS"));
+			sender.sendMessage(ChatColor.DARK_RED+"Error while getting the coupon list from the database. Please check the console for more info.");
+			sender.sendMessage(ChatColor.DARK_RED+"If this error persists, please report it.");
 			e.printStackTrace();
 			return;
 		}

@@ -58,10 +58,6 @@ public class Config {
 	public String getPassword() {
 		return config.getString("MySQL-options.password");
 	}
-	
-	public String getLanguage() {
-		return config.getString("language");
-	}
 
 
 }

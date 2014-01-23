@@ -44,12 +44,12 @@ public class QuedRedeemCommand implements Runnable {
 			try {
 				Coupon coupon = api.getCoupon(args[1]);
 				if (coupon == null) {
-					player.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_NOT_EXIST"));
+					player.sendMessage(ChatColor.RED+"That coupon doesn't exist!");
 					return;
 				}
 				
 				if (coupon.getUseTimes() < 1) {
-					player.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_USED_UP"));
+					player.sendMessage(ChatColor.RED+"This coupon has been used up!");
 					return;
 				}
 				
@@ -57,7 +57,7 @@ public class QuedRedeemCommand implements Runnable {
 					if (!coupon.getUsedPlayers().isEmpty()) {
 						if (coupon.getUsedPlayers().containsKey(player.getName())) {
 							if (coupon.getUsedPlayers().get(player.getName())) {
-								player.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_ALREADY_USED"));
+								player.sendMessage(ChatColor.RED+"You have already used this coupon");
 								return;
 							}
 						}
@@ -65,12 +65,12 @@ public class QuedRedeemCommand implements Runnable {
 				}
 				
 				if (coupon.getTime() == 0) {
-					player.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_TIMEOUT"));
+					player.sendMessage(ChatColor.RED+"This coupon has ran out of time to be redeemed!");
 					return;
 				}
 				
 				if (coupon.isExpired()) {
-					player.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("COUPON_EXPPIRED"));
+					player.sendMessage(ChatColor.RED+"This coupon has expired!");
 					return;
 				}
 				
@@ -80,29 +80,29 @@ public class QuedRedeemCommand implements Runnable {
 						for (Map.Entry<Integer, Integer> en : c.getIDs().entrySet()) {
 							player.getLocation().getWorld().dropItem(player.getLocation(), new ItemStack(en.getKey(), en.getValue()));
 						}
-						player.sendMessage(ChatColor.RED+CouponCodes.l.getMessage("FULL_INV_DROP"));
+						player.sendMessage(ChatColor.RED+"Your inventory is full, so the items have been dropped below you.");
 					} else {
 						for (Map.Entry<Integer, Integer> en : c.getIDs().entrySet()) {
 							player.getInventory().addItem(new ItemStack(en.getKey(), en.getValue()));
 						}
-						player.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+" "+ChatColor.GOLD+c.getName()+ChatColor.GREEN+CouponCodes.l.getMessage("HAS_BEEN_REDEEMED"));
+						player.sendMessage(ChatColor.GREEN+"Coupon "+ChatColor.GOLD+c.getName()+ChatColor.GREEN+" has been redeemed, and the items added to your inventory!");
 					}
 				}
 				
 				else if (coupon instanceof EconomyCoupon) {
 					if (!va) {
-						player.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("ECONOMY_VAULT_DISABLED"));
+						player.sendMessage(ChatColor.DARK_RED+"Vault support is currently disabled. You cannot redeem an economy coupon.");
 						return;
 					} else {
 						EconomyCoupon c = (EconomyCoupon) coupon;
 						econ.depositPlayer(player.getName(), c.getMoney());
-						player.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+" "+ChatColor.GOLD+c.getName()+ChatColor.GREEN+CouponCodes.l.getMessage("REDEEM_ECON"));
+						player.sendMessage(ChatColor.GREEN+"Coupon "+ChatColor.GOLD+c.getName()+ChatColor.GREEN+" has been redeemed, and the money added to your account!");
 					}
 				}
 				
 				else if (coupon instanceof RankCoupon) {
 					if (!va) {
-						player.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("VAULT_DISABLED_RANK"));
+						player.sendMessage(ChatColor.DARK_RED+"Vault support is currently disabled. You cannot redeem a rank coupon.");
 						return;
 					} else {
 						RankCoupon c = (RankCoupon) coupon;
@@ -120,14 +120,14 @@ public class QuedRedeemCommand implements Runnable {
 								perm.playerRemoveGroup(player, i);
 							}
 						}
-						player.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+" "+ChatColor.GOLD+c.getName()+ChatColor.GREEN+CouponCodes.l.getMessage("REDEEM_RANK")+" "+ChatColor.GOLD+c.getGroup());
+						player.sendMessage(ChatColor.GREEN+"Coupon "+ChatColor.GOLD+c.getName()+ChatColor.GREEN+" has been redeemed, and your group has been set to "+ChatColor.GOLD+c.getGroup());
 					}
 				}
 				
 				else if (coupon instanceof XpCoupon) {
 					XpCoupon c = (XpCoupon) coupon;
 					player.setLevel(player.getLevel()+c.getXp());
-					player.sendMessage(ChatColor.GREEN+CouponCodes.l.getMessage("COUPON")+" "+ChatColor.GOLD+c.getName()+ChatColor.GREEN+" "+CouponCodes.l.getMessage("XP_REDEEM")+" "+ChatColor.GOLD+c.getXp()+ChatColor.GREEN+" "+CouponCodes.l.getMessage("XP_LEVELS"));
+					player.sendMessage(ChatColor.GREEN+"Coupon "+ChatColor.GOLD+c.getName()+ChatColor.GREEN+" has been redeemed, and you have received "+ChatColor.GOLD+c.getXp()+ChatColor.GREEN+" XP levels!");
 				}
 				
 				HashMap<String, Boolean> up = coupon.getUsedPlayers();
@@ -137,8 +137,8 @@ public class QuedRedeemCommand implements Runnable {
 				api.updateCoupon(coupon);
 				return;
 			} catch (SQLException e) {
-				player.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("FINDING_ERROR")+" "+ChatColor.GOLD+args[1]+ChatColor.DARK_RED+" "+CouponCodes.l.getMessage("DATABASE_FIND_ERROR"));
-				player.sendMessage(ChatColor.DARK_RED+CouponCodes.l.getMessage("ERROR_PERSISTS"));
+				player.sendMessage(ChatColor.DARK_RED+"Error while trying to find "+ChatColor.GOLD+args[1]+ChatColor.DARK_RED+" in the database. Please check the console for more info.");
+				player.sendMessage(ChatColor.DARK_RED+"If this error persists, please report it.");
 				e.printStackTrace();
 				return;
 			}

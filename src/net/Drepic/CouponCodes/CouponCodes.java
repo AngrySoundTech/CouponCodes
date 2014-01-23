@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,9 +15,7 @@ import net.Drepic.CouponCodes.api.events.EventHandle;
 import net.Drepic.CouponCodes.api.events.plugin.CouponCodesCommandEvent;
 import net.Drepic.CouponCodes.listeners.DebugListen;
 import net.Drepic.CouponCodes.listeners.PlayerListen;
-import net.Drepic.CouponCodes.localization.Localization;
 import net.Drepic.CouponCodes.misc.CommandUsage;
-import net.Drepic.CouponCodes.misc.JarUtils;
 import net.Drepic.CouponCodes.misc.Metrics;
 import net.Drepic.CouponCodes.runnable.CouponTimer;
 import net.Drepic.CouponCodes.runnable.CustomDataSender;
@@ -35,7 +31,6 @@ import net.Drepic.CouponCodes.sql.options.SQLiteOptions;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -49,9 +44,6 @@ public class CouponCodes extends JavaPlugin {
 	
 	private static CouponCodes instance;
 	private static CouponManager cm;
-	public static CouponCodes plugin = new CouponCodes();
-	public static Localization l = new Localization();
-	public static String lang;
 	
 	private DatabaseOptions dataop;
 	private Config config;
@@ -80,31 +72,7 @@ public class CouponCodes extends JavaPlugin {
 		debug = config.getDebug();
 		version = getDescription().getVersion();
 		usethread = config.getUseThread();
-		CouponCodes.lang = getConfig().getString("language");
 		checkupdate = config.getCheckUpdate();
-		
-		try {
-            final File[] libs = new File[] {
-                    new File(getDataFolder(), "commons-io.jar") };
-            for (final File lib : libs) {
-                if (!lib.exists()) {
-                    JarUtils.extractFromJar(lib.getName(),
-                            lib.getAbsolutePath());
-                }
-            }
-            for (final File lib : libs) {
-                if (!lib.exists()) {
-                    getLogger().warning(
-                            "There was a critical error loading My plugin! Could not find lib: "
-                                    + lib.getName());
-                    Bukkit.getServer().getPluginManager().disablePlugin(this);
-                    return;
-                }
-                addClassPath(JarUtils.getJarUrl(lib));
-            }
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
 		
 		try {
 			mt = new Metrics();
@@ -113,16 +81,17 @@ public class CouponCodes extends JavaPlugin {
 		}
 		
 		setUpdateInfo();
+		
 		if (!setupVault()) {
-			send(l.getMessage("VAULT_DISABLED"));
+			send("Vault support is disabled. This option can be changed in the config.");
 			va = false;
 		} else {
-			send(l.getMessage("VAULT_ENABLED"));
+			send("Vault support is enabled.");
 			va = true;
 		}
 		
 		if (!version.equals(newversion) && !version.contains("TEST") && !(newversion == null))
-			send(l.getMessage("UPDATE_AVAILABLE")+" "+l.getMessage("CURRENT_VERSION") +version+" "+ l.getMessage("NEW_VERSION")+newversion);
+			send("New update is available for CouponCodes! Current version: "+version+" New version: "+newversion);
 		
 		// This is for this plugin's own events!
 		server.getPluginManager().registerEvents(new DebugListen(this), this);
@@ -131,7 +100,7 @@ public class CouponCodes extends JavaPlugin {
 		server.getPluginManager().registerEvents(new PlayerListen(this), this);
 		
 		if (!setupSQL()) {
-			send(l.getMessage("SQL_FAILURE"));
+			send("Database could not be setup. CouponCodes will now disable");
 			server.getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -144,21 +113,21 @@ public class CouponCodes extends JavaPlugin {
 		// This timer is required, so it can't be in (usethread)!
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new CustomDataSender(this, mt));
 		
-		send(l.getMessage("ENABLED"));
+		send("is now enabled! Version: "+version);
 	}
 	
 	@Override
 	public void onDisable() {
 		server.getScheduler().cancelTasks(this);
-		send(l.getMessage("CANCEL_TASKS"));
+		send("Tasks cancelled");
 		try {
 			sql.close();
 		} catch (SQLException e) {
-			sendErr(l.getMessage("SQL_EXCEPTION"));
+			sendErr("Could not close SQL connection");
 		} catch (NullPointerException e) {
-			sendErr(l.getMessage("SQL_NULL"));
+			sendErr("SQL is null. Connection doesn't exist");
 		}
-		send(l.getMessage("CLOSE_SQL"));
+		send("SQL connection closed");
 		cm = null;
 		send("is now disabled.");
 	}
@@ -171,7 +140,7 @@ public class CouponCodes extends JavaPlugin {
 			dataop = new SQLiteOptions(new File(getDataFolder()+"/coupon_data.db"));
 		}
 		else if (!config.getSQLValue().equalsIgnoreCase("MySQL") && !config.getSQLValue().equalsIgnoreCase("SQLite")) {
-			sendErr(l.getMessage("UNKNOWN_SQL")+" "+config.getSQLValue());
+			sendErr("The SQLType has the unknown value of: "+config.getSQLValue());
 			return false;
 		}
 		
@@ -236,7 +205,7 @@ public class CouponCodes extends JavaPlugin {
 				server.getScheduler().scheduleSyncDelayedTask(this, new QuedAddCommand(this, sender, args));
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
+				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command.");
 				return true;
 			}
 		}
@@ -247,7 +216,7 @@ public class CouponCodes extends JavaPlugin {
 				server.getScheduler().scheduleSyncDelayedTask(this, new QuedRemoveCommand(sender, args));
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
+				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
 				return true;
 			}
 		}
@@ -255,7 +224,7 @@ public class CouponCodes extends JavaPlugin {
 		// Redeem command
 		else if (args[0].equalsIgnoreCase("redeem")) {
 			if (!pl) {
-				sender.sendMessage(l.getMessage("NOT_PLAYER_REDEEM"));
+				sender.sendMessage("You must be a player to redeem a coupon");
 				return true;
 			} else {
 				Player player = (Player) sender;
@@ -263,7 +232,7 @@ public class CouponCodes extends JavaPlugin {
 					server.getScheduler().scheduleSyncDelayedTask(this, new QuedRedeemCommand(this, player, args));
 					return true;
 				} else {
-					player.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
+					player.sendMessage(ChatColor.RED+"You do not have permission to use this command");
 					return true;
 				}
 			}
@@ -275,7 +244,7 @@ public class CouponCodes extends JavaPlugin {
 				server.getScheduler().scheduleSyncDelayedTask(this, new QuedListCommand(sender));
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
+				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
 				return true;
 			}
 		}
@@ -286,7 +255,7 @@ public class CouponCodes extends JavaPlugin {
 				server.getScheduler().scheduleSyncDelayedTask(this, new QuedInfoCommand(this, sender, args));
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
+				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
 				return true;
 			}
 		}
@@ -295,16 +264,16 @@ public class CouponCodes extends JavaPlugin {
 		else if (args[0].equalsIgnoreCase("reload")) {
 			if (has(sender, "cc.reload")) {
 				if (!sql.reload())
-					sender.sendMessage(ChatColor.DARK_RED+" "+l.getMessage("SQL_RELOAD_FAIL"));
+					sender.sendMessage(ChatColor.DARK_RED+"Could not reload the database");
 				else
-					sender.sendMessage(ChatColor.GREEN+" "+l.getMessage("SQL_RELOAD"));
+					sender.sendMessage(ChatColor.GREEN+"Database reloaded");
 				reloadConfig();
 				config = new Config(this);
 				debug = config.getDebug();
-				sender.sendMessage(ChatColor.GREEN+" "+l.getMessage("CONFIG_RELOAD"));
+				sender.sendMessage(ChatColor.GREEN+"Config reloaded");
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.RED+" "+l.getMessage("NO_PERMISSION"));
+				sender.sendMessage(ChatColor.RED+"You do not have permission to use this command");
 				return true;
 			}
 		} else {
@@ -367,23 +336,6 @@ public class CouponCodes extends JavaPlugin {
 			}
 		}
 	}
-	
-	private void addClassPath(final URL url) throws IOException {
-        final URLClassLoader sysloader = (URLClassLoader) ClassLoader
-                .getSystemClassLoader();
-        final Class<URLClassLoader> sysclass = URLClassLoader.class;
-        try {
-            final Method method = sysclass.getDeclaredMethod("addURL",
-                    new Class[] { URL.class });
-            method.setAccessible(true);
-            method.invoke(sysloader, new Object[] { url });
-        } catch (final Throwable t) {
-            t.printStackTrace();
-            throw new IOException("Error adding " + url
-                    + " to system classloader");
-        }
-    }
-
 	
 	public HashMap<Integer, Integer> convertStringToHash(String args) {
 		HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
