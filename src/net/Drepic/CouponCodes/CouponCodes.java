@@ -1,11 +1,7 @@
 package net.Drepic.CouponCodes;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +10,9 @@ import net.Drepic.CouponCodes.api.CouponManager;
 import net.Drepic.CouponCodes.api.events.EventHandle;
 import net.Drepic.CouponCodes.api.events.plugin.CouponCodesCommandEvent;
 import net.Drepic.CouponCodes.listeners.DebugListen;
-import net.Drepic.CouponCodes.listeners.PlayerListen;
 import net.Drepic.CouponCodes.misc.CommandUsage;
 import net.Drepic.CouponCodes.misc.Metrics;
+import net.Drepic.CouponCodes.misc.Updater;
 import net.Drepic.CouponCodes.runnable.CouponTimer;
 import net.Drepic.CouponCodes.runnable.CustomDataSender;
 import net.Drepic.CouponCodes.runnable.qued.QuedAddCommand;
@@ -60,27 +56,27 @@ public class CouponCodes extends JavaPlugin {
 	public Permission perm;
 	
 	public String version;
-	public String newversion;
-	public String verinfo;
 
 	
 	@Override
 	public void onEnable() {
+		
 		instance = this;
 		server = getServer();
 		config = new Config(this);
 		debug = config.getDebug();
 		version = getDescription().getVersion();
 		usethread = config.getUseThread();
-		checkupdate = config.getCheckUpdate();
+		if (config.getCheckUpdate()) {
+			@SuppressWarnings("unused")
+			Updater updater = new Updater(this, 53833, this.getFile(), Updater.UpdateType.DEFAULT, true);
+		}
 		
 		try {
 			mt = new Metrics();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		setUpdateInfo();
 		
 		if (!setupVault()) {
 			send("Vault support is disabled. This option can be changed in the config.");
@@ -90,14 +86,10 @@ public class CouponCodes extends JavaPlugin {
 			va = true;
 		}
 		
-		if (!version.equals(newversion) && !version.contains("TEST") && !(newversion == null))
-			send("New update is available for CouponCodes! Current version: "+version+" New version: "+newversion);
-		
 		// This is for this plugin's own events!
 		server.getPluginManager().registerEvents(new DebugListen(this), this);
 		
 		// Bukkit listeners
-		server.getPluginManager().registerEvents(new PlayerListen(this), this);
 		
 		if (!setupSQL()) {
 			send("Database could not be setup. CouponCodes will now disable");
@@ -306,35 +298,6 @@ public class CouponCodes extends JavaPlugin {
 		sender.sendMessage(CommandUsage.C_ADD_ECON.toString());
 		sender.sendMessage(CommandUsage.C_ADD_RANK.toString());
 		sender.sendMessage(CommandUsage.C_ADD_XP.toString());
-	}
-	
-	public boolean checkForUpdate() {
-		if (newversion == null)
-			return false;
-		else if (newversion.equals(version))
-			return false;
-		else
-			return true;
-	}
-	
-	public void setUpdateInfo() {
-		if (config.getCheckUpdate()) {
-			try {
-				URL url = new URL("http://sgkminecraft.beastnode.net/Drepic/CouponCodes/version.txt");
-				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-				newversion = br.readLine();
-			
-				url = new URL("http://sgkminecraft.beastnode.net/Drepic/CouponCodes/info.txt");
-				br = new BufferedReader(new InputStreamReader(url.openStream()));
-				verinfo = br.readLine();
-			
-				br.close();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	public HashMap<Integer, Integer> convertStringToHash(String args) {

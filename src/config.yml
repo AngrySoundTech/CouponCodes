@@ -10,7 +10,7 @@
 # To view the statistics for this plugin, visit this link: http://metrics.griefcraft.com/plugin/CouponCodes
 #
 # If you are interested in how this plugin works (code wise) you can view the source code from GitHub
-# https://github.com/mike101102/CouponCodes-2
+# https://github.com/Drepic26/CouponCodes-Revived
 #
 
 # sql-type is either 'MySQL' or 'SQLite'
@@ -33,5 +33,5 @@ use-thread: true
 # I recommend to leave this at false. Your console will be spammed with debug messages
 debug: false
 
-# If you set this to false, The plugin won't check for updates
-check-update: true
+# CouponCodes uses Updater for auto-updating. If you would not like Couponcodes to auto-update, set this to false
+auto-update: true

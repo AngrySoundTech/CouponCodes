@@ -32,7 +32,7 @@ public class Config {
 	}
 	
 	public boolean getCheckUpdate() {
-		return config.getBoolean("check-update", true);
+		return config.getBoolean("auto-update", true);
 	}
 	
 	public String getSQLValue() {
@@ -58,6 +58,8 @@ public class Config {
 	public String getPassword() {
 		return config.getString("MySQL-options.password");
 	}
+	
+	
 
 
 }
