@@ -46,7 +46,7 @@ public class QuedAddCommand implements Runnable {
 						return;
 					}
 					
-					ItemCoupon ic = api.createNewItemCoupon(name, usetimes, time, plugin.convertStringToHash(args[3]), new HashMap<String, Boolean>());
+					ItemCoupon ic = api.createNewItemCoupon(name, usetimes, time, plugin.convertStringToHash(args[3], sender), new HashMap<String, Boolean>());
 					
 					if (ic.addToDatabase()) {
 						sender.sendMessage(ChatColor.GREEN+"Coupon "+ChatColor.GOLD+name+ChatColor.GREEN+" has been added!");

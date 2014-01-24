@@ -302,16 +302,21 @@ public class CouponCodes extends JavaPlugin {
 		sender.sendMessage(CommandUsage.C_ADD_XP.toString());
 	}
 	
-	public HashMap<Integer, Integer> convertStringToHash(String args) {
+	public HashMap<Integer, Integer> convertStringToHash(String args, CommandSender sender) {
 		HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
 		String[] sp = args.split(",");
 		try {
 			for (int i = 0; i < sp.length; i++) {
-				int a = 1;
+				int a = 0;
 				if (StringUtils.isNumeric(sp[i].split(":")[0])) {
 					a = Integer.parseInt(sp[i].split(":")[0]);
 				} else {
-					a = Material.matchMaterial(sp[i].split(":")[0]).getId();
+					if (Material.matchMaterial(sp[i].split(":")[0]) != null) {
+						a = Material.matchMaterial(sp[i].split(":")[0]).getId();
+					} else {
+						a = 1;
+						sender.sendMessage(ChatColor.GREEN+"Item "+ChatColor.GOLD+sp[i].split(":")[0]+ChatColor.GREEN+" does not exist. Item defaulted to stone.");
+					}
 				}
 				int b = Integer.parseInt(sp[i].split(":")[1]);
 					ids.put(a, b);

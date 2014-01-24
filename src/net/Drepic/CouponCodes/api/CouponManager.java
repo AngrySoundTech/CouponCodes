@@ -151,7 +151,7 @@ public class CouponManager {
 		HashMap<String, Boolean> usedplayers = plugin.convertStringToHash2(rs.getString("usedplayers"));
 		
 		if (rs.getString("ctype").equalsIgnoreCase("Item"))
-			return createNewItemCoupon(coupon, usetimes, time, plugin.convertStringToHash(rs.getString("ids")), usedplayers);
+			return createNewItemCoupon(coupon, usetimes, time, plugin.convertStringToHash(rs.getString("ids"), null), usedplayers);
 		else if (rs.getString("ctype").equalsIgnoreCase("Economy"))
 			return createNewEconomyCoupon(coupon, usetimes, time, usedplayers, rs.getInt("money"));
 		else if (rs.getString("ctype").equalsIgnoreCase("Rank"))
