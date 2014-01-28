@@ -75,7 +75,7 @@ public class CouponCodes extends JavaPlugin {
 		}
 		
 		try {
-			mt = new Metrics();
+			mt = new Metrics(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

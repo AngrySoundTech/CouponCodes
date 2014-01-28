@@ -3,9 +3,12 @@ package net.Drepic.CouponCodes.runnable;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.bukkit.Bukkit;
+
 import net.Drepic.CouponCodes.CouponCodes;
 import net.Drepic.CouponCodes.api.CouponManager;
 import net.Drepic.CouponCodes.misc.Metrics;
+import net.Drepic.CouponCodes.misc.Metrics.Graph;
 import net.Drepic.CouponCodes.sql.options.MySQLOptions;
 import net.Drepic.CouponCodes.sql.options.SQLiteOptions;
 
@@ -23,8 +26,13 @@ public class CustomDataSender implements Runnable {
 	
 	@Override
 	public void run() {
+		try {
 		plugin.debug("Beginning Custom data sending");
-		mt.addCustomData(plugin, new Metrics.Plotter() {
+		
+		Graph couponGraph = mt.createGraph("Number of coupons");
+		Graph sqlGraph = mt.createGraph("SQL Type");
+		
+		couponGraph.addPlotter(new Metrics.Plotter("Total Coupons") {
 			
 			@Override
 			public int getValue() {
@@ -35,14 +43,9 @@ public class CustomDataSender implements Runnable {
 				}
 				return 0;
 			}
-			
-			@Override
-			public String getColumnName() {
-				return "Total Coupons";
-			}
 		});
 		
-		mt.addCustomData(plugin, new Metrics.Plotter() {
+		couponGraph.addPlotter(new Metrics.Plotter("Item Coupons") {
 			
 			@Override
 			public int getValue() {
@@ -53,14 +56,9 @@ public class CustomDataSender implements Runnable {
 				}
 				return 0;
 			}
-			
-			@Override
-			public String getColumnName() {
-				return "Item Coupons";
-			}
 		});
 		
-		mt.addCustomData(plugin, new Metrics.Plotter() {
+		couponGraph.addPlotter(new Metrics.Plotter("Economy Coupons") {
 			
 			@Override
 			public int getValue() {
@@ -71,32 +69,23 @@ public class CustomDataSender implements Runnable {
 				}
 				return 0;
 			}
-			
-			@Override
-			public String getColumnName() {
-				return "Economy Coupons";
-			}
 		});
 		
-		mt.addCustomData(plugin, new Metrics.Plotter() {
+		couponGraph.addPlotter(new Metrics.Plotter("Rank Coupons") {
 			
 			@Override
 			public int getValue() {
 				try {
+					Bukkit.broadcastMessage("SENT " + cm.getAmountOf("Rank"));
 					return cm.getAmountOf("Rank");
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				return 0;
 			}
-			
-			@Override
-			public String getColumnName() {
-				return "Rank Coupons";
-			}
 		});
 		
-		mt.addCustomData(plugin, new Metrics.Plotter() {
+		couponGraph.addPlotter(new Metrics.Plotter("Xp Coupons") {
 			
 			@Override
 			public int getValue() {
@@ -107,14 +96,9 @@ public class CustomDataSender implements Runnable {
 				}
 				return 0;
 			}
-			
-			@Override
-			public String getColumnName() {
-				return "Xp Coupons";
-			}
 		});
 		
-		mt.addCustomData(plugin, new Metrics.Plotter() {
+		sqlGraph.addPlotter(new Metrics.Plotter("MySQL Users") {
 			
 			@Override
 			public int getValue() {
@@ -123,14 +107,9 @@ public class CustomDataSender implements Runnable {
 				else
 					return 0;
 			}
-			
-			@Override
-			public String getColumnName() {
-				return ("MySQL Users");
-			}
 		});
 		
-		mt.addCustomData(plugin, new Metrics.Plotter() {
+		sqlGraph.addPlotter(new Metrics.Plotter("SQLite Users") {
 			
 			@Override
 			public int getValue() {
@@ -139,20 +118,13 @@ public class CustomDataSender implements Runnable {
 				else
 					return 0;
 			}
-			
-			@Override
-			public String getColumnName() {
-				return ("SQLite Users");
-			}
 		});
-		
-		try {
-			mt.beginMeasuringPlugin(plugin);
-		} catch (IOException e) {
-			plugin.sendErr("Could not measure plugin");
-			e.printStackTrace();
-		}
+	
+		mt.start();
 		
 		plugin.debug("End of custom data sending");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

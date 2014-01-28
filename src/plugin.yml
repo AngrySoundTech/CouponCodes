@@ -1,6 +1,6 @@
 name: CouponCodes
 main: net.Drepic.CouponCodes.CouponCodes
-version: 2.3.0
+version: 2.3.1
 author: Drepic26
 softdepend: [Vault]
 commands:
