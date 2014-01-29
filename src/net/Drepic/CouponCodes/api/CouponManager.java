@@ -27,6 +27,11 @@ public class CouponManager {
 		this.sql = sql;
 	}
 	
+	/**
+	 * @param coupon Coupon to add to the database
+	 * @return false if the coupon exists
+	 * @throws SQLException
+	 */
 	public boolean addCouponToDatabase(Coupon coupon) throws SQLException {
 		if (couponExists(coupon)) return false;
 		Connection con = sql.getConnection();
@@ -88,6 +93,12 @@ public class CouponManager {
 		return true;
 	}
 	
+	/**
+	 * Removes the coupon by object
+	 * @param coupon Coupon to remove
+	 * @return false if the coupon does not exist
+	 * @throws SQLException
+	 */
 	public boolean removeCouponFromDatabase(Coupon coupon) throws SQLException {
 		if (!couponExists(coupon)) return false;
 		sql.query("DELETE FROM couponcodes WHERE name='"+coupon.getName()+"'");
@@ -95,6 +106,12 @@ public class CouponManager {
 		return true;
 	}
 	
+	/**
+	 * Removes the coupon by name
+	 * @param coupon Name of the coupon to remove
+	 * @return false if the coupon does not exist
+	 * @throws SQLException
+	 */
 	public boolean removeCouponFromDatabase(String coupon) throws SQLException {
 		if (!couponExists(coupon)) return false;
 		sql.query("DELETE FROM couponcodes WHERE name='"+coupon+"'");
@@ -102,14 +119,30 @@ public class CouponManager {
 		return true;
 	}
 	
+	/**
+	 * Checks if the coupon exists by object
+	 * @param coupon Coupon to check
+	 * @return true if coupon exists
+	 * @throws SQLException
+	 */
 	public boolean couponExists(Coupon coupon) throws SQLException {
 		return getCoupons().contains(coupon.getName());
 	}
 	
+	/**
+	 * Check if the coupon exists by name
+	 * @param name Name of the coupon to check
+	 * @return true if the coupon exists
+	 * @throws SQLException
+	 */
 	public boolean couponExists(String name) throws SQLException {
 		return getCoupons().contains(name);
 	}
 	
+	/**
+	 * @return An ArrayList with the names of all coupons
+	 * @throws SQLException
+	 */
 	public ArrayList<String> getCoupons() throws SQLException {
 		ArrayList<String> c = new ArrayList<String>();
 		try {
@@ -142,6 +175,11 @@ public class CouponManager {
 		sql.query("UPDATE couponcodes SET timeuse='"+c.getTime()+"' WHERE name='"+c.getName()+"'");
 	}
 	
+	/**
+	 * @param coupon Name of the coupon to get
+	 * @return Coupon object
+	 * @throws SQLException
+	 */
 	public Coupon getCoupon(String coupon) throws SQLException {
 		if (!couponExists(coupon)) return null;
 		ResultSet rs = sql.query("SELECT * FROM couponcodes WHERE name='"+coupon+"'");
@@ -182,6 +220,12 @@ public class CouponManager {
 			return null;
 	}
 	
+	/**
+	 * Gets the amount of a type of coupon
+	 * @param type Type of coupon to get (Item, Economy, Rank, Xp)
+	 * @return Amount of the coupon type
+	 * @throws SQLException
+	 */
 	public int getAmountOf(String type) throws SQLException {
 		ArrayList<String> list = getCoupons();
 		int item = 0;
@@ -209,18 +253,54 @@ public class CouponManager {
 			return 0;
 	}
 	
+	/**
+	 * Creates a new item coupon
+	 * @param name Name of the coupon
+	 * @param usetimes Times the coupon may be used
+	 * @param time Time before the coupon expires
+	 * @param ids Item ids and amount to add
+	 * @param usedplayers Players who have used the coupon
+	 * @return ItemCoupon object
+	 */
 	public ItemCoupon createNewItemCoupon(String name, int usetimes, int time, HashMap<Integer, Integer> ids, HashMap<String, Boolean> usedplayers) {
 		return new ItemCoupon(name, usetimes, time, usedplayers, ids);
 	}
 	
+	/**
+	 * Creates a new economy coupon
+	 * @param name Name of the coupon
+	 * @param usetimes Times the coupon may be used
+	 * @param time Time before the coupon expires
+	 * @param usedplayers Players who have used the coupon
+	 * @param money Amount of money the coupon is for
+	 * @return EconomyCoupon object
+	 */
 	public EconomyCoupon createNewEconomyCoupon(String name, int usetimes, int time, HashMap<String, Boolean> usedplayers, int money) {
 		return new EconomyCoupon(name, usetimes, time, usedplayers, money);
 	}
 	
+	/**
+	 * Creates a new rank coupon
+	 * @param name Name of the coupon
+	 * @param group Group the coupon gives
+	 * @param usetimes Times the coupon may be used
+	 * @param time Time before the coupon expires
+	 * @param usedplayers Players who have used the coupon
+	 * @return RankCoupon object
+	 */
 	public RankCoupon createNewRankCoupon(String name, String group, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
 		return new RankCoupon(name, group, usetimes, time, usedplayers);
 	}
 	
+	/**
+	 * Creates a new xp coupon
+	 * @param name Name of the coupon
+	 * @param xp Amount of xp the coupon gives
+	 * @param usetimes Times the coupon may be used
+	 * @param time Time before the coupon expires
+	 * @param usedplayers Players who have used the coupon
+	 * @return XpCoupon object
+	 */
 	public XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
 		return new XpCoupon(name, usetimes, time, usedplayers, xp);
 	}

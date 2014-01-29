@@ -8,6 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ * Called when the connection is opened to the database
+ */
 public class DatabaseOpenConnectionEvent extends Event {
 
 	private static final HandlerList h = new HandlerList();
@@ -22,14 +25,26 @@ public class DatabaseOpenConnectionEvent extends Event {
 		this.success = success;
 	}
 	
+	/**
+	 * Gets the database options
+	 * @return The database options
+	 */
 	public DatabaseOptions getDatabaseOptions() {
 		return dop;
 	}
 	
+	/**
+	 * Gets the connection
+	 * @return The connection
+	 */
 	public Connection getConnection() {
 		return con;
 	}
 	
+	/**
+	 * Returns true if the connection was successful
+	 * @return true if the connection was successful
+	 */
 	public Boolean getSuccess() {
 		return success;
 	}

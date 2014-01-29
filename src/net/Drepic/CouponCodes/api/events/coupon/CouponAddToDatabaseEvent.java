@@ -6,6 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ * Called when coupon is added to the database
+ */
 public class CouponAddToDatabaseEvent extends Event {
 
 	private static final HandlerList h = new HandlerList();
@@ -16,6 +19,10 @@ public class CouponAddToDatabaseEvent extends Event {
 		this.coupon = coupon;
 	}
 	
+	/**
+	 * Gets the coupon that was added in this event
+	 * @return The coupon that was added in this event
+	 */
 	public Coupon getCoupon() {
 		return coupon;
 	}

@@ -18,7 +18,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 public class EventHandle {
-
+	
 	public static CouponAddToDatabaseEvent callCouponAddToDatabaseEvent(Coupon coupon) {
 		CouponAddToDatabaseEvent ev = new CouponAddToDatabaseEvent(coupon);
 		ev.call();

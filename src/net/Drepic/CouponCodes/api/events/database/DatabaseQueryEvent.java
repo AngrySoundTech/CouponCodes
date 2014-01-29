@@ -8,6 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ * Called when the database is queried
+ */
 public class DatabaseQueryEvent extends Event {
 
 	private static final HandlerList h = new HandlerList();
@@ -22,14 +25,26 @@ public class DatabaseQueryEvent extends Event {
 		this.rs = rs;
 	}
 	
+	/**
+	 * Gets the query that was sent to the database
+	 * @return The query that was sent to the database
+	 */
 	public String getQuery() {
 		return query;
 	}
 	
+	/**
+	 * Gets the database options
+	 * @return The database options
+	 */
 	public DatabaseOptions getDatabaseOptions() {
 		return dop;
 	}
 	
+	/**
+	 * Gets the resultSet of the query
+	 * @return The resultSet of the query
+	 */
 	public ResultSet getResultSet() {
 		return rs;
 	}

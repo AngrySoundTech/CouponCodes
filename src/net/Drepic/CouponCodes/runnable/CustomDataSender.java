@@ -1,6 +1,5 @@
 package net.Drepic.CouponCodes.runnable;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 import org.bukkit.Bukkit;
@@ -14,6 +13,7 @@ import net.Drepic.CouponCodes.sql.options.SQLiteOptions;
 
 public class CustomDataSender implements Runnable {
 
+	@SuppressWarnings("unused")
 	private CouponCodes plugin;
 	private Metrics mt;
 	private CouponManager cm;
@@ -27,8 +27,6 @@ public class CustomDataSender implements Runnable {
 	@Override
 	public void run() {
 		try {
-		plugin.debug("Beginning Custom data sending");
-		
 		Graph couponGraph = mt.createGraph("Number of coupons");
 		Graph sqlGraph = mt.createGraph("SQL Type");
 		
@@ -121,8 +119,6 @@ public class CustomDataSender implements Runnable {
 		});
 	
 		mt.start();
-		
-		plugin.debug("End of custom data sending");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

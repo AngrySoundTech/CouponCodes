@@ -302,6 +302,7 @@ public class CouponCodes extends JavaPlugin {
 		sender.sendMessage(CommandUsage.C_ADD_XP.toString());
 	}
 	
+	@SuppressWarnings("deprecation")
 	public HashMap<Integer, Integer> convertStringToHash(String args, CommandSender sender) {
 		HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
 		String[] sp = args.split(",");
@@ -315,7 +316,9 @@ public class CouponCodes extends JavaPlugin {
 						a = Material.matchMaterial(sp[i].split(":")[0]).getId();
 					} else {
 						a = 1;
-						sender.sendMessage(ChatColor.GREEN+"Item "+ChatColor.GOLD+sp[i].split(":")[0]+ChatColor.GREEN+" does not exist. Item defaulted to stone.");
+						if (sender != null) {
+							sender.sendMessage(ChatColor.GREEN+"Item "+ChatColor.GOLD+sp[i].split(":")[0]+ChatColor.GREEN+" does not exist. Item defaulted to stone.");
+						}
 					}
 				}
 				int b = Integer.parseInt(sp[i].split(":")[1]);
@@ -380,6 +383,9 @@ public class CouponCodes extends JavaPlugin {
 		return instance;
 	}
 	
+	/**
+	 * @return Current instance of the coupon manager
+	 */
 	public static CouponManager getCouponManager() {
 		return cm;
 	}

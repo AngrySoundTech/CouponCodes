@@ -8,6 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ * Called when the connection to the database is closed
+ */
 public class DatabaseCloseConnectionEvent extends Event {
 
 	private static final HandlerList h = new HandlerList();
@@ -20,10 +23,18 @@ public class DatabaseCloseConnectionEvent extends Event {
 		this.dop = dop;
 	}
 	
+	/**
+	 * Gets the connection
+	 * @return The connection
+	 */
 	public Connection getConnection() {
 		return con;
 	}
 	
+	/**
+	 * Gets the database options
+	 * @return The database options
+	 */
 	public DatabaseOptions getDatabaseOptions() {
 		return dop;
 	}

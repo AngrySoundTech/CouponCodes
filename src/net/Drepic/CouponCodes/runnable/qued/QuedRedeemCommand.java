@@ -38,6 +38,7 @@ public class QuedRedeemCommand implements Runnable {
 		this.econ = plugin.econ;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
 		if (args.length == 2) {

@@ -6,6 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ * Called ehen a coupon expires
+ */
 public class CouponExpireEvent extends Event {
 
 	private static final HandlerList h = new HandlerList();
@@ -16,6 +19,10 @@ public class CouponExpireEvent extends Event {
 		this.coupon = coupon;
 	}
 	
+	/**
+	 * Gets the coupon that expired
+	 * @return The coupon that expired
+	 */
 	public Coupon getCoupon() {
 		return coupon;
 	}

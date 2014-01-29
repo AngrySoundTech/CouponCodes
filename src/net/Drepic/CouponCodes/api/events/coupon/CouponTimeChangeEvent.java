@@ -6,6 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ * Called when the time changes on a coupon
+ */
 public class CouponTimeChangeEvent extends Event {
 
 	private static final HandlerList h = new HandlerList();
@@ -16,6 +19,10 @@ public class CouponTimeChangeEvent extends Event {
 		this.coupon = coupon;
 	}
 	
+	/**
+	 * Gets the coupon whose time changed
+	 * @return The coupon whose time changed
+	 */
 	public Coupon getCoupon() {
 		return coupon;
 	}
