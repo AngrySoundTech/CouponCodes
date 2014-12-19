@@ -7,16 +7,9 @@ allprojects {
 }
 
 dependencies {
-  compile project(':api')
   compile project(':core')
   compile project(':mods:sponge')
   compile project(':mods:bukkit')
-}
-
-project(':core') {
-  dependencies {
-    compile project(':api')
-  }
 }
 
 project(':mods:sponge') {
@@ -30,7 +23,6 @@ project(':mods:sponge') {
   dependencies {
     compile 'org.spongepowered:spongeapi:1.0'
     compile project(':core')
-    compile project(':api')
   }
 }
 
@@ -45,26 +37,22 @@ project(':mods:bukkit') {
   dependencies {
     compile 'org.bukkit:bukkit:1.7.9-R0.2'
     compile project(':core')
-    compile project(':api')
   }
 }
 
 task spongeJar(type: Jar) {
-  from { project(':api').sourceSets.main.output }
   from { project(':core').sourceSets.main.output }
   from { project(':mods:sponge').sourceSets.main.output }
   classifier = 'Sponge'
 }
 
 task bukkitJar(type: Jar) {
-  from {project(':api').sourceSets.main.output }
   from { project(':core').sourceSets.main.output }
   from { project(':mods:bukkit').sourceSets.main.output }
   classifier = 'Bukkit'
 }
 
 task universalJar(type: Jar) {
-  from {project(':api').sourceSets.main.output }
   from { project(':core').sourceSets.main.output }
   from { project(':mods:sponge').sourceSets.main.output }
   from { project(':mods:bukkit').sourceSets.main.output }
