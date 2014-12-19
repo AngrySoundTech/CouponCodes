@@ -10,6 +10,7 @@ dependencies {
   compile project(':api')
   compile project(':core')
   compile project(':mods:sponge')
+  compile project(':mods:bukkit')
 }
 
 project(':core') {
@@ -27,9 +28,24 @@ project(':mods:sponge') {
     }
   }
   dependencies {
-    compile "org.spongepowered:spongeapi:1.0"
-	compile project(':core')
-	compile project(':api')
+    compile 'org.spongepowered:spongeapi:1.0'
+    compile project(':core')
+    compile project(':api')
+  }
+}
+
+project(':mods:bukkit') {
+  repositories {
+    mavenCentral()
+    maven {
+      name 'Bukkit maven repo'
+      url 'http://repo.bukkit.org/content/groups/public/'
+    }
+  }
+  dependencies {
+    compile 'org.bukkit:bukkit:1.7.9-R0.2'
+    compile project(':core')
+    compile project(':api')
   }
 }
 
@@ -40,6 +56,23 @@ task spongeJar(type: Jar) {
   classifier = 'Sponge'
 }
 
+task bukkitJar(type: Jar) {
+  from {project(':api').sourceSets.main.output }
+  from { project(':core').sourceSets.main.output }
+  from { project(':mods:bukkit').sourceSets.main.output }
+  classifier = 'Bukkit'
+}
+
+task universalJar(type: Jar) {
+  from {project(':api').sourceSets.main.output }
+  from { project(':core').sourceSets.main.output }
+  from { project(':mods:sponge').sourceSets.main.output }
+  from { project(':mods:bukkit').sourceSets.main.output }
+  classifier = 'Universal'
+}
+
 artifacts {
-    archives spongeJar
+  archives spongeJar
+  archives bukkitJar
+  archives universalJar
 }
