@@ -1,0 +1,45 @@
+// Apply to all modules
+allprojects {
+  apply plugin: 'java'
+  apply plugin: 'eclipse'
+  group = 'com.github.drepic26.couponcodes'
+  version = '3.0'
+}
+
+dependencies {
+  compile project(':api')
+  compile project(':core')
+  compile project(':mods:sponge')
+}
+
+project(':core') {
+  dependencies {
+    compile project(':api')
+  }
+}
+
+project(':mods:sponge') {
+  repositories {
+    mavenCentral()
+    maven {
+        name 'Sponge maven repo'
+        url 'http://repo.spongepowered.org/Sponge/maven'
+    }
+  }
+  dependencies {
+    compile "org.spongepowered:spongeapi:1.0"
+	compile project(':core')
+	compile project(':api')
+  }
+}
+
+task spongeJar(type: Jar) {
+  from { project(':api').sourceSets.main.output }
+  from { project(':core').sourceSets.main.output }
+  from { project(':mods:sponge').sourceSets.main.output }
+  classifier = 'Sponge'
+}
+
+artifacts {
+    archives spongeJar
+}
