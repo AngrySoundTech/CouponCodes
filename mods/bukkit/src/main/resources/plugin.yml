@@ -1,0 +1,4 @@
+name: CouponCodes
+author: Drepic26
+main: com.github.drepic26.couponcodes.bukkit.BukkitPlugin
+version: 3.0
