@@ -25,7 +25,7 @@ public class BukkitListener implements Listener {
 		String command = event.getMessage();
 
 		if (handleCommandEvent(Command.Sender.PLAYER, player, command)) {
-			// event.setCancelled(true);
+			event.setCancelled(true);
 		}
 	}
 

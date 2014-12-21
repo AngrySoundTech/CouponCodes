@@ -20,4 +20,9 @@ public class BukkitPlayer extends Player {
 		}
 	}
 
+	@Override
+	public String getName() {
+		return bukkitPlayer.getName();
+	}
+
 }

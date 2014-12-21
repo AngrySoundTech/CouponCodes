@@ -12,6 +12,7 @@ public class BukkitServerModTransformer extends ServerModTransformer {
 
 	public BukkitServerModTransformer(BukkitPlugin plugin) {
 		this.plugin = plugin;
+		ServerModTransformer.setInstance(this);
 	}
 
 	@SuppressWarnings("deprecation")
