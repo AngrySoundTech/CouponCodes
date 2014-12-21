@@ -53,7 +53,7 @@ public abstract class ServerModTransformer {
 		return permissionHandler;
 	}
 
-	protected void setPermissionHandler(PermissionHandler permissionHandler) {
+	public void setPermissionHandler(PermissionHandler permissionHandler) {
 		this.permissionHandler = permissionHandler;
 	}
 }

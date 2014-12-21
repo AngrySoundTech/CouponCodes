@@ -43,7 +43,6 @@ public class BukkitListener implements Listener {
 				return plugin.getCommandHandler().handleCommand(message, sender);
 			}
 		} catch (CommandException e) {
-			// TODO handle exception
 			return false;
 		}
 

@@ -7,6 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.drepic26.couponcodes.bukkit.commands.BukkitCommandHandler;
 import com.github.drepic26.couponcodes.bukkit.listeners.BukkitListener;
+import com.github.drepic26.couponcodes.bukkit.permission.SuperPermsPermissionHandler;
+import com.github.drepic26.couponcodes.bukkit.permission.VaultPermissionHandler;
 import com.github.drepic26.couponcodes.core.ServerModTransformer;
 import com.github.drepic26.couponcodes.core.commands.CommandHandler;
 import com.github.drepic26.couponcodes.core.entity.Player;
@@ -16,14 +18,27 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 	@SuppressWarnings("unused")
 	private Logger logger = null;
 
-	private final ServerModTransformer transformer = new BukkitServerModTransformer(this);
+	private ServerModTransformer transformer = new BukkitServerModTransformer(this);
 	private final CommandHandler commandHandler = new BukkitCommandHandler();
 
 	@Override
 	public void onEnable() {
 		logger = this.getLogger();
 
+		//Events
 		getServer().getPluginManager().registerEvents(new BukkitListener(this), this);
+
+		// Permissions
+		if (getServer().getPluginManager().getPlugin("Vault") != null) {
+			transformer.setPermissionHandler(new VaultPermissionHandler());
+		} else {
+			transformer.setPermissionHandler(new SuperPermsPermissionHandler());
+		}
+	}
+
+	@Override
+	public void onDisable() {
+		transformer = null;
 	}
 
 	public Player wrapPlayer(org.bukkit.entity.Player player) {
