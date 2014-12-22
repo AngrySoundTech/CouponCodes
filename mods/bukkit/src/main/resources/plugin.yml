@@ -1,8 +1,8 @@
 name: CouponCodes
-author: Drepic26
+author: ${author}
 main: com.github.drepic26.couponcodes.bukkit.BukkitPlugin
-version: 3.0
+version: ${version}
 commands:
-  test:
-    description: test woo
-    usage: testttt
+  coupon:
+    description: base coupon command
+    usage: help

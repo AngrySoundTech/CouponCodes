@@ -3,7 +3,9 @@ allprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
   group = 'com.github.drepic26.couponcodes'
+
   version = '3.0'
+  project.ext.author = 'Drepic26'
 }
 
 dependencies {
@@ -26,6 +28,18 @@ project(':mods:sponge') {
   }
 }
 
+project(':core') {
+  processResources {
+    from(sourceSets.main.resources.srcDirs) {
+      include 'couponcodes.properties'
+      expand project.properties
+    }
+    from(sourceSets.main.resources.srcDirs) {
+      exclude 'couponcodes.properties'
+    }
+  }
+}
+
 project(':mods:bukkit') {
   repositories {
     mavenCentral()
@@ -38,6 +52,17 @@ project(':mods:bukkit') {
 	  url 'http://nexus.theyeticave.net/content/repositories/pub_releases'
 	}
   }
+
+  processResources {
+    from(sourceSets.main.resources.srcDirs) {
+      include 'plugin.yml'
+      expand project.properties
+    }
+    from(sourceSets.main.resources.srcDirs) {
+      exclude 'plugin.yml'
+    }
+  }
+
   dependencies {
     compile 'org.bukkit:bukkit:1.7.9-R0.2'
 	compile 'net.milkbowl.vault:VaultAPI:1.4'
