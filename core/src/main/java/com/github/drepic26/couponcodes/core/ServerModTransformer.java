@@ -10,7 +10,7 @@ public abstract class ServerModTransformer {
 	
 	private static ServerModTransformer instance = null;
 
-	private PermissionHandler permissionHandler =null;
+	private PermissionHandler permissionHandler = null;
 
 	/**
 	 * Map of Players
@@ -34,6 +34,8 @@ public abstract class ServerModTransformer {
 		}
 		return player;
 	}
+
+	public abstract void scheduleRunnable(Runnable runnable);
 
 	/**
 	 * Gets the current instance

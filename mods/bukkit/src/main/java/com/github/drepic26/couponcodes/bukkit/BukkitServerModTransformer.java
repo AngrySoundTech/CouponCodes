@@ -15,6 +15,11 @@ public class BukkitServerModTransformer extends ServerModTransformer {
 		ServerModTransformer.setInstance(this);
 	}
 
+	@Override
+	public void scheduleRunnable(Runnable runnable) {
+		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, runnable);
+	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected Player getModPlayer(String name) {

@@ -4,4 +4,6 @@ public interface CommandSender {
 	
 	public void sendMessage(String message);
 
+	public boolean hasPermission(String node);
+
 }
