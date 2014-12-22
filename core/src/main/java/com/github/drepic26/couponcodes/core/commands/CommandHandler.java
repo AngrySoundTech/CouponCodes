@@ -14,14 +14,13 @@ public abstract class CommandHandler {
 	// Handle a command with args
 	public boolean handleCommand(String command, String[] args, CommandSender sender) throws CommandException {
 		if (command.equalsIgnoreCase("coupon")) {
-
-			switch(args[0]) {
 			// Help
-			case "help":
+			if (args[0].equalsIgnoreCase("help")) {
 				help(sender, args);
 				return true;
 			// Commands
-			case "add":
+			} else
+			if (args[0].equalsIgnoreCase("add")) {
 				if (args.length < 2) {
 					helpAdd(sender);
 					return true;
@@ -33,7 +32,8 @@ public abstract class CommandHandler {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
 					return true;
 				}
-			case "remove":
+			} else
+			if (args[0].equalsIgnoreCase("remove")) {
 				if (sender.hasPermission("cc.remove")) {
 					ServerModTransformer.getInstance().scheduleRunnable(new RemoveCommand(sender, args));
 					return true;
@@ -41,7 +41,8 @@ public abstract class CommandHandler {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
 					return true;
 				}
-			case "redeem":
+			} else
+			if (args[0].equalsIgnoreCase("redeem")) {
 				if (sender.hasPermission("cc.redeem")) {
 					ServerModTransformer.getInstance().scheduleRunnable(new RedeemCommand(sender, args));
 					return true;
@@ -49,7 +50,8 @@ public abstract class CommandHandler {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
 					return true;
 				}
-			case "list":
+			} else
+			if (args[0].equalsIgnoreCase("list")) {
 				if (sender.hasPermission("cc.list")) {
 					ServerModTransformer.getInstance().scheduleRunnable(new ListCommand(sender, args));
 					return true;
@@ -57,7 +59,8 @@ public abstract class CommandHandler {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
 					return true;
 				}
-			case "info":
+			} else
+			if (args[0].equalsIgnoreCase("info")) {
 				if (sender.hasPermission("cc.info")) {
 					ServerModTransformer.getInstance().scheduleRunnable(new InfoCommand(sender, args));
 					return true;
@@ -65,7 +68,8 @@ public abstract class CommandHandler {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
 					return true;
 				}
-			case "reload":
+			} else
+			if (args[0].equalsIgnoreCase("reload")) {
 				if (sender.hasPermission("cc.reload")) {
 					ServerModTransformer.getInstance().scheduleRunnable(new ReloadCommand(sender, args));
 					return true;
