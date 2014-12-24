@@ -27,7 +27,6 @@ public class VaultPermissionHandler extends SuperPermsPermissionHandler {
 		return checkVault();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean hasPermission(Player player, String node) {
 		if (isEnabled()) {
@@ -37,7 +36,6 @@ public class VaultPermissionHandler extends SuperPermsPermissionHandler {
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public Set<String> getGroups(Player player) {
 		Set<String> groups = new HashSet<String>();

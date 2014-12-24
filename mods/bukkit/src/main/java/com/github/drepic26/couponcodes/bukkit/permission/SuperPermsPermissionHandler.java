@@ -23,14 +23,12 @@ public class SuperPermsPermissionHandler extends PermissionHandler {
 		return true;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean hasPermission(Player player, String node) {
 		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(player.getName());
 		return bukkitPlayer != null && bukkitPlayer.hasPermission(node);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public Set<String> getGroups(Player player) {
 		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(player.getName());

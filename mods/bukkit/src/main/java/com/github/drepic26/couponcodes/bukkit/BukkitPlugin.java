@@ -15,7 +15,6 @@ import com.github.drepic26.couponcodes.core.entity.Player;
 
 public class BukkitPlugin extends JavaPlugin implements Listener {
 
-	@SuppressWarnings("unused")
 	private Logger logger = null;
 
 	private ServerModTransformer transformer = new BukkitServerModTransformer(this);
@@ -25,7 +24,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 	public void onEnable() {
 		logger = this.getLogger();
 
-		//Events
+		// Events
 		getServer().getPluginManager().registerEvents(new BukkitListener(this), this);
 
 		// Permissions
