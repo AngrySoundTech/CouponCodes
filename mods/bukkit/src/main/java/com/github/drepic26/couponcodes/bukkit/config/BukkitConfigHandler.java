@@ -30,10 +30,6 @@ public class BukkitConfigHandler {
 		return config.getBoolean("debug", false);
 	}
 
-	public boolean getCheckUpdate() {
-		return config.getBoolean("auto-update", true);
-	}
-
 	public String getSQLValue() {
 		return config.getString("sql-type");
 	}
