@@ -2,7 +2,8 @@ name: CouponCodes
 author: ${author}
 main: com.github.drepic26.couponcodes.bukkit.BukkitPlugin
 version: ${version}
+softdepend: [Vault]
 commands:
   coupon:
     description: base coupon command
-    usage: help
+    usage: /coupon

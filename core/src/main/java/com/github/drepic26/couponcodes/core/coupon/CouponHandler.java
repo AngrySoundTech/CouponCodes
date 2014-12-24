@@ -3,6 +3,8 @@ package com.github.drepic26.couponcodes.core.coupon;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.github.drepic26.couponcodes.core.commands.CommandSender;
+
 public abstract class CouponHandler {
 
 	public abstract boolean addCouponToDatabase(Coupon coupon);
@@ -35,4 +37,5 @@ public abstract class CouponHandler {
 
 	public abstract XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers);
 
+	public abstract HashMap<Integer, Integer> convertStringToHash(String args, CommandSender sender);
 }

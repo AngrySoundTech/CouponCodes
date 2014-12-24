@@ -4,8 +4,12 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.drepic26.couponcodes.bukkit.commands.BukkitCommandHandler;
@@ -14,6 +18,7 @@ import com.github.drepic26.couponcodes.bukkit.coupon.BukkitCouponHandler;
 import com.github.drepic26.couponcodes.bukkit.database.SQLDatabaseHandler;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
 import com.github.drepic26.couponcodes.bukkit.database.options.SQLiteOptions;
+import com.github.drepic26.couponcodes.bukkit.economy.VaultEconomyHandler;
 import com.github.drepic26.couponcodes.bukkit.listeners.BukkitListener;
 import com.github.drepic26.couponcodes.bukkit.permission.SuperPermsPermissionHandler;
 import com.github.drepic26.couponcodes.bukkit.permission.VaultPermissionHandler;
@@ -27,12 +32,17 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 
 	private ServerModTransformer transformer = new BukkitServerModTransformer(this);
 	private final CommandHandler commandHandler = new BukkitCommandHandler();
-	private final BukkitConfigHandler configHandler = new BukkitConfigHandler(this);
+	private BukkitConfigHandler configHandler;
 	private SQLDatabaseHandler databaseHandler;
+
+	private Economy econ = null;
+	private Permission perm = null;
 
 	@Override
 	public void onEnable() {
 		logger = this.getLogger();
+
+		configHandler = new BukkitConfigHandler(this);
 
 		//SQL
 		if (configHandler.getSQLValue().equalsIgnoreCase("MYSQL")) {
@@ -58,6 +68,14 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 			return;
 		}
 
+		// Vault
+		if (!setupVault()) {
+			logger.info("Vault support is disabled. This option can be changed in the config.");
+		} else {
+			logger.info("Vault support is enabled.");
+			transformer.setEconomyHandler(new VaultEconomyHandler(econ, perm));
+		}
+
 		// Events
 		getServer().getPluginManager().registerEvents(new BukkitListener(this), this);
 
@@ -72,6 +90,32 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 	@Override
 	public void onDisable() {
 		transformer = null;
+
+		try {
+			databaseHandler.close();
+		} catch (SQLException e) {
+			logger.severe("Could not close SQL connection");
+		}
+	}
+
+	private boolean setupVault() {
+		if (!configHandler.getVault())
+			return false;
+		try {
+			RegisteredServiceProvider<Economy> ep = getServer().getServicesManager().getRegistration(Economy.class);
+			RegisteredServiceProvider<Permission> pe = getServer().getServicesManager().getRegistration(Permission.class);
+			if (ep == null || pe == null) {
+				logger.severe("shit");
+				return false;
+			}
+			else {
+				econ = ep.getProvider();
+				perm = pe.getProvider();
+				return true;
+			}
+		} catch (NoClassDefFoundError e) {
+			return false;
+		}
 	}
 
 	public Player wrapPlayer(org.bukkit.entity.Player player) {

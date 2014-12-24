@@ -78,7 +78,7 @@ public abstract class CommandHandler {
 					return true;
 				}
 			}
-			return true;
+			return false;
 		} else return false;
 	}
 	
@@ -88,7 +88,7 @@ public abstract class CommandHandler {
 			help(sender, new String[]{""});
 			//ServerModTransformer.getInstance().scheduleRunnable(new AddCommand(sender));
 			return true;
-		} else return true;
+		} else return false;
 	}
 
 	//Help

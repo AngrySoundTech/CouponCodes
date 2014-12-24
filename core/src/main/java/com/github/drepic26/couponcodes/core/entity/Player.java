@@ -16,4 +16,10 @@ public abstract class Player implements CommandSender {
 		return null;
 	}
 
+	public abstract void setLevel(int level);
+
+	public abstract int getLevel();
+
+	public abstract void giveItem(int item, int amount);
+
 }

@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import com.github.drepic26.couponcodes.bukkit.BukkitPlugin;
 import com.github.drepic26.couponcodes.bukkit.database.SQLDatabaseHandler;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
+import com.github.drepic26.couponcodes.core.commands.CommandSender;
 import com.github.drepic26.couponcodes.core.coupon.Coupon;
 import com.github.drepic26.couponcodes.core.coupon.CouponHandler;
 import com.github.drepic26.couponcodes.core.coupon.EconomyCoupon;
@@ -181,7 +182,7 @@ public class BukkitCouponHandler extends CouponHandler {
 			HashMap<String, Boolean> usedplayers = convertStringToHash2(rs.getString("usedplayers"));
 
 			if (rs.getString("ctype").equalsIgnoreCase("Item"))
-				return createNewItemCoupon(coupon, usetimes, time, convertStringToHash(rs.getString("ids")), usedplayers);
+				return createNewItemCoupon(coupon, usetimes, time, convertStringToHash(rs.getString("ids"), null), usedplayers);
 			else if (rs.getString("ctype").equalsIgnoreCase("Economy"))
 				return createNewEconomyCoupon(coupon, usetimes, time, usedplayers, rs.getInt("money"));
 			else if (rs.getString("ctype").equalsIgnoreCase("Rank"))
@@ -270,7 +271,7 @@ public class BukkitCouponHandler extends CouponHandler {
 		return new XpCoupon(name, usetimes, time, usedplayers, xp);
 	}
 
-	public HashMap<Integer, Integer> convertStringToHash(String args) {
+	public HashMap<Integer, Integer> convertStringToHash(String args, CommandSender sender) {
 		HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
 		String[] sp = args.split(",");
 		try {
