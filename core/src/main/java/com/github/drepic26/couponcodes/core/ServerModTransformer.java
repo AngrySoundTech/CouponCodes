@@ -3,6 +3,7 @@ package com.github.drepic26.couponcodes.core;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.drepic26.couponcodes.core.coupon.CouponHandler;
 import com.github.drepic26.couponcodes.core.entity.Player;
 import com.github.drepic26.couponcodes.core.permission.PermissionHandler;
 
@@ -11,6 +12,7 @@ public abstract class ServerModTransformer {
 	private static ServerModTransformer instance = null;
 
 	private PermissionHandler permissionHandler = null;
+	private CouponHandler couponHandler = null;
 
 	/**
 	 * Map of Players
@@ -57,5 +59,13 @@ public abstract class ServerModTransformer {
 
 	public void setPermissionHandler(PermissionHandler permissionHandler) {
 		this.permissionHandler = permissionHandler;
+	}
+
+	public CouponHandler getCouponHandler() {
+		return couponHandler;
+	}
+
+	public void setCouponHandler(CouponHandler couponHandler) {
+		this.couponHandler = couponHandler;
 	}
 }
