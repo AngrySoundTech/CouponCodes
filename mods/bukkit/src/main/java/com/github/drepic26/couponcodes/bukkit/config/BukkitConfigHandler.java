@@ -22,10 +22,6 @@ public class BukkitConfigHandler {
 		return config.getBoolean("use-thread", true);
 	}
 
-	public boolean getVault() {
-		return config.getBoolean("use-vault", false);
-	}
-
 	public boolean getDebug() {
 		return config.getBoolean("debug", false);
 	}

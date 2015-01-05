@@ -9,12 +9,14 @@ import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.drepic26.couponcodes.bukkit.commands.BukkitCommandHandler;
 import com.github.drepic26.couponcodes.bukkit.config.BukkitConfigHandler;
 import com.github.drepic26.couponcodes.bukkit.coupon.BukkitCouponHandler;
+import com.github.drepic26.couponcodes.bukkit.coupon.BukkitCouponTimer;
 import com.github.drepic26.couponcodes.bukkit.database.SQLDatabaseHandler;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
 import com.github.drepic26.couponcodes.bukkit.database.options.SQLiteOptions;
@@ -70,7 +72,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 
 		// Vault
 		if (!setupVault()) {
-			logger.info("Vault support is disabled. This option can be changed in the config.");
+			logger.info("Vault could not be found. Economy and Rank coupons will be disabled.");
 		} else {
 			logger.info("Vault support is enabled.");
 			transformer.setEconomyHandler(new VaultEconomyHandler(econ, perm));
@@ -84,6 +86,11 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 			transformer.setPermissionHandler(new VaultPermissionHandler());
 		} else {
 			transformer.setPermissionHandler(new SuperPermsPermissionHandler());
+		}
+
+		// Timer
+		if (configHandler.getUseThread()) {
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, new BukkitCouponTimer(), 200L, 200L);
 		}
 	}
 
@@ -99,13 +106,12 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 	}
 
 	private boolean setupVault() {
-		if (!configHandler.getVault())
+		if (getServer().getPluginManager().getPlugin("Vault") == null)
 			return false;
 		try {
 			RegisteredServiceProvider<Economy> ep = getServer().getServicesManager().getRegistration(Economy.class);
 			RegisteredServiceProvider<Permission> pe = getServer().getServicesManager().getRegistration(Permission.class);
 			if (ep == null || pe == null) {
-				logger.severe("shit");
 				return false;
 			}
 			else {

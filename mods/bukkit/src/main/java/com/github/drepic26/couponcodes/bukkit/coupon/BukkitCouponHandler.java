@@ -33,6 +33,10 @@ public class BukkitCouponHandler extends CouponHandler {
 
 	}
 
+	public SQLDatabaseHandler getDatabaseHandler() {
+		return this.databaseHandler;
+	}
+
 	@Override
 	public boolean addCouponToDatabase(Coupon coupon) {
 		if (couponExists(coupon)) return false;
