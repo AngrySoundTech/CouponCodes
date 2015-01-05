@@ -50,7 +50,6 @@ public class InfoCommand implements Runnable {
 					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Rank: "+Color.PURPLE+((RankCoupon) c).getGroup());
 				else if (c instanceof XpCoupon)
 					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"XP: "+Color.PURPLE+((XpCoupon) c).getXp());
-				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Totally random name: "+Color.PURPLE+RandomName.generateName());
 				sender.sendMessage(Color.GOLD+"|----------------------|");
 				return;
 			} else {
@@ -95,7 +94,7 @@ public class InfoCommand implements Runnable {
 			}
 			sender.sendMessage(Color.GOLD+"|-----------------------|");
 			sender.sendMessage(Color.GOLD+"|-"+Color.DARK_RED+"Info on current coupons"+Color.GOLD+"-|");
-			sender.sendMessage(Color.GOLD+"|--"+Color.GOLD+"Use /c info [name] to view a specific coupon");
+			sender.sendMessage(Color.GOLD+"|--"+Color.GOLD+"Use /coupon info [name] to view a specific coupon");
 			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Current coupons: "+Color.PURPLE+sb1.toString());
 			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+sb2.toString());
 			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Total Coupons: "+Color.PURPLE+total);
