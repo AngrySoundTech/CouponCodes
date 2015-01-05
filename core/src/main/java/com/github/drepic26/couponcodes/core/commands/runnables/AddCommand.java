@@ -24,6 +24,10 @@ public class AddCommand implements Runnable {
 
 	@Override
 	public void run() {
+		if (args.length < 2) {
+			helpAdd(sender);
+			return;
+		}
 
 		if (args[1].equalsIgnoreCase("item")) {
 			if (args.length >= 4) {
@@ -55,6 +59,9 @@ public class AddCommand implements Runnable {
 					sender.sendMessage(Color.DARK_RED+"Expected a number, but got a string. Please check your syntax.");
 					return;
 				}
+			} else {
+				sender.sendMessage(CommandUsage.C_ADD_ITEM.toString());
+				return;
 			}
 		} else
 
@@ -162,6 +169,16 @@ public class AddCommand implements Runnable {
 				sender.sendMessage(CommandUsage.C_ADD_XP.toString());
 				return;
 			}
+		} else {
+			helpAdd(sender);
 		}
+	}
+
+	private void helpAdd(CommandSender sender) {
+		sender.sendMessage(Color.GOLD+"|-<> = required-"+Color.DARK_RED+"CouponCodes Help"+Color.GOLD+"-[]-optional-|");
+		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add item <name> <item1:amount,item2:amount,..> [usetimes] [time]");
+		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add econ <name> <money> [usetimes] [time]");
+		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add rank <name> <group> [usetimes] [time]");
+		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add xp <name> <xp> [usetimes] [time]");
 	}
 }
