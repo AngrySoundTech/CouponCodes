@@ -38,4 +38,8 @@ public abstract class CouponHandler {
 	public abstract XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers);
 
 	public abstract HashMap<Integer, Integer> convertStringToHash(String args, CommandSender sender);
+
+	public abstract String convertHashToString2(HashMap<String, Boolean> hash);
+
+	public abstract String convertHashToString(HashMap<Integer, Integer> hash);
 }
