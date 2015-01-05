@@ -4,7 +4,7 @@ allprojects {
   apply plugin: 'eclipse'
   group = 'com.github.drepic26.couponcodes'
 
-  version = '3.0_RC1'
+  version = '3.0'
   project.ext.author = 'Drepic26'
 }
 
