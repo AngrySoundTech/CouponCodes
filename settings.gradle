@@ -1,1 +1,1 @@
-include 'core', 'mods:sponge', 'mods:bukkit'
+include 'core', 'mods:sponge', 'mods:bukkit', 'mods:granite'
