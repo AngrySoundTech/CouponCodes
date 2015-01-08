@@ -12,6 +12,7 @@ dependencies {
   compile project(':core')
   compile project(':mods:sponge')
   compile project(':mods:bukkit')
+  compile project(':mods:granite')
 }
 
 project(':core') {
@@ -125,5 +126,6 @@ task universalJar(type: Jar) {
 artifacts {
   archives spongeJar
   archives bukkitJar
+  archives graniteJar
   archives universalJar
 }
