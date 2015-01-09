@@ -95,7 +95,7 @@ jar {
   from { project(":mods:granite").sourceSets.main.output }
 }
 
-task sourceJar(type: Jar) {
+task sourcesJar(type: Jar) {
   from project(":core").sourceSets.main.java
   from project(":mods:bukkit").sourceSets.main.java
   from project(":mods:sponge").sourceSets.main.java
