@@ -2,10 +2,34 @@
 allprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
-  group = 'com.github.drepic26.couponcodes'
 
+  group = 'com.github.drepic26.couponcodes'
   version = '3.0'
   project.ext.author = 'Drepic26'
+
+  repositories {
+    mavenCentral()
+    maven {
+        name 'Sponge maven repo'
+        url 'http://repo.spongepowered.org/Sponge/maven'
+    }
+	maven {
+      name 'Bukkit maven repo'
+      url 'http://repo.bukkit.org/content/groups/public/'
+    }
+    maven {
+      name 'vault-repo'
+      url 'http://nexus.theyeticave.net/content/repositories/pub_releases'
+    }
+    maven{
+      name 'Spigot maven repo'
+      url 'https://hub.spigotmc.org/nexus/content/groups/public/'
+    }
+	maven {
+      name 'Plugin Metrics'
+      url 'http://repo.mcstats.org/content/repositories/public'
+    }
+  }
 }
 
 dependencies {
@@ -17,7 +41,6 @@ dependencies {
 
 project(':core') {
   def filteredSourceDir = file("${buildDir}/filtered")
-
   sourceSets {
     filtered {
         java {
@@ -35,13 +58,6 @@ project(':core') {
 }
 
 project(':mods:sponge') {
-  repositories {
-    mavenCentral()
-    maven {
-        name 'Sponge maven repo'
-        url 'http://repo.spongepowered.org/Sponge/maven'
-    }
-  }
   dependencies {
     compile 'org.spongepowered:spongeapi:1.0'
     compile project(':core')
@@ -49,22 +65,11 @@ project(':mods:sponge') {
 }
 
 project(':mods:bukkit') {
-  repositories {
-    mavenCentral()
-    maven {
-      name 'Bukkit maven repo'
-      url 'http://repo.bukkit.org/content/groups/public/'
-    }
-	maven {
-	  name 'vault-repo'
-	  url 'http://nexus.theyeticave.net/content/repositories/pub_releases'
-	}
-	maven{
-	  name 'Spigot maven repo'
-	  url 'https://hub.spigotmc.org/nexus/content/groups/public/'
-	}
+  dependencies {
+    compile 'org.bukkit:bukkit:1.8-R0.1-SNAPSHOT'
+    compile 'net.milkbowl.vault:VaultAPI:1.5'
+    compile project(':core')
   }
-
   processResources {
     from(sourceSets.main.resources.srcDirs) {
       include 'plugin.yml'
@@ -74,58 +79,49 @@ project(':mods:bukkit') {
       exclude 'plugin.yml'
     }
   }
-
-  dependencies {
-    compile 'org.bukkit:bukkit:1.8-R0.1-SNAPSHOT'
-	compile 'net.milkbowl.vault:VaultAPI:1.5'
-    compile project(':core')
-  }
 }
 
 project(':mods:granite') {
-  repositories {
-    mavenCentral()
-	maven {
-	  name 'Plugin Metrics'
-	  url 'http://repo.mcstats.org/content/repositories/public'
-	}
-  }
-
   dependencies {
     compile 'org.granitemc:graniteapi:0.2.0-SNAPSHOT'
     compile project(':core')
   }
 }
 
-task spongeJar(type: Jar) {
-  from { project(':core').sourceSets.main.output }
-  from { project(':mods:sponge').sourceSets.main.output }
-  classifier = 'Sponge'
+jar {
+  from { project(":core").sourceSets.main.output }
+  from { project(":mods:bukkit").sourceSets.main.output }
+  from { project(":mods:sponge").sourceSets.main.output }
+  from { project(":mods:granite").sourceSets.main.output }
 }
 
-task bukkitJar(type: Jar) {
-  from { project(':core').sourceSets.main.output }
-  from { project(':mods:bukkit').sourceSets.main.output }
-  classifier = 'Bukkit'
+task sourceJar(type: Jar) {
+  from project(":core").sourceSets.main.java
+  from project(":mods:bukkit").sourceSets.main.java
+  from project(":mods:sponge").sourceSets.main.java
+  from project(":mods:granite").sourceSets.main.java
+  classifier = "source"
 }
 
-task graniteJar(type: Jar) {
-  from { project(':core').sourceSets.main.output }
-  from { project(':mods:granite').sourceSets.main.output }
-  classifier = 'Granite'
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  from javadoc.destinationDir
+  classifier = "javadoc"
+  dependsOn ":core:javadoc"
+  dependsOn ":mods:bukkit:javadoc"
+  dependsOn ":mods:sponge:javadoc"
+  dependsOn ":mods:granite:javadoc"
 }
 
-task universalJar(type: Jar) {
-  from { project(':core').sourceSets.main.output }
-  from { project(':mods:sponge').sourceSets.main.output }
-  from { project(':mods:bukkit').sourceSets.main.output }
-  from { project(':mods:granite').sourceSets.main.output }
-  classifier = 'Universal'
+javadoc {
+  source = [
+  project("core").sourceSets.main.java,
+  project(":mods:bukkit").sourceSets.main.java,
+  project(":mods:sponge").sourceSets.main.java,
+  project(":mods:granite").sourceSets.main.java
+  ]
 }
 
 artifacts {
-  archives spongeJar
-  archives bukkitJar
-  archives graniteJar
-  archives universalJar
+  archives sourceJar
+  archives javadocJar
 }
