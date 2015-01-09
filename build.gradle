@@ -122,6 +122,7 @@ javadoc {
 }
 
 artifacts {
-  archives sourceJar
+  archives jar
+  archives sourcesJar
   archives javadocJar
 }
