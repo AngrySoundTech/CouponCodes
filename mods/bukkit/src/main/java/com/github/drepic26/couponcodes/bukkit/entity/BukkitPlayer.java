@@ -51,4 +51,8 @@ public class BukkitPlayer extends Player {
 		return bukkitPlayer;
 	}
 
+	public BukkitPlugin getPlugin() {
+		return plugin;
+	}
+
 }

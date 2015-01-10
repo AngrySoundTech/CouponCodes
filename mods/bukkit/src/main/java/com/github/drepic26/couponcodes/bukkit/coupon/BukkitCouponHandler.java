@@ -334,4 +334,7 @@ public class BukkitCouponHandler extends CouponHandler {
 		return pl;
 	}
 
+	public BukkitPlugin getPlugin() {
+		return plugin;
+	}
 }

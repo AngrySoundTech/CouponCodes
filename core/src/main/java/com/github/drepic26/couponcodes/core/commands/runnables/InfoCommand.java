@@ -11,7 +11,6 @@ import com.github.drepic26.couponcodes.core.coupon.ItemCoupon;
 import com.github.drepic26.couponcodes.core.coupon.RankCoupon;
 import com.github.drepic26.couponcodes.core.coupon.XpCoupon;
 import com.github.drepic26.couponcodes.core.util.Color;
-import com.github.drepic26.couponcodes.core.util.RandomName;
 
 public class InfoCommand implements Runnable {
 
