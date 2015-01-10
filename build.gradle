@@ -1,9 +1,9 @@
-// Apply to all modules
 allprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
 
-  group = 'com.github.drepic26.couponcodes'
+  group = 'com.github.drepic26'
+  archivesBaseName = "couponcodes"
   version = '3.0'
   project.ext.author = 'Drepic26'
 
@@ -13,7 +13,7 @@ allprojects {
         name 'Sponge maven repo'
         url 'http://repo.spongepowered.org/Sponge/maven'
     }
-	maven {
+    maven {
       name 'Bukkit maven repo'
       url 'http://repo.bukkit.org/content/groups/public/'
     }
@@ -25,12 +25,15 @@ allprojects {
       name 'Spigot maven repo'
       url 'https://hub.spigotmc.org/nexus/content/groups/public/'
     }
-	maven {
+    maven {
       name 'Plugin Metrics'
       url 'http://repo.mcstats.org/content/repositories/public'
     }
   }
 }
+
+apply plugin: 'signing'
+apply plugin: 'maven'
 
 dependencies {
   compile project(':core')
@@ -100,7 +103,7 @@ task sourcesJar(type: Jar) {
   from project(":mods:bukkit").sourceSets.main.java
   from project(":mods:sponge").sourceSets.main.java
   from project(":mods:granite").sourceSets.main.java
-  classifier = "source"
+  classifier = "sources"
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
@@ -125,4 +128,52 @@ artifacts {
   archives jar
   archives sourcesJar
   archives javadocJar
+}
+
+signing {
+  sign configurations.archives
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'CouponCodes'
+        packaging 'jar'
+        description 'A bukkit plugin for coupons'
+        url 'https://github.com/Drepic26/CouponCodes3'
+
+        scm {
+          url 'scm:git@github.com:Drepic26/CouponCodes3.git'
+          connection 'scm:git@github.com:Drepic26/CouponCodes3.git'
+          developerConnection 'scm:git@github.com:Drepic26/CouponCodes3.git'
+        }
+
+        licenses {
+          license {
+            name 'MIT license'
+            url 'http://opensource.org/licenses/MIT'
+            distribution 'repo'
+          }
+        }
+
+        developers {
+          developer {
+            id 'drepic26'
+            name 'Drepic26'
+          }
+        }
+      }
+    }
+  }
 }
