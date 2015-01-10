@@ -39,7 +39,6 @@ dependencies {
   compile project(':core')
   compile project(':mods:sponge')
   compile project(':mods:bukkit')
-  compile project(':mods:granite')
 }
 
 project(':core') {
@@ -84,25 +83,16 @@ project(':mods:bukkit') {
   }
 }
 
-project(':mods:granite') {
-  dependencies {
-    compile 'org.granitemc:graniteapi:0.2.0-SNAPSHOT'
-    compile project(':core')
-  }
-}
-
 jar {
   from { project(":core").sourceSets.main.output }
   from { project(":mods:bukkit").sourceSets.main.output }
   from { project(":mods:sponge").sourceSets.main.output }
-  from { project(":mods:granite").sourceSets.main.output }
 }
 
 task sourcesJar(type: Jar) {
   from project(":core").sourceSets.main.java
   from project(":mods:bukkit").sourceSets.main.java
   from project(":mods:sponge").sourceSets.main.java
-  from project(":mods:granite").sourceSets.main.java
   classifier = "sources"
 }
 
@@ -112,7 +102,6 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
   dependsOn ":core:javadoc"
   dependsOn ":mods:bukkit:javadoc"
   dependsOn ":mods:sponge:javadoc"
-  dependsOn ":mods:granite:javadoc"
 }
 
 javadoc {
@@ -120,7 +109,6 @@ javadoc {
   project("core").sourceSets.main.java,
   project(":mods:bukkit").sourceSets.main.java,
   project(":mods:sponge").sourceSets.main.java,
-  project(":mods:granite").sourceSets.main.java
   ]
 }
 
