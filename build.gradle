@@ -119,7 +119,9 @@ artifacts {
 }
 
 signing {
-  sign configurations.archives
+  if (project.hasProperty("ossrhUsername")) {
+    sign configurations.archives
+  }
 }
 
 uploadArchives {
