@@ -1,23 +1,48 @@
-// Apply to all modules
 allprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
-  group = 'com.github.drepic26.couponcodes'
 
+  group = 'com.github.drepic26'
+  archivesBaseName = "couponcodes"
   version = '3.0'
   project.ext.author = 'Drepic26'
+
+  repositories {
+    mavenCentral()
+    maven {
+        name 'Sponge maven repo'
+        url 'http://repo.spongepowered.org/maven'
+    }
+    maven {
+      name 'Bukkit maven repo'
+      url 'http://repo.bukkit.org/content/groups/public/'
+    }
+    maven {
+      name 'vault-repo'
+      url 'http://nexus.theyeticave.net/content/repositories/pub_releases'
+    }
+    maven{
+      name 'Spigot maven repo'
+      url 'https://hub.spigotmc.org/nexus/content/groups/public/'
+    }
+    maven {
+      name 'Plugin Metrics'
+      url 'http://repo.mcstats.org/content/repositories/public'
+    }
+  }
 }
+
+apply plugin: 'signing'
+apply plugin: 'maven'
 
 dependencies {
   compile project(':core')
   compile project(':mods:sponge')
   compile project(':mods:bukkit')
-  compile project(':mods:granite')
 }
 
 project(':core') {
   def filteredSourceDir = file("${buildDir}/filtered")
-
   sourceSets {
     filtered {
         java {
@@ -35,13 +60,6 @@ project(':core') {
 }
 
 project(':mods:sponge') {
-  repositories {
-    mavenCentral()
-    maven {
-        name 'Sponge maven repo'
-        url 'http://repo.spongepowered.org/Sponge/maven'
-    }
-  }
   dependencies {
     compile 'org.spongepowered:spongeapi:1.0'
     compile project(':core')
@@ -49,22 +67,11 @@ project(':mods:sponge') {
 }
 
 project(':mods:bukkit') {
-  repositories {
-    mavenCentral()
-    maven {
-      name 'Bukkit maven repo'
-      url 'http://repo.bukkit.org/content/groups/public/'
-    }
-	maven {
-	  name 'vault-repo'
-	  url 'http://nexus.theyeticave.net/content/repositories/pub_releases'
-	}
-	maven{
-	  name 'Spigot maven repo'
-	  url 'https://hub.spigotmc.org/nexus/content/groups/public/'
-	}
+  dependencies {
+    compile 'org.bukkit:bukkit:1.8-R0.1-SNAPSHOT'
+    compile 'net.milkbowl.vault:VaultAPI:1.5'
+    compile project(':core')
   }
-
   processResources {
     from(sourceSets.main.resources.srcDirs) {
       include 'plugin.yml'
@@ -74,58 +81,91 @@ project(':mods:bukkit') {
       exclude 'plugin.yml'
     }
   }
-
-  dependencies {
-    compile 'org.bukkit:bukkit:1.8-R0.1-SNAPSHOT'
-	compile 'net.milkbowl.vault:VaultAPI:1.5'
-    compile project(':core')
-  }
 }
 
-project(':mods:granite') {
-  repositories {
-    mavenCentral()
-	maven {
-	  name 'Plugin Metrics'
-	  url 'http://repo.mcstats.org/content/repositories/public'
-	}
-  }
-
-  dependencies {
-    compile 'org.granitemc:graniteapi:0.2.0-SNAPSHOT'
-    compile project(':core')
-  }
+jar {
+  from { project(":core").sourceSets.main.output }
+  from { project(":mods:bukkit").sourceSets.main.output }
+  from { project(":mods:sponge").sourceSets.main.output }
 }
 
-task spongeJar(type: Jar) {
-  from { project(':core').sourceSets.main.output }
-  from { project(':mods:sponge').sourceSets.main.output }
-  classifier = 'Sponge'
+task sourcesJar(type: Jar) {
+  from project(":core").sourceSets.main.java
+  from project(":mods:bukkit").sourceSets.main.java
+  from project(":mods:sponge").sourceSets.main.java
+  classifier = "sources"
 }
 
-task bukkitJar(type: Jar) {
-  from { project(':core').sourceSets.main.output }
-  from { project(':mods:bukkit').sourceSets.main.output }
-  classifier = 'Bukkit'
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  from javadoc.destinationDir
+  classifier = "javadoc"
+  dependsOn ":core:javadoc"
+  dependsOn ":mods:bukkit:javadoc"
+  dependsOn ":mods:sponge:javadoc"
 }
 
-task graniteJar(type: Jar) {
-  from { project(':core').sourceSets.main.output }
-  from { project(':mods:granite').sourceSets.main.output }
-  classifier = 'Granite'
-}
-
-task universalJar(type: Jar) {
-  from { project(':core').sourceSets.main.output }
-  from { project(':mods:sponge').sourceSets.main.output }
-  from { project(':mods:bukkit').sourceSets.main.output }
-  from { project(':mods:granite').sourceSets.main.output }
-  classifier = 'Universal'
+javadoc {
+  source = [
+  project("core").sourceSets.main.java,
+  project(":mods:bukkit").sourceSets.main.java,
+  project(":mods:sponge").sourceSets.main.java,
+  ]
 }
 
 artifacts {
-  archives spongeJar
-  archives bukkitJar
-  archives graniteJar
-  archives universalJar
+  archives jar
+  archives sourcesJar
+  archives javadocJar
+}
+
+signing {
+  if (project.hasProperty("ossrhUsername")) {
+    sign configurations.archives
+  }
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      if (project.hasProperty("ossrhUsername")) {
+        repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+          authentication(userName: ossrhUsername, password: ossrhPassword)
+        }
+
+        snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+          authentication(userName: ossrhUsername, password: ossrhPassword)
+        }
+      }
+
+      pom.project {
+        name 'CouponCodes'
+        packaging 'jar'
+        description 'A bukkit plugin for coupons'
+        url 'https://github.com/Drepic26/CouponCodes3'
+
+        scm {
+          url 'scm:git@github.com:Drepic26/CouponCodes3.git'
+          connection 'scm:git@github.com:Drepic26/CouponCodes3.git'
+          developerConnection 'scm:git@github.com:Drepic26/CouponCodes3.git'
+        }
+
+        licenses {
+          license {
+            name 'MIT license'
+            url 'http://opensource.org/licenses/MIT'
+            distribution 'repo'
+          }
+        }
+
+        developers {
+          developer {
+            id 'drepic26'
+            name 'Drepic26'
+          }
+        }
+      }
+    }
+  }
 }
