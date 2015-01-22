@@ -29,6 +29,11 @@ public class BukkitPlayer extends Player {
 	}
 
 	@Override
+	public String getUUID() {
+		return bukkitPlayer.getUniqueId().toString();
+	}
+
+	@Override
 	public void setLevel(int level) {
 		bukkitPlayer.setLevel(level);
 	}

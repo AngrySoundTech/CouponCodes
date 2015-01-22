@@ -124,7 +124,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 	}
 
 	public Player wrapPlayer(org.bukkit.entity.Player player) {
-		return transformer.getPlayer(player.getName());
+		return transformer.getPlayer(player.getUniqueId().toString());
 	}
 
 	public ServerModTransformer getTransformer() {

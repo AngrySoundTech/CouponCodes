@@ -39,8 +39,8 @@ public class RedeemCommand implements Runnable{
 			}
 			if (coupon.getUsedPlayers() != null) {
 				if (!coupon.getUsedPlayers().isEmpty()) {
-					if (coupon.getUsedPlayers().containsKey(sender.getName())) {
-						if (coupon.getUsedPlayers().get(sender.getName())) {
+					if (coupon.getUsedPlayers().containsKey(sender.getUUID())) {
+						if (coupon.getUsedPlayers().get(sender.getUUID())) {
 							sender.sendMessage(Color.RED+"You have already used this coupon");
 							return;
 						}
@@ -72,7 +72,7 @@ public class RedeemCommand implements Runnable{
 					return;
 				} else {
 					EconomyCoupon c = (EconomyCoupon) coupon;
-					ServerModTransformer.getInstance().getEconomyHandler().giveMoney(sender.getName(), c.getMoney());
+					ServerModTransformer.getInstance().getEconomyHandler().giveMoney(sender.getUUID(), c.getMoney());
 					sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+c.getName()+Color.GREEN+" has been redeemed, and the money added to your account!");
 				}
 			} else
@@ -95,7 +95,7 @@ public class RedeemCommand implements Runnable{
 			}
 
 			HashMap<String, Boolean> up = coupon.getUsedPlayers();
-			up.put(sender.getName(), true);
+			up.put(sender.getUUID(), true);
 			coupon.setUsedPlayers(up);
 			coupon.setUseTimes(coupon.getUseTimes()-1);
 			ServerModTransformer.getInstance().getCouponHandler().updateCoupon(coupon);

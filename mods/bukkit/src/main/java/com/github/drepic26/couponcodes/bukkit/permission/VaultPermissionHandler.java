@@ -3,6 +3,7 @@ package com.github.drepic26.couponcodes.bukkit.permission;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -30,7 +31,7 @@ public class VaultPermissionHandler extends SuperPermsPermissionHandler {
 	@Override
 	public boolean hasPermission(Player player, String node) {
 		if (isEnabled()) {
-			org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(player.getName());
+			org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
 			return permission.has(bukkitPlayer, node);
 		}
 		return false;
@@ -40,7 +41,7 @@ public class VaultPermissionHandler extends SuperPermsPermissionHandler {
 	public Set<String> getGroups(Player player) {
 		Set<String> groups = new HashSet<String>();
 		if(isEnabled()) {
-			org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(player.getName());
+			org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
 			try {
 				String[] vaultGroups = permission.getPlayerGroups(bukkitPlayer);
 

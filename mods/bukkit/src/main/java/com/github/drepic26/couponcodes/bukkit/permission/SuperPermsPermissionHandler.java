@@ -2,6 +2,7 @@ package com.github.drepic26.couponcodes.bukkit.permission;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.permissions.PermissionAttachmentInfo;
@@ -25,13 +26,13 @@ public class SuperPermsPermissionHandler extends PermissionHandler {
 
 	@Override
 	public boolean hasPermission(Player player, String node) {
-		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(player.getName());
+		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
 		return bukkitPlayer != null && bukkitPlayer.hasPermission(node);
 	}
 
 	@Override
 	public Set<String> getGroups(Player player) {
-		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(player.getName());
+		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
 		Set<String> groups = new HashSet<String>();
 
 		for (PermissionAttachmentInfo pai : bukkitPlayer.getEffectivePermissions()) {
