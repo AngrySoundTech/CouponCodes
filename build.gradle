@@ -69,6 +69,7 @@ project(':core') {
 project(':mods:sponge') {
   dependencies {
     compile 'org.spongepowered:spongeapi:1.0'
+    compile project(':api')
     compile project(':core')
   }
 }
@@ -77,6 +78,7 @@ project(':mods:bukkit') {
   dependencies {
     compile 'org.bukkit:bukkit:1.8-R0.1-SNAPSHOT'
     compile 'net.milkbowl.vault:VaultAPI:1.5'
+    compile project(':api')
     compile project(':core')
   }
   processResources {
