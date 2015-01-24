@@ -26,6 +26,10 @@ public class BukkitConfigHandler {
 		return config.getBoolean("debug", false);
 	}
 
+	public boolean getUseMetrics() {
+		return config.getBoolean("use-metrics", true);
+	}
+
 	public String getSQLValue() {
 		return config.getString("sql-type");
 	}
