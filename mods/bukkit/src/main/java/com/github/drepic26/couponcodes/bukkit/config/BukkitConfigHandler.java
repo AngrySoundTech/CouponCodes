@@ -30,6 +30,10 @@ public class BukkitConfigHandler {
 		return config.getBoolean("use-metrics", true);
 	}
 
+	public boolean getAutoUpdate() {
+		return config.getBoolean("auto-update", true);
+	}
+
 	public String getSQLValue() {
 		return config.getString("sql-type");
 	}
