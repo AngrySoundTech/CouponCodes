@@ -8,4 +8,6 @@ public interface CommandSender {
 
 	public String getName();
 
+	public String getUUID();
+
 }

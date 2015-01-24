@@ -25,16 +25,16 @@ public abstract class ServerModTransformer {
 	/**
 	 * Gets the player from the server mod
 	 */
-	protected abstract Player getModPlayer(String name);
+	protected abstract Player getModPlayer(String UUID);
 
 	/**
 	 * Gets a player. If we have not gotten them yet, we get them from the server
 	 */
-	public Player getPlayer(String name){ 
-		if (players.containsKey(name)) return players.get(name);
-		Player player = getModPlayer(name);
+	public Player getPlayer(String UUID) {
+		if (players.containsKey(UUID)) return players.get(UUID);
+		Player player = getModPlayer(UUID);
 		if (player != null) {
-			players.put(name, player);
+			players.put(UUID, player);
 			return player;
 		}
 		return player;

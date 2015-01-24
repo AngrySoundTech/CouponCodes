@@ -16,6 +16,10 @@ public abstract class Player implements CommandSender {
 		return null;
 	}
 
+	public String getUUID() {
+		return null;
+	}
+
 	public abstract void setLevel(int level);
 
 	public abstract int getLevel();
