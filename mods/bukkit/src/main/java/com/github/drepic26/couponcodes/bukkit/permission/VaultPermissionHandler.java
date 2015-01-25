@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-import com.github.drepic26.couponcodes.core.entity.Player;
+import com.github.drepic26.couponcodes.api.entity.Player;
 
 public class VaultPermissionHandler extends SuperPermsPermissionHandler {
 

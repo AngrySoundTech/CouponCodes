@@ -1,6 +1,8 @@
 package com.github.drepic26.couponcodes.api.entity;
 
-public interface Player {
+import com.github.drepic26.couponcodes.api.command.CommandSender;
+
+public interface Player extends CommandSender {
 
 	public String getName();
 

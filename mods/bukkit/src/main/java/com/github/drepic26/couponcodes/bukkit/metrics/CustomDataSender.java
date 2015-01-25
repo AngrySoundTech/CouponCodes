@@ -1,12 +1,13 @@
 package com.github.drepic26.couponcodes.bukkit.metrics;
 
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.coupon.CouponHandler;
 import com.github.drepic26.couponcodes.bukkit.BukkitPlugin;
 import com.github.drepic26.couponcodes.bukkit.coupon.BukkitCouponHandler;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
 import com.github.drepic26.couponcodes.bukkit.database.options.SQLiteOptions;
 import com.github.drepic26.couponcodes.bukkit.metrics.Metrics.Graph;
 import com.github.drepic26.couponcodes.core.ServerModTransformer;
-import com.github.drepic26.couponcodes.core.coupon.CouponHandler;
 
 public class CustomDataSender implements Runnable {
 
@@ -17,7 +18,7 @@ public class CustomDataSender implements Runnable {
 	public CustomDataSender(BukkitPlugin plugin, Metrics metrics) {
 		this.plugin = plugin;
 		this.metrics = metrics;
-		this.ch = ServerModTransformer.getInstance().getCouponHandler();
+		this.ch = CouponCodes.getCouponHandler();
 	}
 
 	@Override

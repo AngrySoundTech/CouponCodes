@@ -4,7 +4,7 @@ allprojects {
 
   group = 'com.github.drepic26'
   archivesBaseName = "couponcodes"
-  version = '3.0.1'
+  version = '3.0.2'
   project.ext.author = 'Drepic26'
 
   repositories {

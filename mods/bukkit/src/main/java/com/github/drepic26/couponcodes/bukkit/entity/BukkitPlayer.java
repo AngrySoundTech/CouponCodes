@@ -3,10 +3,10 @@ package com.github.drepic26.couponcodes.bukkit.entity;
 import org.bukkit.inventory.ItemStack;
 
 import com.github.drepic26.couponcodes.bukkit.BukkitPlugin;
-import com.github.drepic26.couponcodes.core.entity.Player;
+import com.github.drepic26.couponcodes.core.entity.SimplePlayer;
 import com.github.drepic26.couponcodes.core.util.Color;
 
-public class BukkitPlayer extends Player {
+public class BukkitPlayer extends SimplePlayer {
 
 	private final BukkitPlugin plugin;
 	private final org.bukkit.entity.Player bukkitPlayer;
@@ -16,7 +16,6 @@ public class BukkitPlayer extends Player {
 		this.bukkitPlayer = bukkitPlayer;
 	}
 
-	@Override
 	public void sendMessage(String message) {
 		for (String line : message.split("\n")) {
 			bukkitPlayer.sendMessage(Color.replaceColors(line));

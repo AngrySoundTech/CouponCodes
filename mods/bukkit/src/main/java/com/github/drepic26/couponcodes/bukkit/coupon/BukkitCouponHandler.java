@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 
+import com.github.drepic26.couponcodes.api.command.CommandSender;
 import com.github.drepic26.couponcodes.api.coupon.Coupon;
 import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
 import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
@@ -19,8 +20,11 @@ import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
 import com.github.drepic26.couponcodes.bukkit.BukkitPlugin;
 import com.github.drepic26.couponcodes.bukkit.database.SQLDatabaseHandler;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
-import com.github.drepic26.couponcodes.core.commands.CommandSender;
 import com.github.drepic26.couponcodes.core.coupon.SimpleCouponHandler;
+import com.github.drepic26.couponcodes.core.coupon.SimpleEconomyCoupon;
+import com.github.drepic26.couponcodes.core.coupon.SimpleItemCoupon;
+import com.github.drepic26.couponcodes.core.coupon.SimpleRankCoupon;
+import com.github.drepic26.couponcodes.core.coupon.SimpleXpCoupon;
 
 public class BukkitCouponHandler extends SimpleCouponHandler {
 
@@ -257,22 +261,22 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 
 	@Override
 	public ItemCoupon createNewItemCoupon(String name, int usetimes, int time, HashMap<Integer, Integer> ids, HashMap<String, Boolean> usedplayers) {
-		return new ItemCoupon(name, usetimes, time, usedplayers, ids);
+		return new SimpleItemCoupon(name, usetimes, time, usedplayers, ids);
 	}
 
 	@Override
 	public EconomyCoupon createNewEconomyCoupon(String name, int usetimes, int time, HashMap<String, Boolean> usedplayers, int money) {
-		return new EconomyCoupon(name, usetimes, time, usedplayers, money);
+		return new SimpleEconomyCoupon(name, usetimes, time, usedplayers, money);
 	}
 
 	@Override
 	public RankCoupon createNewRankCoupon(String name, String group, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
-		return new RankCoupon(name, group, usetimes, time, usedplayers);
+		return new SimpleRankCoupon(name, group, usetimes, time, usedplayers);
 	}
 
 	@Override
 	public XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
-		return new XpCoupon(name, usetimes, time, usedplayers, xp);
+		return new SimpleXpCoupon(name, usetimes, time, usedplayers, xp);
 	}
 
 	public HashMap<Integer, Integer> convertStringToHash(String args, CommandSender sender) {

@@ -4,10 +4,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
+import com.github.drepic26.couponcodes.api.command.Command;
+import com.github.drepic26.couponcodes.api.entity.Player;
 import com.github.drepic26.couponcodes.bukkit.BukkitPlugin;
-import com.github.drepic26.couponcodes.core.commands.Command;
 import com.github.drepic26.couponcodes.core.commands.CommandException;
-import com.github.drepic26.couponcodes.core.entity.Player;
 
 public class BukkitListener implements Listener {
 

@@ -6,7 +6,7 @@ import com.github.drepic26.couponcodes.api.entity.Player;
 
 public interface PermissionHandler {
 
-	public boolean getName();
+	public String getName();
 
 	public boolean isEnabled();
 

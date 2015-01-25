@@ -13,6 +13,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.ModTransformer;
+import com.github.drepic26.couponcodes.api.entity.Player;
 import com.github.drepic26.couponcodes.bukkit.commands.BukkitCommandHandler;
 import com.github.drepic26.couponcodes.bukkit.config.BukkitConfigHandler;
 import com.github.drepic26.couponcodes.bukkit.coupon.BukkitCouponHandler;
@@ -27,16 +30,14 @@ import com.github.drepic26.couponcodes.bukkit.metrics.Metrics;
 import com.github.drepic26.couponcodes.bukkit.permission.SuperPermsPermissionHandler;
 import com.github.drepic26.couponcodes.bukkit.permission.VaultPermissionHandler;
 import com.github.drepic26.couponcodes.bukkit.updater.Updater;
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
 import com.github.drepic26.couponcodes.core.commands.CommandHandler;
-import com.github.drepic26.couponcodes.core.entity.Player;
 
 public class BukkitPlugin extends JavaPlugin implements Listener {
 
 	private Logger logger = null;
 	private Metrics metrics;
 
-	private ServerModTransformer transformer = new BukkitServerModTransformer(this);
+	private ModTransformer transformer = new BukkitServerModTransformer(this);
 	private final CommandHandler commandHandler = new BukkitCommandHandler();
 	private BukkitConfigHandler configHandler;
 	private SQLDatabaseHandler databaseHandler;
@@ -66,7 +67,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 		try {
 			databaseHandler.open();
 			databaseHandler.createTable("CREATE TABLE IF NOT EXISTS couponcodes (name VARCHAR(24), ctype VARCHAR(10), usetimes INT(10), usedplayers TEXT(1024), ids VARCHAR(255), money INT(10), groupname VARCHAR(20), timeuse INT(100), xp INT(10))");
-			transformer.setCouponHandler(new BukkitCouponHandler(this, databaseHandler));
+			CouponCodes.setCouponHandler(new BukkitCouponHandler(this, databaseHandler));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.severe("Database could not be setup. CouponCodes will now disable");
@@ -79,7 +80,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 			logger.info("Vault could not be found. Economy and Rank coupons will be disabled.");
 		} else {
 			logger.info("Vault support is enabled.");
-			transformer.setEconomyHandler(new VaultEconomyHandler(econ, perm));
+			CouponCodes.setEconomyHandler(new VaultEconomyHandler(econ, perm));
 		}
 
 		// Events
@@ -87,9 +88,9 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 
 		// Permissions
 		if (getServer().getPluginManager().getPlugin("Vault") != null) {
-			transformer.setPermissionHandler(new VaultPermissionHandler());
+			CouponCodes.setPermissionHandler(new VaultPermissionHandler());
 		} else {
-			transformer.setPermissionHandler(new SuperPermsPermissionHandler());
+			CouponCodes.setPermissionHandler(new SuperPermsPermissionHandler());
 		}
 
 		// Timer
@@ -146,7 +147,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 		return transformer.getPlayer(player.getUniqueId().toString());
 	}
 
-	public ServerModTransformer getTransformer() {
+	public ModTransformer getTransformer() {
 		return transformer;
 	}
 

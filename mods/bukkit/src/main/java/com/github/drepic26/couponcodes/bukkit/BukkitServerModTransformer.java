@@ -4,9 +4,9 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 
+import com.github.drepic26.couponcodes.api.entity.Player;
 import com.github.drepic26.couponcodes.bukkit.entity.BukkitPlayer;
 import com.github.drepic26.couponcodes.core.ServerModTransformer;
-import com.github.drepic26.couponcodes.core.entity.Player;
 
 public class BukkitServerModTransformer extends ServerModTransformer {
 

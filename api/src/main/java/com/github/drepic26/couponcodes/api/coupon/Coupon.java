@@ -52,10 +52,10 @@ public interface Coupon {
 	/**
 	 * @return Time before the coupon expires, in seconds
 	 */
-	public int  getTime();
+	public int getTime();
 
 	/**
-	 * @param Time to set the coupon before it expires
+	 * @param time Time to set the coupon before it expires
 	 */
 	public void setTime(int time);
 
