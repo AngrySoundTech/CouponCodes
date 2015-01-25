@@ -36,11 +36,13 @@ public interface CouponHandler {
 	public RankCoupon createNewRankCoupon(String name, String group, int usetimes, int time, HashMap<String, Boolean> usedplayers);
 
 	public XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers);
-	
-	public HashMap<Integer, Integer> convertStringToHash(String args, CommandSender sender);
 
-	public String convertHashToString2(HashMap<String, Boolean> hash);
+	public String itemHashToString(HashMap<Integer, Integer> hash);
 
-	public String convertHashToString(HashMap<Integer, Integer> hash);
+	public HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender);
+
+	public String playerHashToString(HashMap<String, Boolean> hash);
+
+	public HashMap<String, Boolean> playerStringToHash(String args);
 
 }

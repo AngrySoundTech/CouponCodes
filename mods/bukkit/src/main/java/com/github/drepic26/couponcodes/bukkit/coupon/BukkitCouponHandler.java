@@ -54,8 +54,8 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 				p.setString(1, c.getName());
 				p.setString(2, c.getType());
 				p.setInt(3, c.getUseTimes());
-				p.setString(4, convertHashToString2(c.getUsedPlayers()));
-				p.setString(5, convertHashToString(c.getIDs()));
+				p.setString(4, playerHashToString(c.getUsedPlayers()));
+				p.setString(5, itemHashToString(c.getIDs()));
 				p.setInt(6, c.getTime());
 			} else
 
@@ -65,7 +65,7 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 				p.setString(1, c.getName());
 				p.setString(2, c.getType());
 				p.setInt(3, c.getUseTimes());
-				p.setString(4, convertHashToString2(c.getUsedPlayers()));
+				p.setString(4, playerHashToString(c.getUsedPlayers()));
 				p.setInt(5, c.getMoney());
 				p.setInt(6, c.getTime());
 			} else
@@ -76,7 +76,7 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 				p.setString(1, c.getName());
 				p.setString(2, c.getType());
 				p.setInt(3, c.getUseTimes());
-				p.setString(4, convertHashToString2(c.getUsedPlayers()));
+				p.setString(4, playerHashToString(c.getUsedPlayers()));
 				p.setString(5, c.getGroup());
 				p.setInt(6, c.getTime());
 			} else
@@ -87,7 +87,7 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 				p.setString(1, c.getName());
 				p.setString(2, c.getType());
 				p.setInt(3, c.getUseTimes());
-				p.setString(4, convertHashToString2(c.getUsedPlayers()));
+				p.setString(4, playerHashToString(c.getUsedPlayers()));
 				p.setInt(5, c.getTime());
 				p.setInt(6, c.getXp());
 			}
@@ -154,11 +154,11 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 	public void updateCoupon(Coupon coupon) {
 		try {
 			databaseHandler.query("UPDATE couponcodes SET usetimes='"+coupon.getUseTimes()+"' WHERE name='"+coupon.getName()+"'");
-			databaseHandler.query("UPDATE couponcodes SET usedplayers='"+convertHashToString2(coupon.getUsedPlayers())+"' WHERE name='"+coupon.getName()+"'");
+			databaseHandler.query("UPDATE couponcodes SET usedplayers='"+playerHashToString(coupon.getUsedPlayers())+"' WHERE name='"+coupon.getName()+"'");
 			databaseHandler.query("UPDATE couponcodes SET timeuse='"+coupon.getTime()+"' WHERE name='"+coupon.getName()+"'");
 
 			if (coupon instanceof ItemCoupon)
-				databaseHandler.query("UPDATE couponcodes SET ids='"+convertHashToString(((ItemCoupon) coupon).getIDs())+"' WHERE name='"+coupon.getName()+"'");
+				databaseHandler.query("UPDATE couponcodes SET ids='"+itemHashToString(((ItemCoupon) coupon).getIDs())+"' WHERE name='"+coupon.getName()+"'");
 			else if (coupon instanceof EconomyCoupon)
 				databaseHandler.query("UPDATE couponcodes SET money='"+((EconomyCoupon) coupon).getMoney()+"' WHERE name='"+coupon.getName()+"'");
 			else if (coupon instanceof RankCoupon)
@@ -187,10 +187,10 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 			if (databaseHandler.getDatabaseOptions() instanceof MySQLOptions) rs.first();
 			int usetimes = rs.getInt("usetimes");
 			int time = rs.getInt("timeuse");
-			HashMap<String, Boolean> usedplayers = convertStringToHash2(rs.getString("usedplayers"));
+			HashMap<String, Boolean> usedplayers = playerStringToHash(rs.getString("usedplayers"));
 
 			if (rs.getString("ctype").equalsIgnoreCase("Item"))
-				return createNewItemCoupon(coupon, usetimes, time, convertStringToHash(rs.getString("ids"), null), usedplayers);
+				return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(rs.getString("ids"), null), usedplayers);
 			else if (rs.getString("ctype").equalsIgnoreCase("Economy"))
 				return createNewEconomyCoupon(coupon, usetimes, time, usedplayers, rs.getInt("money"));
 			else if (rs.getString("ctype").equalsIgnoreCase("Rank"))
@@ -279,7 +279,8 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 		return new SimpleXpCoupon(name, usetimes, time, usedplayers, xp);
 	}
 
-	public HashMap<Integer, Integer> convertStringToHash(String args, CommandSender sender) {
+	@Override
+	public HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender) {
 		HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
 		String[] sp = args.split(",");
 		try {
@@ -303,42 +304,8 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 		return ids;
 	}
 
-	public String convertHashToString(HashMap<Integer, Integer> hash) {
-		StringBuilder sb = new StringBuilder();
-		for (Map.Entry<Integer, Integer> en : hash.entrySet()) {
-			sb.append(en.getKey()+":"+en.getValue()+",");
-		}
-		sb.deleteCharAt(sb.length()-1);
-		return sb.toString();
-	}
-
-	public String convertHashToString2(HashMap<String, Boolean> hash) {
-		if (hash.isEmpty() || hash == null || hash.size() < 1) return "";
-		StringBuilder sb = new StringBuilder();
-		for (Map.Entry<String, Boolean> en : hash.entrySet()) {
-			sb.append(en.getKey()+":"+en.getValue()+",");
-		}
-		sb.deleteCharAt(sb.length()-1);
-		return sb.toString();
-	}
-
-	public HashMap<String, Boolean> convertStringToHash2(String args) {
-		HashMap<String, Boolean> pl = new HashMap<String, Boolean>();
-		if (args.equals(null) || args.length() < 1) return pl;
-		String[] sp = args.split(",");
-		try {
-			for (int i = 0; i < sp.length; i++) {
-				String a = String.valueOf(sp[i].split(":")[0]);
-				Boolean b = Boolean.valueOf(sp[i].split(":")[1]);
-				pl.put(a, b);
-			}
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		return pl;
-	}
-
 	public BukkitPlugin getPlugin() {
 		return plugin;
 	}
+
 }
