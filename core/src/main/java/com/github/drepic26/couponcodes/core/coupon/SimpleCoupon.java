@@ -8,7 +8,6 @@ import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
 import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
 import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
 import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
 
 public class SimpleCoupon implements Coupon {
 

@@ -11,7 +11,6 @@ import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
 import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
 import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
 import com.github.drepic26.couponcodes.api.entity.Player;
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
 import com.github.drepic26.couponcodes.core.commands.CommandUsage;
 import com.github.drepic26.couponcodes.core.util.Color;
 

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import com.github.drepic26.couponcodes.api.command.CommandSender;
 
 public interface CouponHandler {
-	
+
 	public boolean addCouponToDatabase(Coupon coupon);
 
 	public boolean removeCouponFromDatabase(Coupon coupon);
