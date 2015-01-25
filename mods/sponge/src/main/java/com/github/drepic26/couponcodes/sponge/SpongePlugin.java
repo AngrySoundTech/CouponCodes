@@ -8,8 +8,8 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.util.event.Subscribe;
 
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
-import com.github.drepic26.couponcodes.core.entity.Player;
+import com.github.drepic26.couponcodes.api.ModTransformer;
+import com.github.drepic26.couponcodes.api.entity.Player;
 import com.github.drepic26.couponcodes.core.util.CouponCodesProperties;
 
 @Plugin(id = "couponcodes", name = "CouponCodes", version = CouponCodesProperties.VERSION)
@@ -19,7 +19,7 @@ public class SpongePlugin {
 
 	private Game game;
 	private Logger logger;
-	private ServerModTransformer transformer;
+	private ModTransformer transformer;
 
 	@Subscribe
 	public void onEnable(ServerStartingEvent event) {
@@ -40,7 +40,7 @@ public class SpongePlugin {
 	}
 
 	public Player wrapPlayer(org.spongepowered.api.entity.player.Player spongePlayer) {
-		return transformer.getPlayer(spongePlayer.getName());
+		return transformer.getPlayer(spongePlayer.getUniqueId().toString());
 	}
 
 	public Game getGame() {
