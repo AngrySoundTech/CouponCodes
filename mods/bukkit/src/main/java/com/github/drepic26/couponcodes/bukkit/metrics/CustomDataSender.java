@@ -7,7 +7,6 @@ import com.github.drepic26.couponcodes.bukkit.coupon.BukkitCouponHandler;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
 import com.github.drepic26.couponcodes.bukkit.database.options.SQLiteOptions;
 import com.github.drepic26.couponcodes.bukkit.metrics.Metrics.Graph;
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
 
 public class CustomDataSender implements Runnable {
 
