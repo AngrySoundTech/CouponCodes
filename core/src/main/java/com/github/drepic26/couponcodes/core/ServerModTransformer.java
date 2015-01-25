@@ -3,36 +3,40 @@ package com.github.drepic26.couponcodes.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.drepic26.couponcodes.core.coupon.CouponHandler;
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.ModTransformer;
+import com.github.drepic26.couponcodes.api.coupon.CouponHandler;
 import com.github.drepic26.couponcodes.core.economy.EconomyHandler;
-import com.github.drepic26.couponcodes.core.entity.Player;
-import com.github.drepic26.couponcodes.core.permission.PermissionHandler;
+import com.github.drepic26.couponcodes.core.entity.SimplePlayer;
+import com.github.drepic26.couponcodes.core.permission.SimplePermissionHandler;
 
-public abstract class ServerModTransformer {
-	
-	private static ServerModTransformer instance = null;
+public abstract class ServerModTransformer implements ModTransformer {
 
-	private PermissionHandler permissionHandler = null;
-	private CouponHandler couponHandler = null;
+	private SimplePermissionHandler permissionHandler;
+	private CouponHandler couponHandler;
 
-	private EconomyHandler economyHandler = null;
+	private EconomyHandler economyHandler;
 
 	/**
 	 * Map of Players
 	 */
-	protected final Map<String, Player> players = new HashMap<String, Player>();
+	protected final Map<String, SimplePlayer> players = new HashMap<String, SimplePlayer>();
+	
+	public ServerModTransformer() {
+		CouponCodes.setModTransformer(this);
+	}
 
 	/**
 	 * Gets the player from the server mod
 	 */
-	protected abstract Player getModPlayer(String name);
+	protected abstract SimplePlayer getModPlayer(String name);
 
 	/**
 	 * Gets a player. If we have not gotten them yet, we get them from the server
 	 */
-	public Player getPlayer(String name){ 
+	public SimplePlayer getPlayer(String name){ 
 		if (players.containsKey(name)) return players.get(name);
-		Player player = getModPlayer(name);
+		SimplePlayer player = getModPlayer(name);
 		if (player != null) {
 			players.put(name, player);
 			return player;
@@ -42,25 +46,11 @@ public abstract class ServerModTransformer {
 
 	public abstract void scheduleRunnable(Runnable runnable);
 
-	/**
-	 * Gets the current instance
-	 */
-	public static ServerModTransformer getInstance() {
-		return instance;
-	}
-
-	/**
-	 * Sets the instance
-	 */
-	protected static void setInstance(ServerModTransformer inst) {
-		instance = inst;
-	}
-
-	public PermissionHandler getPermissionHandler() {
+	public SimplePermissionHandler getPermissionHandler() {
 		return permissionHandler;
 	}
 
-	public void setPermissionHandler(PermissionHandler permissionHandler) {
+	public void setPermissionHandler(SimplePermissionHandler permissionHandler) {
 		this.permissionHandler = permissionHandler;
 	}
 

@@ -3,6 +3,7 @@ package com.github.drepic26.couponcodes.bukkit.coupon;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.github.drepic26.couponcodes.api.ModTransformer;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
 import com.github.drepic26.couponcodes.core.ServerModTransformer;
 import com.github.drepic26.couponcodes.core.coupon.Coupon;
@@ -14,7 +15,7 @@ public class BukkitCouponTimer implements Runnable {
 	private Coupon c;
 
 	public BukkitCouponTimer() {
-		ch = (BukkitCouponHandler) ServerModTransformer.getInstance().getCouponHandler();
+		ch = (BukkitCouponHandler) ModTransformer.getInstance().getCouponHandler();
 
 		// Make sure SQL is open
 		if (ch.getDatabaseHandler().getDatabaseOptions() instanceof MySQLOptions) {

@@ -11,18 +11,18 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 
+import com.github.drepic26.couponcodes.api.coupon.Coupon;
+import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
+import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
+import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
+import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
 import com.github.drepic26.couponcodes.bukkit.BukkitPlugin;
 import com.github.drepic26.couponcodes.bukkit.database.SQLDatabaseHandler;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
 import com.github.drepic26.couponcodes.core.commands.CommandSender;
-import com.github.drepic26.couponcodes.core.coupon.Coupon;
-import com.github.drepic26.couponcodes.core.coupon.CouponHandler;
-import com.github.drepic26.couponcodes.core.coupon.EconomyCoupon;
-import com.github.drepic26.couponcodes.core.coupon.ItemCoupon;
-import com.github.drepic26.couponcodes.core.coupon.RankCoupon;
-import com.github.drepic26.couponcodes.core.coupon.XpCoupon;
+import com.github.drepic26.couponcodes.core.coupon.SimpleCouponHandler;
 
-public class BukkitCouponHandler extends CouponHandler {
+public class BukkitCouponHandler extends SimpleCouponHandler {
 
 	private BukkitPlugin plugin;
 	private SQLDatabaseHandler databaseHandler;

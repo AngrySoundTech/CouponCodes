@@ -2,8 +2,8 @@ package com.github.drepic26.couponcodes.core.commands.runnables;
 
 import java.util.ArrayList;
 
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
-import com.github.drepic26.couponcodes.core.commands.CommandSender;
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.command.CommandSender;
 import com.github.drepic26.couponcodes.core.util.Color;
 
 public class ListCommand implements Runnable {
@@ -17,7 +17,7 @@ public class ListCommand implements Runnable {
 	@Override
 	public void run() {
 		StringBuilder sb = new StringBuilder();
-			ArrayList<String> c = ServerModTransformer.getInstance().getCouponHandler().getCoupons();
+			ArrayList<String> c = CouponCodes.getCouponHandler().getCoupons();
 			if (c.isEmpty() || c.size() <= 0 || c == null) {
 				sender.sendMessage(Color.RED+"No coupons found.");
 				return;

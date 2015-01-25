@@ -2,13 +2,13 @@ package com.github.drepic26.couponcodes.core.commands.runnables;
 
 import java.util.HashMap;
 
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
-import com.github.drepic26.couponcodes.core.commands.CommandSender;
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.command.CommandSender;
+import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
+import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
+import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
+import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
 import com.github.drepic26.couponcodes.core.commands.CommandUsage;
-import com.github.drepic26.couponcodes.core.coupon.EconomyCoupon;
-import com.github.drepic26.couponcodes.core.coupon.ItemCoupon;
-import com.github.drepic26.couponcodes.core.coupon.RankCoupon;
-import com.github.drepic26.couponcodes.core.coupon.XpCoupon;
 import com.github.drepic26.couponcodes.core.util.Color;
 import com.github.drepic26.couponcodes.core.util.RandomName;
 
@@ -45,7 +45,7 @@ public class AddCommand implements Runnable {
 						return;
 					}
 
-					ItemCoupon ic = ServerModTransformer.getInstance().getCouponHandler().createNewItemCoupon(name, usetimes, time, ServerModTransformer.getInstance().getCouponHandler().convertStringToHash(args[3], sender), new HashMap<String, Boolean>());
+					ItemCoupon ic = CouponCodes.getCouponHandler().createNewItemCoupon(name, usetimes, time, CouponCodes.getCouponHandler().convertStringToHash(args[3], sender), new HashMap<String, Boolean>());
 
 					if (ic.addToDatabase()) {
 						sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+name+Color.GREEN+" has been added!");
@@ -81,7 +81,7 @@ public class AddCommand implements Runnable {
 						return;
 					}
 
-					EconomyCoupon ec = ServerModTransformer.getInstance().getCouponHandler().createNewEconomyCoupon(name, usetimes, time, new HashMap<String, Boolean>(), money);
+					EconomyCoupon ec = CouponCodes.getCouponHandler().createNewEconomyCoupon(name, usetimes, time, new HashMap<String, Boolean>(), money);
 
 					if (ec.addToDatabase()) {
 						sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+name+Color.GREEN+" has been added!");
@@ -117,7 +117,7 @@ public class AddCommand implements Runnable {
 						return;
 					}
 
-					RankCoupon rc = ServerModTransformer.getInstance().getCouponHandler().createNewRankCoupon(name, group, usetimes, time, new HashMap<String, Boolean>());
+					RankCoupon rc = CouponCodes.getCouponHandler().createNewRankCoupon(name, group, usetimes, time, new HashMap<String, Boolean>());
 
 					if (rc.addToDatabase()) {
 						sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+name+Color.GREEN+" has been added!");
@@ -152,7 +152,7 @@ public class AddCommand implements Runnable {
 						return;
 					}
 
-					XpCoupon xc = ServerModTransformer.getInstance().getCouponHandler().createNewXpCoupon(name, xp, usetimes, time, new HashMap<String, Boolean>());
+					XpCoupon xc = CouponCodes.getCouponHandler().createNewXpCoupon(name, xp, usetimes, time, new HashMap<String, Boolean>());
 
 					if (xc.addToDatabase()) {
 						sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+name+Color.GREEN+" has been added!");

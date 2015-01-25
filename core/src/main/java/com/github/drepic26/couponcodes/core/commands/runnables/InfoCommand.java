@@ -3,13 +3,13 @@ package com.github.drepic26.couponcodes.core.commands.runnables;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
-import com.github.drepic26.couponcodes.core.commands.CommandSender;
-import com.github.drepic26.couponcodes.core.coupon.Coupon;
-import com.github.drepic26.couponcodes.core.coupon.EconomyCoupon;
-import com.github.drepic26.couponcodes.core.coupon.ItemCoupon;
-import com.github.drepic26.couponcodes.core.coupon.RankCoupon;
-import com.github.drepic26.couponcodes.core.coupon.XpCoupon;
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.command.CommandSender;
+import com.github.drepic26.couponcodes.api.coupon.Coupon;
+import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
+import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
+import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
+import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
 import com.github.drepic26.couponcodes.core.util.Color;
 
 public class InfoCommand implements Runnable {
@@ -25,7 +25,7 @@ public class InfoCommand implements Runnable {
 	@Override
 	public void run() {
 		if (args.length == 2) {
-			Coupon c = ServerModTransformer.getInstance().getCouponHandler().getCoupon(args[1]);
+			Coupon c = CouponCodes.getCouponHandler().getCoupon(args[1]);
 			if (c != null) {
 				sender.sendMessage(Color.GOLD+"|----------------------|");
 				sender.sendMessage(Color.GOLD+"|---"+Color.DARK_RED+"Coupon "+Color.YELLOW+c.getName()+Color.DARK_RED+" info"+Color.GOLD+"---|");
@@ -40,9 +40,9 @@ public class InfoCommand implements Runnable {
 				if (c.getUsedPlayers().isEmpty())
 					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.PURPLE+"None");
 				else
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.PURPLE+ServerModTransformer.getInstance().getCouponHandler().convertHashToString2(c.getUsedPlayers()));
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.PURPLE+CouponCodes.getCouponHandler().convertHashToString2(c.getUsedPlayers()));
 				if (c instanceof ItemCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Items: "+Color.PURPLE+ServerModTransformer.getInstance().getCouponHandler().convertHashToString(((ItemCoupon) c).getIDs()));
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Items: "+Color.PURPLE+CouponCodes.getCouponHandler().convertHashToString(((ItemCoupon) c).getIDs()));
 				else if (c instanceof EconomyCoupon)
 					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Money: "+Color.PURPLE+((EconomyCoupon) c).getMoney());
 				else if (c instanceof RankCoupon)
@@ -58,7 +58,7 @@ public class InfoCommand implements Runnable {
 		} else {
 			StringBuilder sb1 = new StringBuilder();
 			StringBuilder sb2 = new StringBuilder();
-			ArrayList<String> co = ServerModTransformer.getInstance().getCouponHandler().getCoupons();
+			ArrayList<String> co = CouponCodes.getCouponHandler().getCoupons();
 			int total = 0;
 			if (co.isEmpty() || co.equals(null)) {
 				sb1.append("None");
@@ -76,7 +76,7 @@ public class InfoCommand implements Runnable {
 				DecimalFormat d = new DecimalFormat("##.##");
 				for (String name : co) {
 					sb1.append(name+", ");
-					Coupon coo = ServerModTransformer.getInstance().getCouponHandler().getBasicCoupon(name);
+					Coupon coo = CouponCodes.getCouponHandler().getBasicCoupon(name);
 					if (coo instanceof ItemCoupon) it++;
 					if (coo instanceof EconomyCoupon) ec++;
 					if (coo instanceof RankCoupon) ra++;

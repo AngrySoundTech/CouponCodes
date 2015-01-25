@@ -2,9 +2,15 @@ package com.github.drepic26.couponcodes.core.coupon;
 
 import java.util.HashMap;
 
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.coupon.Coupon;
+import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
+import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
+import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
+import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
 import com.github.drepic26.couponcodes.core.ServerModTransformer;
 
-public class Coupon {
+public class SimpleCoupon implements Coupon {
 
 	private String name;
 	private int usetimes;
@@ -12,7 +18,7 @@ public class Coupon {
 	private boolean expired;
 	private HashMap<String, Boolean> usedplayers;
 
-	public Coupon(String name, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
+	public SimpleCoupon(String name, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
 		this.name = name;
 		this.usetimes = usetimes;
 		this.time = time;
@@ -21,25 +27,25 @@ public class Coupon {
 	}
 
 	public boolean addToDatabase() {
-		return ServerModTransformer.getInstance().getCouponHandler().addCouponToDatabase(this);
+		return CouponCodes.getCouponHandler().addCouponToDatabase(this);
 	}
 
 	public boolean removeFromDatabase() {
-		return ServerModTransformer.getInstance().getCouponHandler().removeCouponFromDatabase(this);
+		return CouponCodes.getCouponHandler().removeCouponFromDatabase(this);
 	}
 
 	public boolean isInDatabase() {
-		return ServerModTransformer.getInstance().getCouponHandler().couponExists(this);
+		return CouponCodes.getCouponHandler().couponExists(this);
 	}
 
 	public void updateWithDatabase() {
-		ServerModTransformer.getInstance().getCouponHandler().updateCoupon(this);
+		CouponCodes.getCouponHandler().updateCoupon(this);
 	}
 
 	public void updateTimeWithDatabase() {
-		ServerModTransformer.getInstance().getCouponHandler().updateCouponTime(this);
+		CouponCodes.getCouponHandler().updateCouponTime(this);
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -48,7 +54,7 @@ public class Coupon {
 		this.name = name;
 	}
 
-	public Integer getUseTimes() {
+	public int getUseTimes() {
 		return usetimes;
 	}
 
@@ -58,7 +64,7 @@ public class Coupon {
 			this.setExpired(true);
 	}
 
-	public Integer getTime() {
+	public int getTime() {
 		return time;
 	}
 

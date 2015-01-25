@@ -1,6 +1,7 @@
 package com.github.drepic26.couponcodes.core.commands;
 
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.command.CommandSender;
 import com.github.drepic26.couponcodes.core.commands.runnables.AddCommand;
 import com.github.drepic26.couponcodes.core.commands.runnables.InfoCommand;
 import com.github.drepic26.couponcodes.core.commands.runnables.ListCommand;
@@ -21,7 +22,7 @@ public abstract class CommandHandler {
 			} else
 			if (args[0].equalsIgnoreCase("add")) {
 				if (sender.hasPermission("cc.add")){
-					ServerModTransformer.getInstance().scheduleRunnable(new AddCommand(sender, args));
+					CouponCodes.getModTransformer().scheduleRunnable(new AddCommand(sender, args));
 					return true;
 				} else {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
@@ -30,7 +31,7 @@ public abstract class CommandHandler {
 			} else
 			if (args[0].equalsIgnoreCase("remove")) {
 				if (sender.hasPermission("cc.remove")) {
-					ServerModTransformer.getInstance().scheduleRunnable(new RemoveCommand(sender, args));
+					CouponCodes.getModTransformer().scheduleRunnable(new RemoveCommand(sender, args));
 					return true;
 				} else {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
@@ -39,7 +40,7 @@ public abstract class CommandHandler {
 			} else
 			if (args[0].equalsIgnoreCase("redeem")) {
 				if (sender.hasPermission("cc.redeem")) {
-					ServerModTransformer.getInstance().scheduleRunnable(new RedeemCommand(sender, args));
+					CouponCodes.getModTransformer().scheduleRunnable(new RedeemCommand(sender, args));
 					return true;
 				} else {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
@@ -48,7 +49,7 @@ public abstract class CommandHandler {
 			} else
 			if (args[0].equalsIgnoreCase("list")) {
 				if (sender.hasPermission("cc.list")) {
-					ServerModTransformer.getInstance().scheduleRunnable(new ListCommand(sender, args));
+					CouponCodes.getModTransformer().scheduleRunnable(new ListCommand(sender, args));
 					return true;
 				} else {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
@@ -57,7 +58,7 @@ public abstract class CommandHandler {
 			} else
 			if (args[0].equalsIgnoreCase("info")) {
 				if (sender.hasPermission("cc.info")) {
-					ServerModTransformer.getInstance().scheduleRunnable(new InfoCommand(sender, args));
+					CouponCodes.getModTransformer().scheduleRunnable(new InfoCommand(sender, args));
 					return true;
 				} else {
 					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
