@@ -45,7 +45,7 @@ public class AddCommand implements Runnable {
 						return;
 					}
 
-					ItemCoupon ic = CouponCodes.getCouponHandler().createNewItemCoupon(name, usetimes, time, CouponCodes.getCouponHandler().convertStringToHash(args[3], sender), new HashMap<String, Boolean>());
+					ItemCoupon ic = CouponCodes.getCouponHandler().createNewItemCoupon(name, usetimes, time, CouponCodes.getCouponHandler().itemStringToHash(args[3], sender), new HashMap<String, Boolean>());
 
 					if (ic.addToDatabase()) {
 						sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+name+Color.GREEN+" has been added!");

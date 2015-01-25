@@ -40,9 +40,9 @@ public class InfoCommand implements Runnable {
 				if (c.getUsedPlayers().isEmpty())
 					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.PURPLE+"None");
 				else
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.PURPLE+CouponCodes.getCouponHandler().convertHashToString2(c.getUsedPlayers()));
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.PURPLE+CouponCodes.getCouponHandler().playerHashToString(c.getUsedPlayers()));
 				if (c instanceof ItemCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Items: "+Color.PURPLE+CouponCodes.getCouponHandler().convertHashToString(((ItemCoupon) c).getIDs()));
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Items: "+Color.PURPLE+CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs()));
 				else if (c instanceof EconomyCoupon)
 					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Money: "+Color.PURPLE+((EconomyCoupon) c).getMoney());
 				else if (c instanceof RankCoupon)
