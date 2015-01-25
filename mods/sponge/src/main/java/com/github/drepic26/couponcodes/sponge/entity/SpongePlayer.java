@@ -1,10 +1,10 @@
 package com.github.drepic26.couponcodes.sponge.entity;
 
-import com.github.drepic26.couponcodes.api.entity.Player;
+import com.github.drepic26.couponcodes.core.entity.SimplePlayer;
 import com.github.drepic26.couponcodes.core.util.Color;
 import com.github.drepic26.couponcodes.sponge.SpongePlugin;
 
-public class SpongePlayer implements Player {
+public class SpongePlayer extends SimplePlayer {
 
 	private final SpongePlugin plugin;
 	private final org.spongepowered.api.entity.player.Player spongePlayer;
@@ -41,9 +41,4 @@ public class SpongePlayer implements Player {
 		//TODO Give item once Sponge implements it
 	}
 
-	@Override
-	public boolean hasPermission(String node) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
