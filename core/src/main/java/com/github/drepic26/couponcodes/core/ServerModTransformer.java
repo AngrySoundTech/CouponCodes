@@ -19,7 +19,9 @@ public abstract class ServerModTransformer implements ModTransformer {
 	}
 
 	/**
-	 * Gets the player from the server mod
+	 * Gets the player from the server software, wrapped by {@link Player}
+	 * @param UUID The UUID of the player to get
+	 * @return Player A new instance of the player
 	 */
 	protected abstract Player getModPlayer(String UUID);
 

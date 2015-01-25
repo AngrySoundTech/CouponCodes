@@ -265,7 +265,7 @@ public class Metrics {
     /**
      * Enables metrics for the server by setting "opt-out" to false in the config file and starting the metrics task.
      *
-     * @throws java.io.IOException
+     * @throws java.io.IOException if something is wrong with the config file
      */
     public void enable() throws IOException {
         // This has to be synchronized or it can collide with the check in the task.
@@ -286,7 +286,7 @@ public class Metrics {
     /**
      * Disables metrics for the server by setting "opt-out" to true in the config file and canceling the metrics task.
      *
-     * @throws java.io.IOException
+     * @throws java.io.IOException if something is wrong with the config file
      */
     public void disable() throws IOException {
         // This has to be synchronized or it can collide with the check in the task.
@@ -487,8 +487,8 @@ public class Metrics {
     /**
      * GZip compress a string of bytes
      *
-     * @param input
-     * @return
+     * @param input string of bytes
+     * @return byte array
      */
     public static byte[] gzip(String input) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -526,10 +526,10 @@ public class Metrics {
     /**
      * Appends a json encoded key/value pair to the given string builder.
      *
-     * @param json
-     * @param key
-     * @param value
-     * @throws UnsupportedEncodingException
+     * @param json json to append
+     * @param key json key
+     * @param value json value
+     * @throws UnsupportedEncodingException if stuff goes wrong
      */
     private static void appendJSONPair(StringBuilder json, String key, String value) throws UnsupportedEncodingException {
         boolean isValueNumeric = false;
@@ -560,8 +560,8 @@ public class Metrics {
     /**
      * Escape a string to create a valid JSON string
      *
-     * @param text
-     * @return
+     * @param text text to escape
+     * @return excaped string
      */
     private static String escapeJSON(String text) {
         StringBuilder builder = new StringBuilder();
