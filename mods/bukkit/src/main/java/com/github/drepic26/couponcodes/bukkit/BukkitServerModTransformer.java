@@ -1,5 +1,7 @@
 package com.github.drepic26.couponcodes.bukkit;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 
 import com.github.drepic26.couponcodes.bukkit.entity.BukkitPlayer;
@@ -19,10 +21,9 @@ public class BukkitServerModTransformer extends ServerModTransformer {
 		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, runnable);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	protected Player getModPlayer(String name) {
-		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(name);
+	protected Player getModPlayer(String uuid) {
+		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(uuid));
 
 		if (bukkitPlayer == null)
 			return null;

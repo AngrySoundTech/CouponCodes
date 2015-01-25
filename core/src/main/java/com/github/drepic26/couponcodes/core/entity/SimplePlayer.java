@@ -17,6 +17,10 @@ public abstract class SimplePlayer implements CommandSender, Player {
 		return null;
 	}
 
+	public String getUUID() {
+		return null;
+	}
+
 	public abstract void setLevel(int level);
 
 	public abstract int getLevel();

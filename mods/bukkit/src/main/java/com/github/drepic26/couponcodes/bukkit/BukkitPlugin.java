@@ -1,6 +1,7 @@
 package com.github.drepic26.couponcodes.bukkit;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
@@ -21,8 +22,11 @@ import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
 import com.github.drepic26.couponcodes.bukkit.database.options.SQLiteOptions;
 import com.github.drepic26.couponcodes.bukkit.economy.VaultEconomyHandler;
 import com.github.drepic26.couponcodes.bukkit.listeners.BukkitListener;
+import com.github.drepic26.couponcodes.bukkit.metrics.CustomDataSender;
+import com.github.drepic26.couponcodes.bukkit.metrics.Metrics;
 import com.github.drepic26.couponcodes.bukkit.permission.SuperPermsPermissionHandler;
 import com.github.drepic26.couponcodes.bukkit.permission.VaultPermissionHandler;
+import com.github.drepic26.couponcodes.bukkit.updater.Updater;
 import com.github.drepic26.couponcodes.core.ServerModTransformer;
 import com.github.drepic26.couponcodes.core.commands.CommandHandler;
 import com.github.drepic26.couponcodes.core.entity.Player;
@@ -30,6 +34,7 @@ import com.github.drepic26.couponcodes.core.entity.Player;
 public class BukkitPlugin extends JavaPlugin implements Listener {
 
 	private Logger logger = null;
+	private Metrics metrics;
 
 	private ServerModTransformer transformer = new BukkitServerModTransformer(this);
 	private final CommandHandler commandHandler = new BukkitCommandHandler();
@@ -91,6 +96,20 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 		if (configHandler.getUseThread()) {
 			getServer().getScheduler().scheduleSyncRepeatingTask(this, new BukkitCouponTimer(), 200L, 200L);
 		}
+
+		// Metrics
+		if (configHandler.getUseMetrics()) {
+			try {
+				metrics = new Metrics(this);
+			getServer().getScheduler().scheduleSyncDelayedTask(this, new CustomDataSender(this, metrics));
+				metrics.start();
+			} catch (IOException e) {}
+		}
+
+		//Updater
+		if (configHandler.getAutoUpdate()) {
+			Updater updater = new Updater(this, 53833, this.getFile(), Updater.UpdateType.DEFAULT, false);
+		}
 	}
 
 	@Override
@@ -124,7 +143,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 	}
 
 	public Player wrapPlayer(org.bukkit.entity.Player player) {
-		return transformer.getPlayer(player.getName());
+		return transformer.getPlayer(player.getUniqueId().toString());
 	}
 
 	public ServerModTransformer getTransformer() {
