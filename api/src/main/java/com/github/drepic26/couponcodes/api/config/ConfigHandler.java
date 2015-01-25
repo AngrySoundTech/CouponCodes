@@ -22,4 +22,6 @@ public interface ConfigHandler {
 
 	public String getPassword();
 
+	public String getLocale();
+
 }

@@ -59,4 +59,8 @@ public class BukkitConfigHandler implements ConfigHandler {
 	public String getPassword() {
 		return config.getString("MySQL-options.password");
 	}
+
+	public String getLocale() {
+		return config.getString("locale");
+	}
 }

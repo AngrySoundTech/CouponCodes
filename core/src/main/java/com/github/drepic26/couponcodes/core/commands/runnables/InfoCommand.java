@@ -29,26 +29,26 @@ public class InfoCommand implements Runnable {
 			if (c != null) {
 				sender.sendMessage(Color.GOLD+"|----------------------|");
 				sender.sendMessage(Color.GOLD+"|---"+Color.DARK_RED+"Coupon "+Color.YELLOW+c.getName()+Color.DARK_RED+" info"+Color.GOLD+"---|");
-				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Name: "+Color.PURPLE+c.getName());
-				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Type: "+Color.PURPLE+c.getType());
-				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Use times left: "+Color.PURPLE+c.getUseTimes());
+				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Name: "+Color.DARK_PURPLE+c.getName());
+				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Type: "+Color.DARK_PURPLE+c.getType());
+				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Use times left: "+Color.DARK_PURPLE+c.getUseTimes());
 				if (c.getTime() != -1)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Time left: "+Color.PURPLE+c.getTime()+Color.YELLOW+" seconds");
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Time left: "+Color.DARK_PURPLE+c.getTime()+Color.YELLOW+" seconds");
 				else
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Time left: "+Color.PURPLE+"Unlimited");
-				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Expired: "+Color.PURPLE+c.isExpired());
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Time left: "+Color.DARK_PURPLE+"Unlimited");
+				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Expired: "+Color.DARK_PURPLE+c.isExpired());
 				if (c.getUsedPlayers().isEmpty())
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.PURPLE+"None");
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.DARK_PURPLE+"None");
 				else
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.PURPLE+CouponCodes.getCouponHandler().playerHashToString(c.getUsedPlayers()));
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.DARK_PURPLE+CouponCodes.getCouponHandler().playerHashToString(c.getUsedPlayers()));
 				if (c instanceof ItemCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Items: "+Color.PURPLE+CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs()));
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Items: "+Color.DARK_PURPLE+CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs()));
 				else if (c instanceof EconomyCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Money: "+Color.PURPLE+((EconomyCoupon) c).getMoney());
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Money: "+Color.DARK_PURPLE+((EconomyCoupon) c).getMoney());
 				else if (c instanceof RankCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Rank: "+Color.PURPLE+((RankCoupon) c).getGroup());
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Rank: "+Color.DARK_PURPLE+((RankCoupon) c).getGroup());
 				else if (c instanceof XpCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"XP: "+Color.PURPLE+((XpCoupon) c).getXp());
+					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"XP: "+Color.DARK_PURPLE+((XpCoupon) c).getXp());
 				sender.sendMessage(Color.GOLD+"|----------------------|");
 				return;
 			} else {
@@ -94,9 +94,9 @@ public class InfoCommand implements Runnable {
 			sender.sendMessage(Color.GOLD+"|-----------------------|");
 			sender.sendMessage(Color.GOLD+"|-"+Color.DARK_RED+"Info on current coupons"+Color.GOLD+"-|");
 			sender.sendMessage(Color.GOLD+"|--"+Color.GOLD+"Use /coupon info [name] to view a specific coupon");
-			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Current coupons: "+Color.PURPLE+sb1.toString());
+			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Current coupons: "+Color.DARK_PURPLE+sb1.toString());
 			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+sb2.toString());
-			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Total Coupons: "+Color.PURPLE+total);
+			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Total Coupons: "+Color.DARK_PURPLE+total);
 			sender.sendMessage(Color.GOLD+"|-----------------------|");
 			return;
 		}

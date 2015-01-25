@@ -22,7 +22,7 @@ public class ListCommand implements Runnable {
 				sender.sendMessage(Color.RED+"No coupons found.");
 				return;
 			} else {
-				sb.append(Color.PURPLE+"Coupon list: "+Color.GOLD);
+				sb.append(Color.DARK_PURPLE+"Coupon list: "+Color.GOLD);
 				for (int i = 0; i < c.size(); i++) {
 					sb.append(c.get(i));
 					if (!(Integer.valueOf(i+1).equals(c.size()))){
