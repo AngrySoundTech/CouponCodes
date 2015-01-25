@@ -6,6 +6,8 @@ public interface Player {
 
 	public String getName();
 
+	public String getUUID();
+
 	public void setLevel(int xp);
 
 	public int getLevel();
