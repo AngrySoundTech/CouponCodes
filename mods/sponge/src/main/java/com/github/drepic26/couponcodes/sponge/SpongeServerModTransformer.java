@@ -3,8 +3,8 @@ package com.github.drepic26.couponcodes.sponge;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.plugin.PluginContainer;
 
+import com.github.drepic26.couponcodes.api.entity.Player;
 import com.github.drepic26.couponcodes.core.ServerModTransformer;
-import com.github.drepic26.couponcodes.core.entity.Player;
 import com.github.drepic26.couponcodes.sponge.entity.SpongePlayer;
 
 public class SpongeServerModTransformer extends ServerModTransformer {
@@ -15,8 +15,6 @@ public class SpongeServerModTransformer extends ServerModTransformer {
 	public SpongeServerModTransformer(SpongePlugin plugin, Game game) {
 		this.plugin = plugin;
 		this.game = game;
-
-		ServerModTransformer.setInstance(this);
 	}
 
 	@Override

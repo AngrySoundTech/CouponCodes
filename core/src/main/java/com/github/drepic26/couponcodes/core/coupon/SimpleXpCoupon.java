@@ -2,11 +2,13 @@ package com.github.drepic26.couponcodes.core.coupon;
 
 import java.util.HashMap;
 
-public class XpCoupon extends Coupon {
+import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
+
+public class SimpleXpCoupon extends SimpleCoupon implements XpCoupon {
 
 	private int xp;
 
-	public XpCoupon(String name, int usetimes, int time, HashMap<String, Boolean> usedplayers, int xp) {
+	public SimpleXpCoupon(String name, int usetimes, int time, HashMap<String, Boolean> usedplayers, int xp) {
 		super(name, usetimes, time, usedplayers);
 		this.xp = xp;
 	}

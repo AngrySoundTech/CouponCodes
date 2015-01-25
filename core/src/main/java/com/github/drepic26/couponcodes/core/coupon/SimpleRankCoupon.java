@@ -2,11 +2,13 @@ package com.github.drepic26.couponcodes.core.coupon;
 
 import java.util.HashMap;
 
-public class RankCoupon extends Coupon {
+import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
+
+public class SimpleRankCoupon extends SimpleCoupon implements RankCoupon {
 
 	private String group;
 
-	public RankCoupon(String name, String group, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
+	public SimpleRankCoupon(String name, String group, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
 		super(name, usetimes, time, usedplayers);
 		this.group = group;
 	}

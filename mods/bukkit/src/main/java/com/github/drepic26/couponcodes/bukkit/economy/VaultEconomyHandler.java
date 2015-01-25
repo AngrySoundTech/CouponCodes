@@ -7,11 +7,11 @@ import org.bukkit.Bukkit;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
+import com.github.drepic26.couponcodes.api.economy.EconomyHandler;
+import com.github.drepic26.couponcodes.api.entity.Player;
 import com.github.drepic26.couponcodes.bukkit.entity.BukkitPlayer;
-import com.github.drepic26.couponcodes.core.economy.EconomyHandler;
-import com.github.drepic26.couponcodes.core.entity.Player;
 
-public class VaultEconomyHandler extends EconomyHandler {
+public class VaultEconomyHandler implements EconomyHandler {
 
 	private Economy econ;
 	private Permission perm;

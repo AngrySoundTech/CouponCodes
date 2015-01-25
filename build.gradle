@@ -4,7 +4,7 @@ allprojects {
 
   group = 'com.github.drepic26'
   archivesBaseName = "couponcodes"
-  version = '3.0.1'
+  version = '3.0.2'
   project.ext.author = 'Drepic26'
 
   repositories {
@@ -36,12 +36,19 @@ apply plugin: 'signing'
 apply plugin: 'maven'
 
 dependencies {
+  compile project(':api')
   compile project(':core')
   compile project(':mods:sponge')
   compile project(':mods:bukkit')
 }
 
+project(':api') {
+}
+
 project(':core') {
+  dependencies {
+    compile project(':api')
+  }
   def filteredSourceDir = file("${buildDir}/filtered")
   sourceSets {
     filtered {
@@ -62,6 +69,7 @@ project(':core') {
 project(':mods:sponge') {
   dependencies {
     compile 'org.spongepowered:spongeapi:1.0'
+    compile project(':api')
     compile project(':core')
   }
 }
@@ -70,6 +78,7 @@ project(':mods:bukkit') {
   dependencies {
     compile 'org.bukkit:bukkit:1.8-R0.1-SNAPSHOT'
     compile 'net.milkbowl.vault:VaultAPI:1.5'
+    compile project(':api')
     compile project(':core')
   }
   processResources {
@@ -84,12 +93,14 @@ project(':mods:bukkit') {
 }
 
 jar {
+  from { project(":api").sourceSets.main.output }
   from { project(":core").sourceSets.main.output }
   from { project(":mods:bukkit").sourceSets.main.output }
   from { project(":mods:sponge").sourceSets.main.output }
 }
 
 task sourcesJar(type: Jar) {
+  from project(":api").sourceSets.main.java
   from project(":core").sourceSets.main.java
   from project(":mods:bukkit").sourceSets.main.java
   from project(":mods:sponge").sourceSets.main.java
@@ -99,6 +110,7 @@ task sourcesJar(type: Jar) {
 task javadocJar(type: Jar, dependsOn: javadoc) {
   from javadoc.destinationDir
   classifier = "javadoc"
+  dependsOn ":api:javadoc"
   dependsOn ":core:javadoc"
   dependsOn ":mods:bukkit:javadoc"
   dependsOn ":mods:sponge:javadoc"
@@ -106,7 +118,8 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 
 javadoc {
   source = [
-  project("core").sourceSets.main.java,
+  project(":api").sourceSets.main.java,
+  project(":core").sourceSets.main.java,
   project(":mods:bukkit").sourceSets.main.java,
   project(":mods:sponge").sourceSets.main.java,
   ]

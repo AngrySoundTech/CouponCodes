@@ -3,15 +3,15 @@ package com.github.drepic26.couponcodes.core.commands.runnables;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.drepic26.couponcodes.core.ServerModTransformer;
-import com.github.drepic26.couponcodes.core.commands.CommandSender;
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.command.CommandSender;
+import com.github.drepic26.couponcodes.api.coupon.Coupon;
+import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
+import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
+import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
+import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
+import com.github.drepic26.couponcodes.api.entity.Player;
 import com.github.drepic26.couponcodes.core.commands.CommandUsage;
-import com.github.drepic26.couponcodes.core.coupon.Coupon;
-import com.github.drepic26.couponcodes.core.coupon.EconomyCoupon;
-import com.github.drepic26.couponcodes.core.coupon.ItemCoupon;
-import com.github.drepic26.couponcodes.core.coupon.RankCoupon;
-import com.github.drepic26.couponcodes.core.coupon.XpCoupon;
-import com.github.drepic26.couponcodes.core.entity.Player;
 import com.github.drepic26.couponcodes.core.util.Color;
 
 public class RedeemCommand implements Runnable{
@@ -27,7 +27,7 @@ public class RedeemCommand implements Runnable{
 	@Override
 	public void run() {
 		if (args.length == 2) {
-			Coupon coupon = ServerModTransformer.getInstance().getCouponHandler().getCoupon(args[1]);
+			Coupon coupon = CouponCodes.getCouponHandler().getCoupon(args[1]);
 
 			if (coupon == null) {
 				sender.sendMessage(Color.RED+"That coupon doesn't exist!");
@@ -67,23 +67,23 @@ public class RedeemCommand implements Runnable{
 			} else
 
 			if (coupon instanceof EconomyCoupon) {
-				if (ServerModTransformer.getInstance().getEconomyHandler() == null) {
+				if (CouponCodes.getEconomyHandler() == null) {
 					sender.sendMessage(Color.DARK_RED+"Economy support is currently disabled. You cannot redeem an economy coupon.");
 					return;
 				} else {
 					EconomyCoupon c = (EconomyCoupon) coupon;
-					ServerModTransformer.getInstance().getEconomyHandler().giveMoney(sender.getUUID(), c.getMoney());
+					CouponCodes.getEconomyHandler().giveMoney(sender.getUUID(), c.getMoney());
 					sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+c.getName()+Color.GREEN+" has been redeemed, and the money added to your account!");
 				}
 			} else
 
 			if (coupon instanceof RankCoupon) {
-				if (ServerModTransformer.getInstance().getEconomyHandler() == null) {
+				if (CouponCodes.getEconomyHandler() == null) {
 					sender.sendMessage(Color.DARK_RED+"Economy support is currently disabled. You cannot redeem a rank coupon.");
 					return;
 				} else {
 					RankCoupon c = (RankCoupon) coupon;
-					ServerModTransformer.getInstance().getEconomyHandler().setPlayerGroup((Player)sender, c.getGroup());
+					CouponCodes.getEconomyHandler().setPlayerGroup((Player)sender, c.getGroup());
 					sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+c.getName()+Color.GREEN+" has been redeemed, and your group has been set to "+Color.GOLD+c.getGroup());
 				}
 			} else
@@ -98,7 +98,7 @@ public class RedeemCommand implements Runnable{
 			up.put(sender.getUUID(), true);
 			coupon.setUsedPlayers(up);
 			coupon.setUseTimes(coupon.getUseTimes()-1);
-			ServerModTransformer.getInstance().getCouponHandler().updateCoupon(coupon);
+			CouponCodes.getCouponHandler().updateCoupon(coupon);
 			return;
 		} else {
 			sender.sendMessage(CommandUsage.C_REDEEM.toString());

@@ -1,4 +1,4 @@
-package com.github.drepic26.couponcodes.core.commands;
+package com.github.drepic26.couponcodes.api.command;
 
 public interface CommandSender {
 

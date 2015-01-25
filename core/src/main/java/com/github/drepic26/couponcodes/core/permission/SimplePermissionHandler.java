@@ -2,9 +2,9 @@ package com.github.drepic26.couponcodes.core.permission;
 
 import java.util.Set;
 
-import com.github.drepic26.couponcodes.core.entity.Player;
+import com.github.drepic26.couponcodes.core.entity.SimplePlayer;
 
-public class PermissionHandler {
+public class SimplePermissionHandler {
 
 	public String getName() {
 		return "Nope";
@@ -14,11 +14,11 @@ public class PermissionHandler {
 		return false;
 	}
 
-	public boolean hasPermission(Player player, String node) {
+	public boolean hasPermission(SimplePlayer player, String node) {
 		throw new UnsupportedOperationException("No permission handler");
 	}
 
-	public Set<String> getGroups(Player player) {
+	public Set<String> getGroups(SimplePlayer player) {
 		throw new UnsupportedOperationException("No permission handler");
 	}
 }

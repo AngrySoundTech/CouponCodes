@@ -7,10 +7,10 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
-import com.github.drepic26.couponcodes.core.entity.Player;
-import com.github.drepic26.couponcodes.core.permission.PermissionHandler;
+import com.github.drepic26.couponcodes.api.entity.Player;
+import com.github.drepic26.couponcodes.api.permission.PermissionHandler;
 
-public class SuperPermsPermissionHandler extends PermissionHandler {
+public class SuperPermsPermissionHandler implements PermissionHandler {
 
 	private static final String GROUP_PREFIX = "group.";
 

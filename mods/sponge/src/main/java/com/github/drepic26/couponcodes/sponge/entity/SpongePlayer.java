@@ -1,10 +1,10 @@
 package com.github.drepic26.couponcodes.sponge.entity;
 
-import com.github.drepic26.couponcodes.core.entity.Player;
+import com.github.drepic26.couponcodes.core.entity.SimplePlayer;
 import com.github.drepic26.couponcodes.core.util.Color;
 import com.github.drepic26.couponcodes.sponge.SpongePlugin;
 
-public class SpongePlayer extends Player {
+public class SpongePlayer extends SimplePlayer {
 
 	private final SpongePlugin plugin;
 	private final org.spongepowered.api.entity.player.Player spongePlayer;
@@ -14,7 +14,6 @@ public class SpongePlayer extends Player {
 		this.spongePlayer = player;
 	}
 
-	@Override
 	public void sendMessage(String message) {
 		for (String line : message.split("\n")) {
 			spongePlayer.sendMessage(Color.replaceColors(line));
@@ -41,4 +40,5 @@ public class SpongePlayer extends Player {
 	public void giveItem(int item, int amount) {
 		//TODO Give item once Sponge implements it
 	}
+
 }

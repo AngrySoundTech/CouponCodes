@@ -3,24 +3,20 @@ package com.github.drepic26.couponcodes.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.drepic26.couponcodes.core.coupon.CouponHandler;
-import com.github.drepic26.couponcodes.core.economy.EconomyHandler;
-import com.github.drepic26.couponcodes.core.entity.Player;
-import com.github.drepic26.couponcodes.core.permission.PermissionHandler;
+import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.ModTransformer;
+import com.github.drepic26.couponcodes.api.entity.Player;
 
-public abstract class ServerModTransformer {
-	
-	private static ServerModTransformer instance = null;
-
-	private PermissionHandler permissionHandler = null;
-	private CouponHandler couponHandler = null;
-
-	private EconomyHandler economyHandler = null;
+public abstract class ServerModTransformer implements ModTransformer {
 
 	/**
 	 * Map of Players
 	 */
 	protected final Map<String, Player> players = new HashMap<String, Player>();
+	
+	public ServerModTransformer() {
+		CouponCodes.setModTransformer(this);
+	}
 
 	/**
 	 * Gets the player from the server mod
@@ -41,42 +37,4 @@ public abstract class ServerModTransformer {
 	}
 
 	public abstract void scheduleRunnable(Runnable runnable);
-
-	/**
-	 * Gets the current instance
-	 */
-	public static ServerModTransformer getInstance() {
-		return instance;
-	}
-
-	/**
-	 * Sets the instance
-	 */
-	protected static void setInstance(ServerModTransformer inst) {
-		instance = inst;
-	}
-
-	public PermissionHandler getPermissionHandler() {
-		return permissionHandler;
-	}
-
-	public void setPermissionHandler(PermissionHandler permissionHandler) {
-		this.permissionHandler = permissionHandler;
-	}
-
-	public CouponHandler getCouponHandler() {
-		return couponHandler;
-	}
-
-	public void setCouponHandler(CouponHandler couponHandler) {
-		this.couponHandler = couponHandler;
-	}
-
-	public EconomyHandler getEconomyHandler() {
-		return economyHandler;
-	}
-
-	public void setEconomyHandler(EconomyHandler economyHandler) {
-		this.economyHandler = economyHandler;
-	}
 }
