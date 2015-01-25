@@ -39,7 +39,6 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 
 	private ModTransformer transformer = new BukkitServerModTransformer(this);
 	private final CommandHandler commandHandler = new BukkitCommandHandler();
-	private BukkitConfigHandler configHandler;
 	private SQLDatabaseHandler databaseHandler;
 
 	private Economy econ = null;
@@ -49,17 +48,17 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 	public void onEnable() {
 		logger = this.getLogger();
 
-		configHandler = new BukkitConfigHandler(this);
+		CouponCodes.setConfigHandler(new BukkitConfigHandler(this));
 
 		//SQL
-		if (configHandler.getSQLValue().equalsIgnoreCase("MYSQL")) {
-			databaseHandler = new SQLDatabaseHandler(this, new MySQLOptions(configHandler.getHostname(), configHandler.getPort(), configHandler.getDatabase(), configHandler.getUsername(), configHandler.getPassword()));
+		if (CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("MYSQL")) {
+			databaseHandler = new SQLDatabaseHandler(this, new MySQLOptions(CouponCodes.getConfigHandler().getHostname(), CouponCodes.getConfigHandler().getPort(), CouponCodes.getConfigHandler().getDatabase(), CouponCodes.getConfigHandler().getUsername(), CouponCodes.getConfigHandler().getPassword()));
 		} else
-		if (configHandler.getSQLValue().equalsIgnoreCase("SQLite")) {
+		if (CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("SQLite")) {
 			databaseHandler = new SQLDatabaseHandler(this, new SQLiteOptions(new File(getDataFolder()+"/coupon_data.db")));
 		} else
-		if (!configHandler.getSQLValue().equalsIgnoreCase("MYSQL") && !configHandler.getSQLValue().equalsIgnoreCase("SQLite")) {
-			logger.severe("The SQLType has the unknown value of: "+configHandler.getSQLValue());
+		if (!CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("MYSQL") && !CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("SQLite")) {
+			logger.severe("The SQLType has the unknown value of: "+CouponCodes.getConfigHandler().getSQLValue());
 			logger.severe("Database could not be setup. CouponCodes will now disable");
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
@@ -94,12 +93,12 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 		}
 
 		// Timer
-		if (configHandler.getUseThread()) {
+		if (CouponCodes.getConfigHandler().getUseThread()) {
 			getServer().getScheduler().scheduleSyncRepeatingTask(this, new BukkitCouponTimer(), 200L, 200L);
 		}
 
 		// Metrics
-		if (configHandler.getUseMetrics()) {
+		if (CouponCodes.getConfigHandler().getUseMetrics()) {
 			try {
 				metrics = new Metrics(this);
 			getServer().getScheduler().scheduleSyncDelayedTask(this, new CustomDataSender(this, metrics));
@@ -108,7 +107,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 		}
 
 		//Updater
-		if (configHandler.getAutoUpdate()) {
+		if (CouponCodes.getConfigHandler().getAutoUpdate()) {
 			Updater updater = new Updater(this, 53833, this.getFile(), Updater.UpdateType.DEFAULT, false);
 		}
 	}
