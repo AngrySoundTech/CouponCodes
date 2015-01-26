@@ -10,7 +10,7 @@ import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
 import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
 import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
 import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
-import com.github.drepic26.couponcodes.core.util.Color;
+import com.github.drepic26.couponcodes.core.util.LocaleHandler;
 
 public class InfoCommand implements Runnable {
 
@@ -27,32 +27,33 @@ public class InfoCommand implements Runnable {
 		if (args.length == 2) {
 			Coupon c = CouponCodes.getCouponHandler().getCoupon(args[1]);
 			if (c != null) {
-				sender.sendMessage(Color.GOLD+"|----------------------|");
-				sender.sendMessage(Color.GOLD+"|---"+Color.DARK_RED+"Coupon "+Color.YELLOW+c.getName()+Color.DARK_RED+" info"+Color.GOLD+"---|");
-				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Name: "+Color.DARK_PURPLE+c.getName());
-				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Type: "+Color.DARK_PURPLE+c.getType());
-				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Use times left: "+Color.DARK_PURPLE+c.getUseTimes());
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.FancyWrap"));
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Header", c.getName()));
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Name", c.getName()));
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Type", c.getType()));
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Usetimes", c.getUseTimes()));
 				if (c.getTime() != -1)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Time left: "+Color.DARK_PURPLE+c.getTime()+Color.YELLOW+" seconds");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.TimeLeft", c.getTime()));
 				else
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Time left: "+Color.DARK_PURPLE+"Unlimited");
-				sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Expired: "+Color.DARK_PURPLE+c.isExpired());
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.TimeLeft", "unlimited"));
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Expired", c.isExpired()));
+
 				if (c.getUsedPlayers().isEmpty())
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.DARK_PURPLE+"None");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.UsedPlayers", "None"));
 				else
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Used players: "+Color.DARK_PURPLE+CouponCodes.getCouponHandler().playerHashToString(c.getUsedPlayers()));
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.UsedPlayers", CouponCodes.getCouponHandler().playerHashToString(c.getUsedPlayers())));
 				if (c instanceof ItemCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Items: "+Color.DARK_PURPLE+CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs()));
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Items", CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs())));
 				else if (c instanceof EconomyCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Money: "+Color.DARK_PURPLE+((EconomyCoupon) c).getMoney());
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Money", ((EconomyCoupon) c).getMoney()));
 				else if (c instanceof RankCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Rank: "+Color.DARK_PURPLE+((RankCoupon) c).getGroup());
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Rank", ((RankCoupon) c).getGroup()));
 				else if (c instanceof XpCoupon)
-					sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"XP: "+Color.DARK_PURPLE+((XpCoupon) c).getXp());
-				sender.sendMessage(Color.GOLD+"|----------------------|");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Xp", ((XpCoupon) c).getXp()));
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.FancyWrap"));
 				return;
 			} else {
-				sender.sendMessage(Color.RED+"That coupon doesn't exist!");
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Shared.DoesNotExist"));
 				return;
 			}
 		} else {
@@ -61,8 +62,8 @@ public class InfoCommand implements Runnable {
 			ArrayList<String> co = CouponCodes.getCouponHandler().getCoupons();
 			int total = 0;
 			if (co.isEmpty() || co.equals(null)) {
-				sb1.append("None");
-				sb2.append("Out of those, 0% are item, 0% are economy, and 0% are rank coupons.");
+				sb1.append(LocaleHandler.getString(sender, "Command.Info.None"));
+				sb2.append(LocaleHandler.getString(sender, "Command.Info.Breakdown", 0, 0, 0, 0));
 			} else {
 				double j = co.size();
 				double it = 0;
@@ -89,15 +90,15 @@ public class InfoCommand implements Runnable {
 				ra2 = d.format(ra/j*100);
 				xp2 = d.format(xp/j*100);
 				total = (int) (it+ec+ra+xp);
-				sb2.append("Out of those, "+it2+"% are item, "+ec2+"% are economy, "+ra2+"% are rank, and "+xp2+"% are XP coupons.");
+				sb2.append(LocaleHandler.getString(sender,"Command.Info.Breakdown", it2, ec2, ra2, xp2));
 			}
-			sender.sendMessage(Color.GOLD+"|-----------------------|");
-			sender.sendMessage(Color.GOLD+"|-"+Color.DARK_RED+"Info on current coupons"+Color.GOLD+"-|");
-			sender.sendMessage(Color.GOLD+"|--"+Color.GOLD+"Use /coupon info [name] to view a specific coupon");
-			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Current coupons: "+Color.DARK_PURPLE+sb1.toString());
-			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+sb2.toString());
-			sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"Total Coupons: "+Color.DARK_PURPLE+total);
-			sender.sendMessage(Color.GOLD+"|-----------------------|");
+			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.FancyWrap"));
+			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Header"));
+			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.SpecificInstructions"));
+			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.CurrentCoupons", sb1.toString()));
+			sender.sendMessage(sb2.toString());
+			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Total", total));
+			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.FancyWrap"));
 			return;
 		}
 

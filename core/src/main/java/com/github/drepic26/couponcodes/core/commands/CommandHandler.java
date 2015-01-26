@@ -7,7 +7,7 @@ import com.github.drepic26.couponcodes.core.commands.runnables.InfoCommand;
 import com.github.drepic26.couponcodes.core.commands.runnables.ListCommand;
 import com.github.drepic26.couponcodes.core.commands.runnables.RedeemCommand;
 import com.github.drepic26.couponcodes.core.commands.runnables.RemoveCommand;
-import com.github.drepic26.couponcodes.core.util.Color;
+import com.github.drepic26.couponcodes.core.util.LocaleHandler;
 
 public abstract class CommandHandler {
 
@@ -25,7 +25,7 @@ public abstract class CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new AddCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
+					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -34,7 +34,7 @@ public abstract class CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new RemoveCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
+					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -43,7 +43,7 @@ public abstract class CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new RedeemCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
+					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -52,7 +52,7 @@ public abstract class CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new ListCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
+					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -61,7 +61,7 @@ public abstract class CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new InfoCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(Color.RED+"You do not have permission to use this command.");
+					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -79,14 +79,15 @@ public abstract class CommandHandler {
 
 	//Help
 	private void help(CommandSender sender) {
-		sender.sendMessage(Color.GOLD+"|-<> = required-"+Color.DARK_RED+"CouponCodes Help"+Color.GOLD+"-[]-optional-|");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add item <name> <item1:amount,item2:amount,..> [usetimes] [time]");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add econ <name> <money> [usetimes] [time]");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add rank <name> <group> [usetimes] [time]");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add xp <name> <xp> [usetimes] [time]");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"redeem <name>");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"remove <name>");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"list");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"info <name>");
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Header"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddItem"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddEcon"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddRank"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddXp"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Redeem"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Remove"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.List"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Info"));
 	}
+
 }

@@ -11,8 +11,7 @@ import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
 import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
 import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
 import com.github.drepic26.couponcodes.api.entity.Player;
-import com.github.drepic26.couponcodes.core.commands.CommandUsage;
-import com.github.drepic26.couponcodes.core.util.Color;
+import com.github.drepic26.couponcodes.core.util.LocaleHandler;
 
 public class RedeemCommand implements Runnable{
 
@@ -30,18 +29,18 @@ public class RedeemCommand implements Runnable{
 			Coupon coupon = CouponCodes.getCouponHandler().getCoupon(args[1]);
 
 			if (coupon == null) {
-				sender.sendMessage(Color.RED+"That coupon doesn't exist!");
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Shared.DoesNotExist"));
 				return;
 			}
 				if (coupon.getUseTimes() < 1) {
-				sender.sendMessage(Color.RED+"This coupon has been used up!");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.UsedUp"));
 				return;
 			}
 			if (coupon.getUsedPlayers() != null) {
 				if (!coupon.getUsedPlayers().isEmpty()) {
 					if (coupon.getUsedPlayers().containsKey(sender.getUUID())) {
 						if (coupon.getUsedPlayers().get(sender.getUUID())) {
-							sender.sendMessage(Color.RED+"You have already used this coupon");
+							sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.AlreadyUsed"));
 							return;
 						}
 					}
@@ -49,12 +48,12 @@ public class RedeemCommand implements Runnable{
 			}
 
 			if (coupon.getTime() == 0) {
-				sender.sendMessage(Color.RED+"This coupon has ran out of time to be redeemed!");
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.OutOfTime"));
 				return;
 			}
 
 			if (coupon.isExpired()) {
-				sender.sendMessage(Color.RED+"This coupon has expired!");
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.Expired"));
 				return;
 			}
 
@@ -63,35 +62,35 @@ public class RedeemCommand implements Runnable{
 				for (Map.Entry<Integer, Integer> en : c.getIDs().entrySet()) {
 					((Player) sender).giveItem(en.getKey(), en.getValue());
 				}
-				sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+c.getName()+Color.GREEN+" has been redeemed, and the items added to your inventory!");
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.RedeemItem", c.getName()));
 			} else
 
 			if (coupon instanceof EconomyCoupon) {
 				if (CouponCodes.getEconomyHandler() == null) {
-					sender.sendMessage(Color.DARK_RED+"Economy support is currently disabled. You cannot redeem an economy coupon.");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.EconDisabled"));
 					return;
 				} else {
 					EconomyCoupon c = (EconomyCoupon) coupon;
 					CouponCodes.getEconomyHandler().giveMoney(sender.getUUID(), c.getMoney());
-					sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+c.getName()+Color.GREEN+" has been redeemed, and the money added to your account!");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.RedeemEcon", c.getName()));
 				}
 			} else
 
 			if (coupon instanceof RankCoupon) {
 				if (CouponCodes.getEconomyHandler() == null) {
-					sender.sendMessage(Color.DARK_RED+"Economy support is currently disabled. You cannot redeem a rank coupon.");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.RankDisabled"));
 					return;
 				} else {
 					RankCoupon c = (RankCoupon) coupon;
 					CouponCodes.getEconomyHandler().setPlayerGroup((Player)sender, c.getGroup());
-					sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+c.getName()+Color.GREEN+" has been redeemed, and your group has been set to "+Color.GOLD+c.getGroup());
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.RedeemRank", c.getName(), c.getGroup()));
 				}
 			} else
 
 			if (coupon instanceof XpCoupon) {
 				XpCoupon c = (XpCoupon) coupon;
 				((Player) sender).setLevel(((Player)sender).getLevel()+c.getXp());
-				sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+c.getName()+Color.GREEN+" has been redeemed, and you have received "+Color.GOLD+c.getXp()+Color.GREEN+" XP levels!");
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.RedeemXp", c.getName(), c.getXp()));
 			}
 
 			HashMap<String, Boolean> up = coupon.getUsedPlayers();
@@ -101,7 +100,7 @@ public class RedeemCommand implements Runnable{
 			CouponCodes.getCouponHandler().updateCoupon(coupon);
 			return;
 		} else {
-			sender.sendMessage(CommandUsage.C_REDEEM.toString());
+			sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Redeem"));
 			return;
 		}
 	}
