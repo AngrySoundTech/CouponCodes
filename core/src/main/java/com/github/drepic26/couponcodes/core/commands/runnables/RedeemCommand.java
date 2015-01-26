@@ -37,7 +37,7 @@ public class RedeemCommand implements Runnable{
 				sender.sendMessage(LocaleHandler.getString(sender, "Command.Shared.DoesNotExist"));
 				return;
 			}
-				if (coupon.getUseTimes() < 1) {
+			if (coupon.getUseTimes() < 1) {
 					sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.UsedUp"));
 				return;
 			}
@@ -51,12 +51,10 @@ public class RedeemCommand implements Runnable{
 					}
 				}
 			}
-
 			if (coupon.getTime() == 0) {
 				sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.OutOfTime"));
 				return;
 			}
-
 			if (coupon.isExpired()) {
 				sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.Expired"));
 				return;
