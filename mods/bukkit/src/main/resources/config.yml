@@ -8,6 +8,10 @@
 # https://github.com/Drepic26/CouponCodes-Revived
 #
 
+# Language the plugin should use
+# available languages are: en_US
+locale: en_US
+
 # sql-type should be either 'MySQL' or 'SQLite'
 sql-type: SQLite
 

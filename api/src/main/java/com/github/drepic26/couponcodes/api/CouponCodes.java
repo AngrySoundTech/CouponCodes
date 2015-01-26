@@ -1,5 +1,6 @@
 package com.github.drepic26.couponcodes.api;
 
+import com.github.drepic26.couponcodes.api.config.ConfigHandler;
 import com.github.drepic26.couponcodes.api.coupon.CouponHandler;
 import com.github.drepic26.couponcodes.api.economy.EconomyHandler;
 import com.github.drepic26.couponcodes.api.permission.PermissionHandler;
@@ -10,6 +11,7 @@ public class CouponCodes {
 	private static PermissionHandler permissionHandler;
 	private static EconomyHandler economyHandler;
 	private static CouponHandler couponHandler;
+	private static ConfigHandler configHandler;
 
 	public static ModTransformer getModTransformer() { 
 		return modTransformer;
@@ -27,6 +29,10 @@ public class CouponCodes {
 		return couponHandler;
 	}
 
+	public static ConfigHandler getConfigHandler() {
+		return configHandler;
+	}
+
 	public static void setModTransformer(ModTransformer mt) {
 		modTransformer = mt;
 	}
@@ -41,6 +47,10 @@ public class CouponCodes {
 
 	public static void setCouponHandler(CouponHandler ch) {
 		couponHandler = ch;
+	}
+
+	public static void setConfigHandler(ConfigHandler ch) {
+		configHandler = ch;
 	}
 
 }

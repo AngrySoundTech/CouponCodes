@@ -8,8 +8,7 @@ import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
 import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
 import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
 import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
-import com.github.drepic26.couponcodes.core.commands.CommandUsage;
-import com.github.drepic26.couponcodes.core.util.Color;
+import com.github.drepic26.couponcodes.core.util.LocaleHandler;
 import com.github.drepic26.couponcodes.core.util.RandomName;
 
 public class AddCommand implements Runnable {
@@ -41,26 +40,26 @@ public class AddCommand implements Runnable {
 					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
 					if (args.length >= 6) time = Integer.parseInt(args[5]);
 					if (args.length > 6) {
-						sender.sendMessage(CommandUsage.C_ADD_ITEM.toString());
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddItem"));
 						return;
 					}
 
 					ItemCoupon ic = CouponCodes.getCouponHandler().createNewItemCoupon(name, usetimes, time, CouponCodes.getCouponHandler().itemStringToHash(args[3], sender), new HashMap<String, Boolean>());
 
 					if (ic.addToDatabase()) {
-						sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+name+Color.GREEN+" has been added!");
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.Added", name));
 						return;
 					} else {
-						sender.sendMessage(Color.RED+"This coupon already exists!");
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.AlreadyExists"));
 						return;
 					}
 
 				} catch (NumberFormatException e) {
-					sender.sendMessage(Color.DARK_RED+"Expected a number, but got a string. Please check your syntax.");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.SyntaxError"));
 					return;
 				}
 			} else {
-				sender.sendMessage(CommandUsage.C_ADD_ITEM.toString());
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddItem"));
 				return;
 			}
 		} else
@@ -77,25 +76,25 @@ public class AddCommand implements Runnable {
 					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
 					if (args.length >= 6) time = Integer.parseInt(args[5]);
 					if (args.length > 6) {
-						sender.sendMessage(CommandUsage.C_ADD_ECON.toString());
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddEcon"));
 						return;
 					}
 
 					EconomyCoupon ec = CouponCodes.getCouponHandler().createNewEconomyCoupon(name, usetimes, time, new HashMap<String, Boolean>(), money);
 
 					if (ec.addToDatabase()) {
-						sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+name+Color.GREEN+" has been added!");
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.Added", name));
 						return;
 					} else {
-						sender.sendMessage(Color.RED+"This coupon already exists!");
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.AlreadyExists"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(Color.DARK_RED+"Expected a number, but got a string. Please check your syntax.");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.SyntaxError"));
 					return;
 				}
 			} else {
-				sender.sendMessage(CommandUsage.C_ADD_ECON.toString());
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddEcon"));
 				return;
 			}
 
@@ -113,25 +112,25 @@ public class AddCommand implements Runnable {
 					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
 					if (args.length >= 6) time = Integer.parseInt(args[5]);
 					if (args.length > 6) {
-						sender.sendMessage(CommandUsage.C_ADD_RANK.toString());
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddRank"));
 						return;
 					}
 
 					RankCoupon rc = CouponCodes.getCouponHandler().createNewRankCoupon(name, group, usetimes, time, new HashMap<String, Boolean>());
 
 					if (rc.addToDatabase()) {
-						sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+name+Color.GREEN+" has been added!");
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.Added", name));
 						return;
 					} else {
-						sender.sendMessage(Color.RED+"This coupon already exists!");
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.AlreadyExists"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(Color.DARK_RED+"Expected a number, but got a string. Please check your syntax.");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.SyntaxError"));
 					return;
 				}
 			} else {
-				sender.sendMessage(CommandUsage.C_ADD_RANK.toString());
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddRank"));
 				return;
 			}
 		} else
@@ -148,25 +147,25 @@ public class AddCommand implements Runnable {
 					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
 					if (args.length >= 6) time = Integer.parseInt(args[5]);
 					if (args.length > 6) {
-						sender.sendMessage(CommandUsage.C_ADD_XP.toString());
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddXp"));
 						return;
 					}
 
 					XpCoupon xc = CouponCodes.getCouponHandler().createNewXpCoupon(name, xp, usetimes, time, new HashMap<String, Boolean>());
 
 					if (xc.addToDatabase()) {
-						sender.sendMessage(Color.GREEN+"Coupon "+Color.GOLD+name+Color.GREEN+" has been added!");
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.Added", name));
 						return;
 					} else {
-						sender.sendMessage(Color.RED+"This coupon already exists!");
+						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.AlreadyExists"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(Color.DARK_RED+"Expected a number, but got a string. Please check your syntax.");
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.SyntaxError"));
 					return;
 				}
 			} else {
-				sender.sendMessage(CommandUsage.C_ADD_XP.toString());
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddXp"));
 				return;
 			}
 		} else {
@@ -175,10 +174,10 @@ public class AddCommand implements Runnable {
 	}
 
 	private void helpAdd(CommandSender sender) {
-		sender.sendMessage(Color.GOLD+"|-<> = required-"+Color.DARK_RED+"CouponCodes Help"+Color.GOLD+"-[]-optional-|");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add item <name> <item1:amount,item2:amount,..> [usetimes] [time]");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add econ <name> <money> [usetimes] [time]");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add rank <name> <group> [usetimes] [time]");
-		sender.sendMessage(Color.GOLD+"|--"+Color.YELLOW+"add xp <name> <xp> [usetimes] [time]");
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Header"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddItem"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddEcon"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddRank"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddXp"));
 	}
 }

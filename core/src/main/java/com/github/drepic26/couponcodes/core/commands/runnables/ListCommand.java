@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.github.drepic26.couponcodes.api.CouponCodes;
 import com.github.drepic26.couponcodes.api.command.CommandSender;
 import com.github.drepic26.couponcodes.core.util.Color;
+import com.github.drepic26.couponcodes.core.util.LocaleHandler;
 
 public class ListCommand implements Runnable {
 
@@ -19,10 +20,12 @@ public class ListCommand implements Runnable {
 		StringBuilder sb = new StringBuilder();
 			ArrayList<String> c = CouponCodes.getCouponHandler().getCoupons();
 			if (c.isEmpty() || c.size() <= 0 || c == null) {
-				sender.sendMessage(Color.RED+"No coupons found.");
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.List.NoFound"));
+
 				return;
 			} else {
-				sb.append(Color.PURPLE+"Coupon list: "+Color.GOLD);
+				sb.append(Color.DARK_PURPLE+"Coupon list: "+Color.GOLD);
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.List.List"));
 				for (int i = 0; i < c.size(); i++) {
 					sb.append(c.get(i));
 					if (!(Integer.valueOf(i+1).equals(c.size()))){

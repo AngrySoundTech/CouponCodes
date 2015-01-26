@@ -5,7 +5,9 @@ import java.io.File;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
-public class BukkitConfigHandler {
+import com.github.drepic26.couponcodes.api.config.ConfigHandler;
+
+public class BukkitConfigHandler implements ConfigHandler {
 
 	private FileConfiguration config;
 
@@ -56,5 +58,9 @@ public class BukkitConfigHandler {
 
 	public String getPassword() {
 		return config.getString("MySQL-options.password");
+	}
+
+	public String getLocale() {
+		return config.getString("locale");
 	}
 }

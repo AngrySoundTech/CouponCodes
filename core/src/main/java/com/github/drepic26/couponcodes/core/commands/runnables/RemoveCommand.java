@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import com.github.drepic26.couponcodes.api.CouponCodes;
 import com.github.drepic26.couponcodes.api.command.CommandSender;
-import com.github.drepic26.couponcodes.core.commands.CommandUsage;
-import com.github.drepic26.couponcodes.core.util.Color;
+import com.github.drepic26.couponcodes.core.util.LocaleHandler;
 
 public class RemoveCommand implements Runnable {
 
@@ -27,18 +26,18 @@ public class RemoveCommand implements Runnable {
 					CouponCodes.getCouponHandler().removeCouponFromDatabase(i);
 					j++;
 				}
-				sender.sendMessage(Color.GREEN+"A total of "+Color.GOLD+j+Color.GREEN+" coupons have been removed.");
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Remove.AllRemoved", j));
 				return;
 			}
 			if (!CouponCodes.getCouponHandler().couponExists(args[1])) {
-				sender.sendMessage(Color.RED+"That coupon doesn't exist!");
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Shared.DoesNotExist"));
 				return;
 			}
 			CouponCodes.getCouponHandler().removeCouponFromDatabase(CouponCodes.getCouponHandler().createNewItemCoupon(args[1], 0, -1, null, null));
-			sender.sendMessage(Color.GREEN+"The coupon "+Color.GOLD+args[1]+Color.GREEN+" has been removed.");
+			sender.sendMessage(LocaleHandler.getString(sender, "Command.Remove.Removed", args[1]));
 			return;
 		} else {
-			sender.sendMessage(CommandUsage.C_REMOVE.toString());
+			sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Remove"));
 			return;
 		}
 	}
