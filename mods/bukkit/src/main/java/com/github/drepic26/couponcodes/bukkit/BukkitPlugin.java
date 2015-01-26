@@ -31,6 +31,7 @@ import com.github.drepic26.couponcodes.bukkit.permission.SuperPermsPermissionHan
 import com.github.drepic26.couponcodes.bukkit.permission.VaultPermissionHandler;
 import com.github.drepic26.couponcodes.bukkit.updater.Updater;
 import com.github.drepic26.couponcodes.core.commands.CommandHandler;
+import com.github.drepic26.couponcodes.core.util.LocaleHandler;
 
 public class BukkitPlugin extends JavaPlugin implements Listener {
 
@@ -58,8 +59,8 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 			databaseHandler = new SQLDatabaseHandler(this, new SQLiteOptions(new File(getDataFolder()+"/coupon_data.db")));
 		} else
 		if (!CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("MYSQL") && !CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("SQLite")) {
-			logger.severe("The SQLType has the unknown value of: "+CouponCodes.getConfigHandler().getSQLValue());
-			logger.severe("Database could not be setup. CouponCodes will now disable");
+			logger.severe(LocaleHandler.getString("Console.SQL.UnknownValue", CouponCodes.getConfigHandler().getSQLValue()));
+			logger.severe(LocaleHandler.getString("Console.SQL.SetupFailed"));
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -69,16 +70,16 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 			CouponCodes.setCouponHandler(new BukkitCouponHandler(this, databaseHandler));
 		} catch (SQLException e) {
 			e.printStackTrace();
-			logger.severe("Database could not be setup. CouponCodes will now disable");
+			logger.severe(LocaleHandler.getString("Console.SQL.SetupFailed"));
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
 
 		// Vault
 		if (!setupVault()) {
-			logger.info("Vault could not be found. Economy and Rank coupons will be disabled.");
+			logger.info(LocaleHandler.getString("Console.Vault.Disabled"));
 		} else {
-			logger.info("Vault support is enabled.");
+			logger.info(LocaleHandler.getString("Console.Vault.Enabled"));
 			CouponCodes.setEconomyHandler(new VaultEconomyHandler(econ, perm));
 		}
 
@@ -119,7 +120,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 		try {
 			databaseHandler.close();
 		} catch (SQLException e) {
-			logger.severe("Could not close SQL connection");
+			logger.severe(LocaleHandler.getString("Console.SQL.CloseFailed"));
 		}
 	}
 

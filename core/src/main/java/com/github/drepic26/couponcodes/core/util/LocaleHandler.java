@@ -20,6 +20,10 @@ public final class LocaleHandler {
 		return getString(null, key);
 	}
 
+	public static String getString(String key, Object... messageArguments) {
+		return getString(null, key, messageArguments);
+	}
+
 	public static String getString(CommandSender sender, String key) {
 		return getString(sender, key, (Object[]) null);
 	}
