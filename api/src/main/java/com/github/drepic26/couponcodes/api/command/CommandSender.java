@@ -6,8 +6,6 @@ public interface CommandSender {
 
 	public boolean hasPermission(String node);
 
-	public String getName();
-
-	public String getUUID();
+	public String getLocale();
 
 }

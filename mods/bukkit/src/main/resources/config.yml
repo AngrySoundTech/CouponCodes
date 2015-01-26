@@ -8,8 +8,11 @@
 # https://github.com/Drepic26/CouponCodes-Revived
 #
 
-# Language the plugin should use
-# available languages are: en_US
+# Language the plugin should use by default.
+# If translated, players will get strings in their own locale.
+# If you would like to help translate this plugin to your language, you can contribute here: https://crowdin.com/project/couponcodes
+# available languages are: en_US       en_PT
+#                          US English  Pirate Speak
 locale: en_US
 
 # sql-type should be either 'MySQL' or 'SQLite'

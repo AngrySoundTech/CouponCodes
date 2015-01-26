@@ -41,4 +41,9 @@ public class SpongePlayer extends SimplePlayer {
 		//TODO Give item once Sponge implements it
 	}
 
+	@Override
+	public String getLocale() {
+		return spongePlayer.getLocale().toString();
+	}
+
 }

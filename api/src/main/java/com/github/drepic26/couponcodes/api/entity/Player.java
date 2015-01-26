@@ -14,4 +14,6 @@ public interface Player extends CommandSender {
 
 	public void giveItem(int item, int amount);
 
+	public String getLocale();
+
 }

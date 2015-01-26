@@ -27,4 +27,6 @@ public abstract class SimplePlayer implements CommandSender, Player {
 
 	public abstract void giveItem(int item, int amount);
 
+	public abstract String getLocale();
+
 }

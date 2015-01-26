@@ -28,6 +28,11 @@ public class RedeemCommand implements Runnable{
 		if (args.length == 2) {
 			Coupon coupon = CouponCodes.getCouponHandler().getCoupon(args[1]);
 
+			if (!(sender instanceof Player)) {
+				sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.NotPlayer"));
+				return;
+			}
+
 			if (coupon == null) {
 				sender.sendMessage(LocaleHandler.getString(sender, "Command.Shared.DoesNotExist"));
 				return;
@@ -38,8 +43,8 @@ public class RedeemCommand implements Runnable{
 			}
 			if (coupon.getUsedPlayers() != null) {
 				if (!coupon.getUsedPlayers().isEmpty()) {
-					if (coupon.getUsedPlayers().containsKey(sender.getUUID())) {
-						if (coupon.getUsedPlayers().get(sender.getUUID())) {
+					if (coupon.getUsedPlayers().containsKey(((Player)sender).getUUID())) {
+						if (coupon.getUsedPlayers().get(((Player)sender).getUUID())) {
 							sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.AlreadyUsed"));
 							return;
 						}
@@ -71,7 +76,7 @@ public class RedeemCommand implements Runnable{
 					return;
 				} else {
 					EconomyCoupon c = (EconomyCoupon) coupon;
-					CouponCodes.getEconomyHandler().giveMoney(sender.getUUID(), c.getMoney());
+					CouponCodes.getEconomyHandler().giveMoney(((Player)sender).getUUID(), c.getMoney());
 					sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.RedeemEcon", c.getName()));
 				}
 			} else
@@ -94,7 +99,7 @@ public class RedeemCommand implements Runnable{
 			}
 
 			HashMap<String, Boolean> up = coupon.getUsedPlayers();
-			up.put(sender.getUUID(), true);
+			up.put(((Player)sender).getUUID(), true);
 			coupon.setUsedPlayers(up);
 			coupon.setUseTimes(coupon.getUseTimes()-1);
 			CouponCodes.getCouponHandler().updateCoupon(coupon);

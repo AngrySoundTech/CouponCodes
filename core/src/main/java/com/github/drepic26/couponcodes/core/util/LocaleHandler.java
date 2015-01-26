@@ -13,7 +13,8 @@ public final class LocaleHandler {
 	private static final String BUNDLE_ROOT = "com.github.drepic26.couponcodes.core.locale.locale";
 
 	private static ResourceBundle bundle = null;
-	private static ResourceBundle enBundle = null;
+	private static ResourceBundle enUSBundle = null;
+	private static ResourceBundle enPTBundle = null;
 
 	public static String getString(String key) {
 		return getString(null, key);
@@ -28,15 +29,24 @@ public final class LocaleHandler {
 			initialize();
 		}
 		try {
-			return getString(key, bundle, messageArguments);
+			return getString(key, getBundleFromString(sender.getLocale()), messageArguments);
 		} catch (MissingResourceException e) {
 			try {
-				return getString(key, enBundle, messageArguments);
+				return getString(key, bundle, messageArguments);
 			} catch (MissingResourceException e2) {
 				System.out.println("Could not find locale string: " + key);
 			}
 			return "!" + key + "!";
 		}
+	}
+
+	private static ResourceBundle getBundleFromString(String locale) {
+		if (locale.equalsIgnoreCase("en_US")) {
+			return enUSBundle;
+		} else
+		if (locale.equalsIgnoreCase("en_PT")) {
+			return enPTBundle;
+		} else return bundle;
 	}
 
 	private static String getString(String key, ResourceBundle bundle, Object... messageArguments) throws MissingResourceException {
@@ -67,7 +77,8 @@ public final class LocaleHandler {
 				locale = new Locale(myLocale[0], myLocale[1]);
 			}
 			bundle = ResourceBundle.getBundle(BUNDLE_ROOT, locale);
-			enBundle = ResourceBundle.getBundle(BUNDLE_ROOT, Locale.US);
+			enPTBundle = ResourceBundle.getBundle(BUNDLE_ROOT, new Locale("en", "PT"));
+			enUSBundle = ResourceBundle.getBundle(BUNDLE_ROOT, Locale.US);
 
 		}
 	}

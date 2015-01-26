@@ -1,5 +1,10 @@
 package com.github.drepic26.couponcodes.bukkit.entity;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.github.drepic26.couponcodes.bukkit.BukkitPlugin;
@@ -57,6 +62,36 @@ public class BukkitPlayer extends SimplePlayer {
 
 	public BukkitPlugin getPlugin() {
 		return plugin;
+	}
+
+	@Override
+	public String getLocale() {
+		try {
+			Object ep = getMethod("getHandle", bukkitPlayer.getClass()).invoke(bukkitPlayer, (Object[]) null);
+			Field f = ep.getClass().getDeclaredField("locale");
+			f.setAccessible(true);
+			String language = (String) f.get(ep);
+			return language;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private Method getMethod(String name, Class<? extends Player> class1) {
+		for (Method m : class1.getDeclaredMethods()) {
+			if (m.getName().equals(name))
+				return m;
+		}
+		return null;
 	}
 
 }
