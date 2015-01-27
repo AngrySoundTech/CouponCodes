@@ -23,7 +23,7 @@ public class SimpleEventHandler implements EventHandler {
 	}
 
 	@Override
-	public Event post(Event event) {
+	public Event post(final Event event) {
 		new Thread() {
 			@Override
 			public void run() {
