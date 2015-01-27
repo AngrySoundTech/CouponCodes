@@ -8,6 +8,9 @@ import com.github.drepic26.couponcodes.api.coupon.EconomyCoupon;
 import com.github.drepic26.couponcodes.api.coupon.ItemCoupon;
 import com.github.drepic26.couponcodes.api.coupon.RankCoupon;
 import com.github.drepic26.couponcodes.api.coupon.XpCoupon;
+import com.github.drepic26.couponcodes.api.event.coupon.CouponAddToDatabaseEvent;
+import com.github.drepic26.couponcodes.api.event.coupon.CouponExpireEvent;
+import com.github.drepic26.couponcodes.api.event.coupon.CouponRemoveFromDatabaseEvent;
 
 public class SimpleCoupon implements Coupon {
 
@@ -26,11 +29,19 @@ public class SimpleCoupon implements Coupon {
 	}
 
 	public boolean addToDatabase() {
-		return CouponCodes.getCouponHandler().addCouponToDatabase(this);
+		if (CouponCodes.getCouponHandler().addCouponToDatabase(this)) {
+			CouponCodes.getEventHandler().post(new CouponAddToDatabaseEvent(this));
+			return true;
+		}
+		return false;
 	}
 
 	public boolean removeFromDatabase() {
-		return CouponCodes.getCouponHandler().removeCouponFromDatabase(this);
+		if (CouponCodes.getCouponHandler().removeCouponFromDatabase(this)) {
+			CouponCodes.getEventHandler().post(new CouponRemoveFromDatabaseEvent(this));
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isInDatabase() {
@@ -96,5 +107,6 @@ public class SimpleCoupon implements Coupon {
 
 	public void setExpired(boolean expired) {
 		this.expired = expired;
+		if (expired) CouponCodes.getEventHandler().post(new CouponExpireEvent(this));
 	}
 }

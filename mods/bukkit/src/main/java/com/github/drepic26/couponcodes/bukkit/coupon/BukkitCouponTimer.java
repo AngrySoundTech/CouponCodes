@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.github.drepic26.couponcodes.api.CouponCodes;
 import com.github.drepic26.couponcodes.api.coupon.Coupon;
+import com.github.drepic26.couponcodes.api.event.coupon.CouponTimeChangeEvent;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
 
 public class BukkitCouponTimer implements Runnable {
@@ -48,6 +49,7 @@ public class BukkitCouponTimer implements Runnable {
 					c.setTime(c.getTime()-10);
 				}
 				ch.updateCouponTime(c);
+				CouponCodes.getEventHandler().post(new CouponTimeChangeEvent(c));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

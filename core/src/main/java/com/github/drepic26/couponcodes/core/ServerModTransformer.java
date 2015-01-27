@@ -6,6 +6,7 @@ import java.util.Map;
 import com.github.drepic26.couponcodes.api.CouponCodes;
 import com.github.drepic26.couponcodes.api.ModTransformer;
 import com.github.drepic26.couponcodes.api.entity.Player;
+import com.github.drepic26.couponcodes.core.event.SimpleEventHandler;
 
 public abstract class ServerModTransformer implements ModTransformer {
 
@@ -16,6 +17,7 @@ public abstract class ServerModTransformer implements ModTransformer {
 	
 	public ServerModTransformer() {
 		CouponCodes.setModTransformer(this);
+		CouponCodes.setEventHandler(new SimpleEventHandler());
 	}
 
 	/**
