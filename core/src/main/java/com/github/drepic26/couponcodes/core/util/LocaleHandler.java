@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.github.drepic26.couponcodes.api.CouponCodes;
 import com.github.drepic26.couponcodes.api.command.CommandSender;
+import com.github.drepic26.couponcodes.api.entity.Player;
 
 public final class LocaleHandler {
 
@@ -33,7 +34,10 @@ public final class LocaleHandler {
 			initialize();
 		}
 		try {
-			return getString(key, getBundleFromString(sender.getLocale()), messageArguments);
+			if (sender instanceof Player)
+				return getString(key, getBundleFromString(sender.getLocale()), messageArguments);
+			else
+				return getString(key, bundle, messageArguments);
 		} catch (MissingResourceException e) {
 			try {
 				return getString(key, bundle, messageArguments);
