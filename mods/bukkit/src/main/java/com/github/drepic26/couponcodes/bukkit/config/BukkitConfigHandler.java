@@ -20,18 +20,22 @@ public class BukkitConfigHandler implements ConfigHandler {
 			plugin.saveConfig();
 	}
 
+	@Override
 	public boolean getUseThread() {
 		return config.getBoolean("use-thread", true);
 	}
 
+	@Override
 	public boolean getDebug() {
 		return config.getBoolean("debug", false);
 	}
 
+	@Override
 	public boolean getUseMetrics() {
 		return config.getBoolean("use-metrics", true);
 	}
 
+	@Override
 	public boolean getAutoUpdate() {
 		return config.getBoolean("auto-update", true);
 	}
@@ -60,6 +64,7 @@ public class BukkitConfigHandler implements ConfigHandler {
 		return config.getString("MySQL-options.password");
 	}
 
+	@Override
 	public String getLocale() {
 		return config.getString("locale");
 	}

@@ -52,14 +52,14 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 		CouponCodes.setConfigHandler(new BukkitConfigHandler(this));
 
 		//SQL
-		if (CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("MYSQL")) {
-			databaseHandler = new SQLDatabaseHandler(this, new MySQLOptions(CouponCodes.getConfigHandler().getHostname(), CouponCodes.getConfigHandler().getPort(), CouponCodes.getConfigHandler().getDatabase(), CouponCodes.getConfigHandler().getUsername(), CouponCodes.getConfigHandler().getPassword()));
+		if (((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue().equalsIgnoreCase("MYSQL")) {
+			databaseHandler = new SQLDatabaseHandler(this, new MySQLOptions(((BukkitConfigHandler)CouponCodes.getConfigHandler()).getHostname(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getPort(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getDatabase(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getUsername(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getPassword()));
 		} else
-		if (CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("SQLite")) {
+		if (((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue().equalsIgnoreCase("SQLite")) {
 			databaseHandler = new SQLDatabaseHandler(this, new SQLiteOptions(new File(getDataFolder()+"/coupon_data.db")));
 		} else
-		if (!CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("MYSQL") && !CouponCodes.getConfigHandler().getSQLValue().equalsIgnoreCase("SQLite")) {
-			logger.severe(LocaleHandler.getString("Console.SQL.UnknownValue", CouponCodes.getConfigHandler().getSQLValue()));
+		if (!((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue().equalsIgnoreCase("MYSQL") && !((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue().equalsIgnoreCase("SQLite")) {
+			logger.severe(LocaleHandler.getString("Console.SQL.UnknownValue", ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue()));
 			logger.severe(LocaleHandler.getString("Console.SQL.SetupFailed"));
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;

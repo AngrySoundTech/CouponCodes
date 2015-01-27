@@ -3,12 +3,14 @@ package com.github.drepic26.couponcodes.api.coupon;
 public interface RankCoupon extends Coupon {
 
 	/**
-	 * @return String The group the coupon is for
+	 * Gets the group this coupon is for
+	 * @return String The group this coupon is for
 	 */
 	public String getGroup();
 
 	/**
-	 * @param group The group to set the coupon for
+	 * Sets the group this coupon is for
+	 * @param group The group to set this coupon for
 	 */
 	public void setGroup(String group);
 

@@ -1,18 +1,13 @@
 package com.github.drepic26.couponcodes.api.event.coupon;
 
 import com.github.drepic26.couponcodes.api.coupon.Coupon;
-import com.github.drepic26.couponcodes.api.event.Event;
 
-public class CouponRemoveFromDatabaseEvent extends Event {
-
-	private Coupon coupon;
+/**
+ * Fired when a coupon is removed from the database.
+ */
+public class CouponRemoveFromDatabaseEvent extends CouponEvent {
 
 	public CouponRemoveFromDatabaseEvent(Coupon coupon) {
-		this.coupon = coupon;
+		super(coupon);
 	}
-
-	public Coupon getCoupon() {
-		return coupon;
-	}
-
 }
