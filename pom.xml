@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.drepic26.couponcodes</groupId>
+	<artifactId>couponcodes-parent</artifactId>
+	<name>CouponCodes</name>
+	<url>https://github.com/Drepic26/CouponCodes3</url>
+	<packaging>pom</packaging>
+	<version>3.1-SNAPSHOT</version>
+
+	<properties>
+		<minecraft.version>1.8.1</minecraft.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<ciManagement>
+		<system>Travis</system>
+		<url>https://travis-ci.org/Drepic26/CouponCodes3</url>
+	</ciManagement>
+
+	<scm>
+		<developerConnection>scm:git:git@github.com:Drepic26/CouponCodes3.git</developerConnection>
+		<connection>scm:git:git://github.com:Drepic26/CouponCodes3.git</connection>
+		<url>https://github.com/Drepic26/CouponCodes3</url>
+	</scm>
+
+	<modules>
+		<module>api</module>
+		<module>core</module>
+		<module>mods/bukkit</module>
+		<module>mods/sponge</module>
+		<module>mods/universal</module>
+	</modules>
+
+	<build>
+		<defaultGoal>clean package</defaultGoal>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo>Building CouponCodes Version=[${project.version}] MC=[${minecraft.version}]</echo>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Minecraft-Version>${minecraft.version}</Minecraft-Version>
+							<Git-Branch>${git.branch}</Git-Branch>
+							<Git-Describe>${git.describe}</Git-Describe>
+							<Git-Commit-Id>${git.commit.id}</Git-Commit-Id>
+							<Git-Commit-Time>${git.commit.time}</Git-Commit-Time>
+							<Build-Time>${git.build.time}</Build-Time>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<inherited>false</inherited>
+						<configuration>
+							<descriptors>
+								<descriptor>assembly.xml</descriptor>
+							</descriptors>
+							<finalName>${project.name}-${project.version}</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

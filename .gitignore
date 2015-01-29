@@ -1,16 +1,17 @@
-# Gradle #
-
-.gradle
-build/
-*/build/
-bin/
-*/bin/
-
-# Eclipse #
-
-*/.project
-.project
-*/.classpath
-.classpath
-*/.settings/
+# IDEs #
+.idea
 .settings
+.externalToolBuilders
+.classpath
+.project
+
+# Generated #
+obj
+target
+build
+javadoc
+site
+dependency-reduced-pom.xml
+
+# Files #
+*.bat
