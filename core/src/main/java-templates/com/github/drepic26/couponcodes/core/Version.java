@@ -1,4 +1,4 @@
-package com.github.drepic26.couponcodes;
+package com.github.drepic26.couponcodes.core;
 
 public class Version {
 	public static final String PLUGIN_ID = "${plugin.id}";
