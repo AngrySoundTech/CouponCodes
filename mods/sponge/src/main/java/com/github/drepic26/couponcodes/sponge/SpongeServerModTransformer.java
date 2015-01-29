@@ -1,5 +1,7 @@
 package com.github.drepic26.couponcodes.sponge;
 
+import java.util.UUID;
+
 import org.spongepowered.api.Game;
 import org.spongepowered.api.plugin.PluginContainer;
 
@@ -18,8 +20,8 @@ public class SpongeServerModTransformer extends ServerModTransformer {
 	}
 
 	@Override
-	protected Player getModPlayer(String name) {
-		org.spongepowered.api.entity.player.Player spongePlayer = game.getPlayer(name).orNull();
+	protected Player getModPlayer(String uuid) {
+		org.spongepowered.api.entity.player.Player spongePlayer = game.getServer().get().getPlayer(UUID.fromString(uuid)).orNull();
 
 		if (spongePlayer == null)
 			return null;
