@@ -8,11 +8,11 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.util.event.Subscribe;
 
+import com.github.drepic26.couponcodes.Version;
 import com.github.drepic26.couponcodes.api.ModTransformer;
 import com.github.drepic26.couponcodes.api.entity.Player;
-import com.github.drepic26.couponcodes.core.util.CouponCodesProperties;
 
-@Plugin(id = "couponcodes", name = "CouponCodes", version = CouponCodesProperties.VERSION)
+@Plugin(id = Version.PLUGIN_ID, name = Version.PLUGIN_NAME, version = Version.PLUGIN_VERSION)
 public class SpongePlugin {
 
 	public static SpongePlugin instance;
