@@ -3,7 +3,7 @@ notifications:
   email: false
 install: true
 script:
-  - gradle build
+  - mvn -Dmaven.javadoc.skip=true clean install
 jdk:
   - openjdk6
   - openjdk7
