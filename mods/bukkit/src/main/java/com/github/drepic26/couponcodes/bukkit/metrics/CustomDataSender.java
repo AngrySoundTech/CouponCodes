@@ -2,20 +2,14 @@ package com.github.drepic26.couponcodes.bukkit.metrics;
 
 import com.github.drepic26.couponcodes.api.CouponCodes;
 import com.github.drepic26.couponcodes.api.coupon.CouponHandler;
-import com.github.drepic26.couponcodes.bukkit.BukkitPlugin;
-import com.github.drepic26.couponcodes.bukkit.coupon.BukkitCouponHandler;
-import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
-import com.github.drepic26.couponcodes.bukkit.database.options.SQLiteOptions;
 import com.github.drepic26.couponcodes.bukkit.metrics.Metrics.Graph;
 
 public class CustomDataSender implements Runnable {
 
-	private BukkitPlugin plugin;
 	private Metrics metrics;
 	private CouponHandler ch;
 
-	public CustomDataSender(BukkitPlugin plugin, Metrics metrics) {
-		this.plugin = plugin;
+	public CustomDataSender(Metrics metrics) {
 		this.metrics = metrics;
 		this.ch = CouponCodes.getCouponHandler();
 	}
@@ -48,24 +42,12 @@ public class CustomDataSender implements Runnable {
 				return ch.getAmountOf("Xp");
 			}
 		});
-	    // SQL Types
-	    Graph sqlTypesGraph = metrics.createGraph("SQL Type");
-	    sqlTypesGraph.addPlotter(new Metrics.Plotter("MySQL") {
+	    // Database types
+	    Graph dbTypesGraph = metrics.createGraph("Database Type");
+	    dbTypesGraph.addPlotter(new Metrics.Plotter(CouponCodes.getDatabaseHandler().getDatabaseType()) {
 			@Override
 			public int getValue() {
-				if (((BukkitCouponHandler) ch).getDatabaseHandler().getDatabaseOptions() instanceof MySQLOptions)
-					return 1;
-				else
-					return 0;
-			}
-		});
-	    sqlTypesGraph.addPlotter(new Metrics.Plotter("SQLite") {
-			@Override
-			public int getValue() {
-				if (((BukkitCouponHandler) ch).getDatabaseHandler().getDatabaseOptions() instanceof SQLiteOptions)
-					return 1;
-				else
-					return 0;
+				return 1;
 			}
 		});
 	}

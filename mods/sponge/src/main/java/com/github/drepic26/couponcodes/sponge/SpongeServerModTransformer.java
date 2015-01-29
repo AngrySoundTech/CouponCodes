@@ -20,7 +20,7 @@ public class SpongeServerModTransformer extends ServerModTransformer {
 	}
 
 	@Override
-	protected Player getModPlayer(String uuid) {
+	public Player getModPlayer(String uuid) {
 		org.spongepowered.api.entity.player.Player spongePlayer = game.getServer().get().getPlayer(UUID.fromString(uuid)).orNull();
 
 		if (spongePlayer == null)

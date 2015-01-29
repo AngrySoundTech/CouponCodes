@@ -22,7 +22,7 @@ public class BukkitServerModTransformer extends ServerModTransformer {
 	}
 
 	@Override
-	protected Player getModPlayer(String uuid) {
+	public Player getModPlayer(String uuid) {
 		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(uuid));
 
 		if (bukkitPlayer == null)

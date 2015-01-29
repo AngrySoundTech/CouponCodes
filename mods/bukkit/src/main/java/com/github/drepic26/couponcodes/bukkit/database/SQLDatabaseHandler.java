@@ -7,12 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.github.drepic26.couponcodes.api.database.DatabaseHandler;
 import com.github.drepic26.couponcodes.bukkit.BukkitPlugin;
 import com.github.drepic26.couponcodes.bukkit.database.options.DatabaseOptions;
 import com.github.drepic26.couponcodes.bukkit.database.options.MySQLOptions;
 import com.github.drepic26.couponcodes.bukkit.database.options.SQLiteOptions;
 
-public class SQLDatabaseHandler {
+public class SQLDatabaseHandler implements DatabaseHandler {
 
 	private DatabaseOptions dop;
 	private Connection conn;
@@ -92,5 +93,16 @@ public class SQLDatabaseHandler {
 	public boolean createTable(String table) throws SQLException {
 		Statement st = conn.createStatement();
 		return st.execute(table);
+	}
+
+	@Override
+	public String getDatabaseType() {
+		if (dop instanceof MySQLOptions) {
+			return "MySQL";
+		} else
+		if (dop instanceof SQLiteOptions) {
+			return "SQLite";
+		}
+		return "None";
 	}
 }

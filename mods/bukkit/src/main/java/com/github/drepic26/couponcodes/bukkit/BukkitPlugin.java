@@ -14,9 +14,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.drepic26.couponcodes.api.CouponCodes;
-import com.github.drepic26.couponcodes.api.ModTransformer;
 import com.github.drepic26.couponcodes.api.entity.Player;
-import com.github.drepic26.couponcodes.bukkit.commands.BukkitCommandHandler;
 import com.github.drepic26.couponcodes.bukkit.config.BukkitConfigHandler;
 import com.github.drepic26.couponcodes.bukkit.coupon.BukkitCouponHandler;
 import com.github.drepic26.couponcodes.bukkit.coupon.BukkitCouponTimer;
@@ -30,17 +28,14 @@ import com.github.drepic26.couponcodes.bukkit.metrics.Metrics;
 import com.github.drepic26.couponcodes.bukkit.permission.SuperPermsPermissionHandler;
 import com.github.drepic26.couponcodes.bukkit.permission.VaultPermissionHandler;
 import com.github.drepic26.couponcodes.bukkit.updater.Updater;
-import com.github.drepic26.couponcodes.core.commands.CommandHandler;
+import com.github.drepic26.couponcodes.core.commands.SimpleCommandHandler;
+import com.github.drepic26.couponcodes.core.event.SimpleEventHandler;
 import com.github.drepic26.couponcodes.core.util.LocaleHandler;
 
 public class BukkitPlugin extends JavaPlugin implements Listener {
 
 	private Logger logger = null;
 	private Metrics metrics;
-
-	private ModTransformer transformer = new BukkitServerModTransformer(this);
-	private final CommandHandler commandHandler = new BukkitCommandHandler();
-	private SQLDatabaseHandler databaseHandler;
 
 	private Economy econ = null;
 	private Permission perm = null;
@@ -49,14 +44,17 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 	public void onEnable() {
 		logger = this.getLogger();
 
+		CouponCodes.setEventHandler(new SimpleEventHandler());
+		CouponCodes.setModTransformer(new BukkitServerModTransformer(this));
 		CouponCodes.setConfigHandler(new BukkitConfigHandler(this));
+		CouponCodes.setCommandHandler(new SimpleCommandHandler());
 
 		//SQL
 		if (((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue().equalsIgnoreCase("MYSQL")) {
-			databaseHandler = new SQLDatabaseHandler(this, new MySQLOptions(((BukkitConfigHandler)CouponCodes.getConfigHandler()).getHostname(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getPort(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getDatabase(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getUsername(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getPassword()));
+			CouponCodes.setDatabaseHandler(new SQLDatabaseHandler(this, new MySQLOptions(((BukkitConfigHandler)CouponCodes.getConfigHandler()).getHostname(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getPort(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getDatabase(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getUsername(), ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getPassword())));
 		} else
 		if (((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue().equalsIgnoreCase("SQLite")) {
-			databaseHandler = new SQLDatabaseHandler(this, new SQLiteOptions(new File(getDataFolder()+"/coupon_data.db")));
+			CouponCodes.setDatabaseHandler(new SQLDatabaseHandler(this, new SQLiteOptions(new File(getDataFolder()+"/coupon_data.db"))));
 		} else
 		if (!((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue().equalsIgnoreCase("MYSQL") && !((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue().equalsIgnoreCase("SQLite")) {
 			logger.severe(LocaleHandler.getString("Console.SQL.UnknownValue", ((BukkitConfigHandler)CouponCodes.getConfigHandler()).getSQLValue()));
@@ -65,9 +63,9 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 			return;
 		}
 		try {
-			databaseHandler.open();
-			databaseHandler.createTable("CREATE TABLE IF NOT EXISTS couponcodes (name VARCHAR(24), ctype VARCHAR(10), usetimes INT(10), usedplayers TEXT(1024), ids VARCHAR(255), money INT(10), groupname VARCHAR(20), timeuse INT(100), xp INT(10))");
-			CouponCodes.setCouponHandler(new BukkitCouponHandler(this, databaseHandler));
+			((SQLDatabaseHandler)CouponCodes.getDatabaseHandler()).open();
+			((SQLDatabaseHandler)CouponCodes.getDatabaseHandler()).createTable("CREATE TABLE IF NOT EXISTS couponcodes (name VARCHAR(24), ctype VARCHAR(10), usetimes INT(10), usedplayers TEXT(1024), ids VARCHAR(255), money INT(10), groupname VARCHAR(20), timeuse INT(100), xp INT(10))");
+			CouponCodes.setCouponHandler(new BukkitCouponHandler(this, ((SQLDatabaseHandler)CouponCodes.getDatabaseHandler())));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.severe(LocaleHandler.getString("Console.SQL.SetupFailed"));
@@ -102,23 +100,23 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 		if (CouponCodes.getConfigHandler().getUseMetrics()) {
 			try {
 				metrics = new Metrics(this);
-			getServer().getScheduler().scheduleSyncDelayedTask(this, new CustomDataSender(this, metrics));
+				CouponCodes.getModTransformer().scheduleRunnable(new CustomDataSender(metrics));
 				metrics.start();
 			} catch (IOException e) {}
 		}
 
 		//Updater
 		if (CouponCodes.getConfigHandler().getAutoUpdate()) {
-			Updater updater = new Updater(this, 53833, this.getFile(), Updater.UpdateType.DEFAULT, false);
+			new Updater(this, 53833, this.getFile(), Updater.UpdateType.DEFAULT, false);
 		}
 	}
 
 	@Override
 	public void onDisable() {
-		transformer = null;
+		CouponCodes.setModTransformer(null);
 
 		try {
-			databaseHandler.close();
+			((SQLDatabaseHandler)CouponCodes.getDatabaseHandler()).close();
 		} catch (SQLException e) {
 			logger.severe(LocaleHandler.getString("Console.SQL.CloseFailed"));
 		}
@@ -144,15 +142,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 	}
 
 	public Player wrapPlayer(org.bukkit.entity.Player player) {
-		return transformer.getPlayer(player.getUniqueId().toString());
-	}
-
-	public ModTransformer getTransformer() {
-		return transformer;
-	}
-
-	public CommandHandler getCommandHandler() {
-		return commandHandler;
+		return CouponCodes.getModTransformer().getPlayer(player.getUniqueId().toString());
 	}
 
 }

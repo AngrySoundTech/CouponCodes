@@ -1,6 +1,8 @@
 package com.github.drepic26.couponcodes.core.commands;
 
 import com.github.drepic26.couponcodes.api.CouponCodes;
+import com.github.drepic26.couponcodes.api.command.CommandException;
+import com.github.drepic26.couponcodes.api.command.CommandHandler;
 import com.github.drepic26.couponcodes.api.command.CommandSender;
 import com.github.drepic26.couponcodes.core.commands.runnables.AddCommand;
 import com.github.drepic26.couponcodes.core.commands.runnables.InfoCommand;
@@ -9,8 +11,7 @@ import com.github.drepic26.couponcodes.core.commands.runnables.RedeemCommand;
 import com.github.drepic26.couponcodes.core.commands.runnables.RemoveCommand;
 import com.github.drepic26.couponcodes.core.util.LocaleHandler;
 
-public abstract class CommandHandler {
-
+public class SimpleCommandHandler implements CommandHandler {
 	// Handle a command with args
 	public boolean handleCommand(String command, String[] args, CommandSender sender) throws CommandException {
 		if (command.equalsIgnoreCase("coupon")) {
@@ -68,7 +69,7 @@ public abstract class CommandHandler {
 			return false;
 		} else return false;
 	}
-	
+
 	// Handle a command with no args
 	public boolean handleCommand(String command, CommandSender sender) throws CommandException {
 		if (command.equalsIgnoreCase("coupon")) {
