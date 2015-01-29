@@ -6,7 +6,5 @@ CouponCodes 3! [![Build Status](https://travis-ci.org/Drepic26/CouponCodes3.svg?
 
 Building
 =
-* Clone this repo
-* Run `gradlew clean build` in the top level directory
-
-Build jars can be found in `build/libs`
+* Install [Maven](http://maven.apache.org/download.cgi)
+* Clone this repo and run `mvn clean install` in it
