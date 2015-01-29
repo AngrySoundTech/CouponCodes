@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.drepic26.couponcodes.mods</groupId>
-  <artifactId>universal</artifactId>
-  <name>CouponCodes-Universal</name>
+  <artifactId>granite</artifactId>
+  <name>CouponCodes-Granite</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
   <packaging>jar</packaging>
   <version>3.1-SNAPSHOT</version>
@@ -20,6 +20,10 @@
 
   <repositories>
     <repository>
+      <id>Sponge</id>
+      <url>http://repo.spongepowered.org/maven</url>
+    </repository>
+    <repository>
       <id>mcstats</id>
       <url>http://repo.mcstats.org/content/repositories/public</url>
     </repository>
@@ -33,28 +37,16 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.drepic26.couponcodes.mods</groupId>
-      <artifactId>bukkit</artifactId>
-      <version>3.1-SNAPSHOT</version>
-      <scope>compile</scope>
+      <groupId>org.granitemc</groupId>
+      <artifactId>graniteapi</artifactId>
+      <version>0.2.0-SNAPSHOT</version>
+      <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>com.github.drepic26.couponcodes.mods</groupId>
-      <artifactId>sponge</artifactId>
-      <version>3.1-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.github.drepic26.couponcodes.mods</groupId>
+	<dependency>
+      <groupId>org.granitemc</groupId>
       <artifactId>granite</artifactId>
-      <version>3.1-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.github.drepic26.couponcodes.mods</groupId>
-      <artifactId>canary</artifactId>
-      <version>3.1-SNAPSHOT</version>
-      <scope>compile</scope>
+      <version>0.2.0-SNAPSHOT</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
@@ -79,6 +71,7 @@
           <target>1.7</target>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -92,16 +85,12 @@
             <configuration>
               <artifactSet>
                 <includes>
-                  <include>com.github.drepic26.couponcodes.mods:*</include>
+                  <include>com.github.drepic26.couponcodes:core</include>
                 </includes>
               </artifactSet>
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

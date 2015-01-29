@@ -28,6 +28,8 @@
     <module>core</module>
     <module>mods/bukkit</module>
     <module>mods/sponge</module>
+    <module>mods/granite</module>
+    <module>mods/canary</module>
     <module>mods/universal</module>
   </modules>
 
