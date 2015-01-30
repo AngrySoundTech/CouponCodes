@@ -16,6 +16,7 @@ public final class LocaleHandler {
 	private static ResourceBundle bundle = null;
 	private static ResourceBundle enUSBundle = null;
 	private static ResourceBundle enPTBundle = null;
+	private static ResourceBundle nlBundle = null;
 
 	public static String getString(String key) {
 		return getString(null, key);
@@ -54,7 +55,11 @@ public final class LocaleHandler {
 		} else
 		if (locale.equalsIgnoreCase("en_PT")) {
 			return enPTBundle;
+		} else
+		if (locale.equalsIgnoreCase("nl") || locale.equalsIgnoreCase("nl_NL") || locale.equalsIgnoreCase("nl_be")) {
+			return nlBundle;
 		} else return bundle;
+
 	}
 
 	private static String getString(String key, ResourceBundle bundle, Object... messageArguments) throws MissingResourceException {
@@ -87,6 +92,7 @@ public final class LocaleHandler {
 			bundle = ResourceBundle.getBundle(BUNDLE_ROOT, locale);
 			enPTBundle = ResourceBundle.getBundle(BUNDLE_ROOT, new Locale("en", "PT"));
 			enUSBundle = ResourceBundle.getBundle(BUNDLE_ROOT, Locale.US);
+			nlBundle = ResourceBundle.getBundle(BUNDLE_ROOT, new Locale("nl"));
 
 		}
 	}
