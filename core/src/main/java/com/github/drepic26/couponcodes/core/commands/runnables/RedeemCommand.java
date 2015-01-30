@@ -80,12 +80,12 @@ public class RedeemCommand implements Runnable{
 			} else
 
 			if (coupon instanceof RankCoupon) {
-				if (CouponCodes.getEconomyHandler() == null) {
+				if (!CouponCodes.getPermissionHandler().groupSupport()) {
 					sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.RankDisabled"));
 					return;
 				} else {
 					RankCoupon c = (RankCoupon) coupon;
-					CouponCodes.getEconomyHandler().setPlayerGroup((Player)sender, c.getGroup());
+					CouponCodes.getPermissionHandler().setPlayerGroup((Player)sender, c.getGroup());
 					sender.sendMessage(LocaleHandler.getString(sender, "Command.Redeem.RedeemRank", c.getName(), c.getGroup()));
 				}
 			} else

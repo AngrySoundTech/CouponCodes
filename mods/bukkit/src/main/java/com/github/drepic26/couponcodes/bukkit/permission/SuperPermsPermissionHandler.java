@@ -42,4 +42,14 @@ public class SuperPermsPermissionHandler implements PermissionHandler {
 		}
 		return groups;
 	}
+
+	@Override
+	public void setPlayerGroup(Player player, String group) {
+		
+	}
+
+	@Override
+	public boolean groupSupport() {
+		return false;
+	}
 }

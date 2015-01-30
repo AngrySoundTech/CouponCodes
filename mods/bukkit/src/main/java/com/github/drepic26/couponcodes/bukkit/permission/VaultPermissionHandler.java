@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import com.github.drepic26.couponcodes.api.entity.Player;
+import com.github.drepic26.couponcodes.bukkit.entity.BukkitPlayer;
 
 public class VaultPermissionHandler extends SuperPermsPermissionHandler {
 
@@ -26,6 +27,23 @@ public class VaultPermissionHandler extends SuperPermsPermissionHandler {
 	@Override
 	public boolean isEnabled() {
 		return checkVault();
+	}
+	
+	@Override
+	public void setPlayerGroup(Player player, String group) {
+		if (permission.getName().equalsIgnoreCase("PermissionsBukkit")) {
+			permission.playerAddGroup((String) null, Bukkit.getOfflinePlayer(UUID.fromString(player.getUUID())), group);
+			for (String i : permission.getPlayerGroups((String) null, Bukkit.getOfflinePlayer(UUID.fromString(player.getUUID())))) {
+				if (i.equalsIgnoreCase(group)) continue;
+				permission.playerRemoveGroup((String) null, Bukkit.getOfflinePlayer(UUID.fromString(player.getUUID())), i);
+			}
+		} else {
+			permission.playerAddGroup(((BukkitPlayer) player).getBukkitPlayer(), group);
+			for (String i : permission.getPlayerGroups(((BukkitPlayer) player).getBukkitPlayer())) {
+				if (i.equalsIgnoreCase(group)) continue;
+				permission.playerRemoveGroup(((BukkitPlayer)player).getBukkitPlayer(), i);
+			}
+		}
 	}
 
 	@Override
@@ -68,5 +86,10 @@ public class VaultPermissionHandler extends SuperPermsPermissionHandler {
 		}
 		permission = rsp.getProvider();
 		return permission != null;
+	}
+	
+	@Override
+	public boolean groupSupport() {
+		return true;
 	}
 }

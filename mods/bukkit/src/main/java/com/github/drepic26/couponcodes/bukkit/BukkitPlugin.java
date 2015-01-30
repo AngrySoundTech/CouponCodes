@@ -78,7 +78,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 			logger.info(LocaleHandler.getString("Console.Vault.Disabled"));
 		} else {
 			logger.info(LocaleHandler.getString("Console.Vault.Enabled"));
-			CouponCodes.setEconomyHandler(new VaultEconomyHandler(econ, perm));
+			CouponCodes.setEconomyHandler(new VaultEconomyHandler(econ));
 		}
 
 		// Events
