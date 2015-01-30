@@ -12,6 +12,7 @@ public class CanaryConfigHandler implements ConfigHandler {
 
 	public CanaryConfigHandler(CanaryPlugin plugin) {
 		config = Configuration.getPluginConfig(plugin);
+		config.save();
 	}
 
 	@Override
