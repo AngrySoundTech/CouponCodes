@@ -92,28 +92,28 @@ public final class LocaleHandler {
 	}
 
 	private static String addColors(String input) {
-		input = input.replaceAll("\\\\Q[[BLACK]]\\\\E", Color.BLACK.toString());
-		input = input.replaceAll("\\\\Q[[DARK_BLUE]]\\\\E", Color.DARK_BLUE.toString());
-		input = input.replaceAll("\\\\Q[[DARK_GREEN]]\\\\E", Color.DARK_GREEN.toString());
-		input = input.replaceAll("\\\\Q[[DARK_AQUA]]\\\\E", Color.DARK_AQUA.toString());
-		input = input.replaceAll("\\\\Q[[DARK_RED]]\\\\E", Color.DARK_RED.toString());
-		input = input.replaceAll("\\\\Q[[DARK_PURPLE]]\\\\E", Color.DARK_PURPLE.toString());
-		input = input.replaceAll("\\\\Q[[GOLD]]\\\\E", Color.GOLD.toString());
-		input = input.replaceAll("\\\\Q[[GRAY]]\\\\E", Color.GRAY.toString());
-		input = input.replaceAll("\\\\Q[[DARK_GRAY]]\\\\E", Color.DARK_GRAY.toString());
-		input = input.replaceAll("\\\\Q[[BLUE]]\\\\E", Color.BLUE.toString());
-		input = input.replaceAll("\\\\Q[[GREEN]]\\\\E", Color.GREEN.toString());
-		input = input.replaceAll("\\\\Q[[AQUA]]\\\\E", Color.AQUA.toString());
-		input = input.replaceAll("\\\\Q[[RED]]\\\\E", Color.RED.toString());
-		input = input.replaceAll("\\\\Q[[LIGHT_PURPLE]]\\\\E", Color.LIGHT_PURPLE.toString());
-		input = input.replaceAll("\\\\Q[[YELLOW]]\\\\E", Color.YELLOW.toString());
-		input = input.replaceAll("\\\\Q[[WHITE]]\\\\E", Color.WHITE.toString());
-		input = input.replaceAll("\\\\Q[[BOLD]]\\\\E", Color.BOLD.toString());
-		input = input.replaceAll("\\\\Q[[UNDERLINE]]\\\\E", Color.UNDERLINE.toString());
-		input = input.replaceAll("\\\\Q[[ITALIC]]\\\\E", Color.ITALIC.toString());
-		input = input.replaceAll("\\\\Q[[STRIKE]]\\\\E", Color.STRIKETHROUGH.toString());
-		input = input.replaceAll("\\\\Q[[MAGIC]]\\\\E", Color.MAGIC.toString());
-		input = input.replaceAll("\\\\Q[[RESET]]\\\\E", Color.RESET.toString());
+		input = input.replaceAll("\\Q[[BLACK]]\\E", Color.BLACK);
+		input = input.replaceAll("\\Q[[DARK_BLUE]]\\E", Color.DARK_BLUE);
+		input = input.replaceAll("\\Q[[DARK_GREEN]]\\E", Color.DARK_GREEN);
+		input = input.replaceAll("\\Q[[DARK_AQUA]]\\E", Color.DARK_AQUA);
+		input = input.replaceAll("\\Q[[DARK_RED]]\\E", Color.DARK_RED);
+		input = input.replaceAll("\\Q[[DARK_PURPLE]]\\E", Color.DARK_PURPLE);
+		input = input.replaceAll("\\Q[[GOLD]]\\E", Color.GOLD);
+		input = input.replaceAll("\\Q[[GRAY]]\\E", Color.GRAY);
+		input = input.replaceAll("\\Q[[DARK_GRAY]]\\E", Color.DARK_GRAY);
+		input = input.replaceAll("\\Q[[BLUE]]\\E", Color.BLUE);
+		input = input.replaceAll("\\Q[[GREEN]]\\E", Color.GREEN);
+		input = input.replaceAll("\\Q[[AQUA]]\\E", Color.AQUA);
+		input = input.replaceAll("\\Q[[RED]]\\E", Color.RED);
+		input = input.replaceAll("\\Q[[LIGHT_PURPLE]]\\E", Color.LIGHT_PURPLE);
+		input = input.replaceAll("\\Q[[YELLOW]]\\E", Color.YELLOW);
+		input = input.replaceAll("\\Q[[WHITE]]\\E", Color.WHITE);
+		input = input.replaceAll("\\Q[[BOLD]]\\E", Color.BOLD);
+		input = input.replaceAll("\\Q[[UNDERLINE]]\\E", Color.UNDERLINE);
+		input = input.replaceAll("\\Q[[ITALIC]]\\E", Color.ITALIC);
+		input = input.replaceAll("\\Q[[STRIKE]]\\E", Color.STRIKETHROUGH);
+		input = input.replaceAll("\\Q[[MAGIC]]\\E", Color.MAGIC);
+		input = input.replaceAll("\\Q[[RESET]]\\E", Color.RESET);
 
 		return input;
 	}
