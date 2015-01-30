@@ -13,6 +13,11 @@ public class CanaryPlayer extends SimplePlayer {
 	}
 
 	@Override
+	public boolean hasPermission(String node) {
+		return canaryPlayer.hasPermission(node);
+	}
+
+	@Override
 	public void sendMessage(String message) {
 		canaryPlayer.message(message);
 	}

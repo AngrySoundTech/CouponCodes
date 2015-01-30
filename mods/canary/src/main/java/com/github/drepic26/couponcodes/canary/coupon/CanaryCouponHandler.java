@@ -33,9 +33,10 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 		if (couponExists(coupon)) return false;
 			CanaryDataAccess da = new CanaryDataAccess();
 			da.name = coupon.getName();
-			da.timeuse = coupon.getUseTimes();
+			da.usetimes = coupon.getUseTimes();
 			da.usedplayers = playerHashToString(coupon.getUsedPlayers());
 			da.ctype = coupon.getType();
+			da.timeuse = coupon.getTime();
 
 			if (coupon instanceof ItemCoupon) {
 				da.ids = itemHashToString(((ItemCoupon) coupon).getIDs());
@@ -121,7 +122,8 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 	public void updateCoupon(Coupon coupon) {
 		CanaryDataAccess da = new CanaryDataAccess();
 		da.name = coupon.getName();
-		da.timeuse = coupon.getUseTimes();
+		da.usetimes = coupon.getUseTimes();
+		da.timeuse = coupon.getTime();
 		da.usedplayers = playerHashToString(coupon.getUsedPlayers());
 		da.ctype = coupon.getType();
 
