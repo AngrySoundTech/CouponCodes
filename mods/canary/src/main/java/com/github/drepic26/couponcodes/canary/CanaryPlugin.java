@@ -9,6 +9,7 @@ import com.github.drepic26.couponcodes.canary.database.CanaryDatabaseHandler;
 import com.github.drepic26.couponcodes.canary.listeners.CanaryListener;
 import com.github.drepic26.couponcodes.canary.metrics.CustomDataSender;
 import com.github.drepic26.couponcodes.canary.metrics.Metrics;
+import com.github.drepic26.couponcodes.canary.permission.CanaryPermissionHandler;
 import com.github.drepic26.couponcodes.core.commands.SimpleCommandHandler;
 import com.github.drepic26.couponcodes.core.event.SimpleEventHandler;
 
@@ -33,6 +34,8 @@ public class CanaryPlugin extends Plugin {
 
 		CouponCodes.setDatabaseHandler(new CanaryDatabaseHandler());
 		CouponCodes.setCouponHandler(new CanaryCouponHandler());
+
+		CouponCodes.setPermissionHandler(new CanaryPermissionHandler());
 
 		if (CouponCodes.getConfigHandler().getUseMetrics()) {
 			try {

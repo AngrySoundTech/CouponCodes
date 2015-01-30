@@ -33,4 +33,18 @@ public interface PermissionHandler {
 	 */
 	public Set<String> getGroups(Player player);
 
+	/**
+	 * Sets the group of the specified player.
+	 * This will not work if there is no permissions handler installed
+	 * @param player The player to set the group of
+	 * @param group The group to set the player to
+	 */
+	public abstract void setPlayerGroup(Player player, String group);
+
+	/**
+	 * Whether this permission handler has support for groups.
+	 * @return True if the handler has support for groups.
+	 */
+	public abstract boolean groupSupport();
+
 }
