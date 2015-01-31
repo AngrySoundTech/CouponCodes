@@ -27,4 +27,11 @@ public interface ModTransformer {
 	 */
 	public Player getModPlayer(String UUID);
 
+	/**
+	 * This should be used in case the player you want to get the name of may be offline
+	 * @param UUID The UUID of the player's name to get
+	 * @return The name of the player
+	 */
+	public String getPlayerName(String UUID);
+
 }

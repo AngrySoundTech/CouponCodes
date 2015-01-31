@@ -81,6 +81,7 @@ public class SimpleCommandHandler implements CommandHandler {
 	//Help
 	private void help(CommandSender sender) {
 		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Header"));
+		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Instructions"));
 		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddItem"));
 		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddEcon"));
 		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddRank"));

@@ -31,4 +31,9 @@ public class BukkitServerModTransformer extends ServerModTransformer {
 		return new BukkitPlayer(plugin, bukkitPlayer);
 	}
 
+	@Override
+	public String getPlayerName(String uuid) {
+		return Bukkit.getOfflinePlayer(UUID.fromString(uuid)).getName();
+	}
+
 }

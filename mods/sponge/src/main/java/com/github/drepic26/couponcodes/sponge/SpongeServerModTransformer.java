@@ -33,4 +33,10 @@ public class SpongeServerModTransformer extends ServerModTransformer {
 	public void scheduleRunnable(Runnable runnable) {
 		game.getScheduler().runTask((PluginContainer) plugin, runnable);
 	}
+
+	@Override
+	public String getPlayerName(String UUID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

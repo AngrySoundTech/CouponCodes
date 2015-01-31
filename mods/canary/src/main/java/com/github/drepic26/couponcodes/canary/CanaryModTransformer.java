@@ -32,4 +32,9 @@ public class CanaryModTransformer extends ServerModTransformer {
 		return new CanaryPlayer(canaryPlayer);
 	}
 
+	@Override
+	public String getPlayerName(String UUID) {
+		return Canary.getServer().getOfflinePlayer(UUID).getName();
+	}
+
 }

@@ -2,6 +2,7 @@ package com.github.drepic26.couponcodes.core.commands.runnables;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.github.drepic26.couponcodes.api.CouponCodes;
 import com.github.drepic26.couponcodes.api.command.CommandSender;
@@ -40,8 +41,11 @@ public class InfoCommand implements Runnable {
 
 				if (c.getUsedPlayers().isEmpty())
 					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.UsedPlayers", "None"));
-				else
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.UsedPlayers", CouponCodes.getCouponHandler().playerHashToString(c.getUsedPlayers())));
+				else {
+					HashMap<String,Boolean> usedPlayers = c.getUsedPlayers();
+					for (String s : usedPlayers.keySet()) s = CouponCodes.getModTransformer().getPlayerName(s);
+					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.UsedPlayers", CouponCodes.getCouponHandler().playerHashToString(usedPlayers)));
+				}
 				if (c instanceof ItemCoupon)
 					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Items", CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs())));
 				else if (c instanceof EconomyCoupon)
