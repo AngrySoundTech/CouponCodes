@@ -31,7 +31,7 @@ public class SpongeServerModTransformer extends ServerModTransformer {
 
 	@Override
 	public void scheduleRunnable(Runnable runnable) {
-		game.getScheduler().runTask((PluginContainer) plugin, runnable);
+		//game.getScheduler().runTask((PluginContainer) plugin, runnable);
 	}
 
 	@Override
