@@ -10,8 +10,8 @@
 
 # Language the plugin should use by default.
 # If you would like to help translate this plugin to your language, you can contribute here: https://crowdin.com/project/couponcodes
-# available languages are: en_US       nl     en_PT
-#                          US English  Dutch  Pirate Speak
+# available languages are: en_US       de      nl     en_PT
+#                          US English  German  Dutch  Pirate Speak
 locale: en_US
 
 # sql-type should be either 'MySQL' or 'SQLite'

@@ -51,8 +51,8 @@ public class CanaryConfigHandler implements ConfigHandler {
 		config.addComment("locale", "");
 		config.addComment("locale", "Language the plugin should use by default.");
 		config.addComment("locale", "If you would like to help translate this plugin to your language, you can contribute here: https://crowdin.com/project/couponcodes");
-		config.addComment("locale", "available languages are: en_US       nl     en_PT");
-		config.addComment("locale", "                         US English  Dutch  Pirate Speak");
+		config.addComment("locale", "available languages are: en_US       de      nl     en_PT");
+		config.addComment("locale", "                         US English  German  Dutch  Pirate Speak");
 		config.getBoolean("use-thread", true);
 		config.addComment("use-thread", " ");
 		config.addComment("use-thread", "Leave this true UNLESS you want to disable timed coupons");
