@@ -1,7 +1,7 @@
 #
 # This is the configuration for CouponCodes
 # If you have questions about using this plugin, or what anything means, please feel free to ask on the BukkitDev page
-# If you are receiving errors, please report it on BukkitDev. It really helps the development of this plugin.
+# If you are receiving errors, please report it on Github. It really helps the development of this plugin.
 #
 # If you are interested in how this plugin works (code wise) you can view the source code from GitHub.
 # You can also open an issue here for any feature requests / bug reporting.
@@ -11,8 +11,8 @@
 # Language the plugin should use by default.
 # If translated, players will get strings in their own locale.
 # If you would like to help translate this plugin to your language, you can contribute here: https://crowdin.com/project/couponcodes
-# available languages are: en_US       en_PT
-#                          US English  Pirate Speak
+# available languages are: en_US       nl     en_PT
+#                          US English  Dutch  Pirate Speak
 locale: en_US
 
 # sql-type should be either 'MySQL' or 'SQLite'

@@ -28,36 +28,36 @@ public class InfoCommand implements Runnable {
 		if (args.length == 2) {
 			Coupon c = CouponCodes.getCouponHandler().getCoupon(args[1]);
 			if (c != null) {
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.FancyWrap"));
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Header", c.getName()));
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Name", c.getName()));
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Type", c.getType()));
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Usetimes", c.getUseTimes()));
+				sender.sendMessage(LocaleHandler.getString("Command.Info.FancyWrap"));
+				sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Header", c.getName()));
+				sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Name", c.getName()));
+				sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Type", c.getType()));
+				sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Usetimes", c.getUseTimes()));
 				if (c.getTime() != -1)
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.TimeLeft", c.getTime()));
+					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.TimeLeft", c.getTime()));
 				else
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.TimeLeft", "unlimited"));
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Expired", c.isExpired()));
+					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.TimeLeft", "unlimited"));
+				sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Expired", c.isExpired()));
 
 				if (c.getUsedPlayers().isEmpty())
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.UsedPlayers", "None"));
+					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", "None"));
 				else {
 					HashMap<String,Boolean> usedPlayers = c.getUsedPlayers();
 					for (String s : usedPlayers.keySet()) s = CouponCodes.getModTransformer().getPlayerName(s);
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.UsedPlayers", CouponCodes.getCouponHandler().playerHashToString(usedPlayers)));
+					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", CouponCodes.getCouponHandler().playerHashToString(usedPlayers)));
 				}
 				if (c instanceof ItemCoupon)
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Items", CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs())));
+					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Items", CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs())));
 				else if (c instanceof EconomyCoupon)
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Money", ((EconomyCoupon) c).getMoney()));
+					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Money", ((EconomyCoupon) c).getMoney()));
 				else if (c instanceof RankCoupon)
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Rank", ((RankCoupon) c).getGroup()));
+					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Rank", ((RankCoupon) c).getGroup()));
 				else if (c instanceof XpCoupon)
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Specific.Xp", ((XpCoupon) c).getXp()));
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.FancyWrap"));
+					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Xp", ((XpCoupon) c).getXp()));
+				sender.sendMessage(LocaleHandler.getString("Command.Info.FancyWrap"));
 				return;
 			} else {
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Shared.DoesNotExist"));
+				sender.sendMessage(LocaleHandler.getString("Command.Shared.DoesNotExist"));
 				return;
 			}
 		} else {
@@ -66,8 +66,8 @@ public class InfoCommand implements Runnable {
 			ArrayList<String> co = CouponCodes.getCouponHandler().getCoupons();
 			int total = 0;
 			if (co.isEmpty() || co.equals(null)) {
-				sb1.append(LocaleHandler.getString(sender, "Command.Info.None"));
-				sb2.append(LocaleHandler.getString(sender, "Command.Info.Breakdown", 0, 0, 0, 0));
+				sb1.append(LocaleHandler.getString("Command.Info.None"));
+				sb2.append(LocaleHandler.getString("Command.Info.Breakdown", 0, 0, 0, 0));
 			} else {
 				double j = co.size();
 				double it = 0;
@@ -94,15 +94,15 @@ public class InfoCommand implements Runnable {
 				ra2 = d.format(ra/j*100);
 				xp2 = d.format(xp/j*100);
 				total = (int) (it+ec+ra+xp);
-				sb2.append(LocaleHandler.getString(sender,"Command.Info.Breakdown", it2, ec2, ra2, xp2));
+				sb2.append(LocaleHandler.getString("Command.Info.Breakdown", it2, ec2, ra2, xp2));
 			}
-			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.FancyWrap"));
-			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Header"));
-			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.SpecificInstructions"));
-			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.CurrentCoupons", sb1.toString()));
+			sender.sendMessage(LocaleHandler.getString("Command.Info.FancyWrap"));
+			sender.sendMessage(LocaleHandler.getString("Command.Info.Header"));
+			sender.sendMessage(LocaleHandler.getString("Command.Info.SpecificInstructions"));
+			sender.sendMessage(LocaleHandler.getString("Command.Info.CurrentCoupons", sb1.toString()));
 			sender.sendMessage(sb2.toString());
-			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.Total", total));
-			sender.sendMessage(LocaleHandler.getString(sender, "Command.Info.FancyWrap"));
+			sender.sendMessage(LocaleHandler.getString("Command.Info.Total", total));
+			sender.sendMessage(LocaleHandler.getString("Command.Info.FancyWrap"));
 			return;
 		}
 

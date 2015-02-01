@@ -52,8 +52,12 @@
 
     <resources>
       <resource>
-        <directory>${basedir}/src/main/resources</directory>
+        <targetPath>com/github/drepic26/couponcodes/locale</targetPath>
         <filtering>true</filtering>
+        <directory>${basedir}/src/main/resources/locale/</directory>
+        <includes>
+          <include>locale*.properties</include>
+        </includes>
       </resource>
     </resources>
 

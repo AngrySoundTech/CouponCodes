@@ -26,18 +26,18 @@ public class RemoveCommand implements Runnable {
 					CouponCodes.getCouponHandler().removeCouponFromDatabase(i);
 					j++;
 				}
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Remove.AllRemoved", j));
+				sender.sendMessage(LocaleHandler.getString("Command.Remove.AllRemoved", j));
 				return;
 			}
 			if (!CouponCodes.getCouponHandler().couponExists(args[1])) {
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Shared.DoesNotExist"));
+				sender.sendMessage(LocaleHandler.getString("Command.Shared.DoesNotExist"));
 				return;
 			}
 			CouponCodes.getCouponHandler().removeCouponFromDatabase(CouponCodes.getCouponHandler().createNewItemCoupon(args[1], 0, -1, null, null));
-			sender.sendMessage(LocaleHandler.getString(sender, "Command.Remove.Removed", args[1]));
+			sender.sendMessage(LocaleHandler.getString("Command.Remove.Removed", args[1]));
 			return;
 		} else {
-			sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Remove"));
+			sender.sendMessage(LocaleHandler.getString("Command.Help.Remove"));
 			return;
 		}
 	}

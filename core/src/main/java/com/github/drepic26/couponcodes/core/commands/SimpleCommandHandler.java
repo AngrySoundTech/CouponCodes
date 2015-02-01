@@ -26,7 +26,7 @@ public class SimpleCommandHandler implements CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new AddCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
+					sender.sendMessage(LocaleHandler.getString("Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -35,7 +35,7 @@ public class SimpleCommandHandler implements CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new RemoveCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
+					sender.sendMessage(LocaleHandler.getString("Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -44,7 +44,7 @@ public class SimpleCommandHandler implements CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new RedeemCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
+					sender.sendMessage(LocaleHandler.getString("Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -53,7 +53,7 @@ public class SimpleCommandHandler implements CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new ListCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
+					sender.sendMessage(LocaleHandler.getString("Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -62,7 +62,7 @@ public class SimpleCommandHandler implements CommandHandler {
 					CouponCodes.getModTransformer().scheduleRunnable(new InfoCommand(sender, args));
 					return true;
 				} else {
-					sender.sendMessage(LocaleHandler.getString(sender,"Command.NoPermission"));
+					sender.sendMessage(LocaleHandler.getString("Command.NoPermission"));
 					return true;
 				}
 			} else
@@ -80,16 +80,16 @@ public class SimpleCommandHandler implements CommandHandler {
 
 	//Help
 	private void help(CommandSender sender) {
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Header"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Instructions"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddItem"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddEcon"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddRank"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddXp"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Redeem"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Remove"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.List"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Info"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.Header"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.Instructions"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.Redeem"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.Remove"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.List"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.Info"));
 	}
 
 }

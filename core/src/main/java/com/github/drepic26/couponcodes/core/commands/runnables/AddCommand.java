@@ -40,26 +40,26 @@ public class AddCommand implements Runnable {
 					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
 					if (args.length >= 6) time = Integer.parseInt(args[5]);
 					if (args.length > 6) {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddItem"));
+						sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"));
 						return;
 					}
 
 					ItemCoupon ic = CouponCodes.getCouponHandler().createNewItemCoupon(name, usetimes, time, CouponCodes.getCouponHandler().itemStringToHash(args[3], sender), new HashMap<String, Boolean>());
 
 					if (ic.addToDatabase()) {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.Added", name));
+						sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
 						return;
 					} else {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.AlreadyExists"));
+						sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
 						return;
 					}
 
 				} catch (NumberFormatException e) {
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.SyntaxError"));
+					sender.sendMessage(LocaleHandler.getString("Command.Add.SyntaxError"));
 					return;
 				}
 			} else {
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddItem"));
+				sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"));
 				return;
 			}
 		} else
@@ -76,25 +76,25 @@ public class AddCommand implements Runnable {
 					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
 					if (args.length >= 6) time = Integer.parseInt(args[5]);
 					if (args.length > 6) {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddEcon"));
+						sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"));
 						return;
 					}
 
 					EconomyCoupon ec = CouponCodes.getCouponHandler().createNewEconomyCoupon(name, usetimes, time, new HashMap<String, Boolean>(), money);
 
 					if (ec.addToDatabase()) {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.Added", name));
+						sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
 						return;
 					} else {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.AlreadyExists"));
+						sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.SyntaxError"));
+					sender.sendMessage(LocaleHandler.getString("Command.Add.SyntaxError"));
 					return;
 				}
 			} else {
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddEcon"));
+				sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"));
 				return;
 			}
 
@@ -112,25 +112,25 @@ public class AddCommand implements Runnable {
 					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
 					if (args.length >= 6) time = Integer.parseInt(args[5]);
 					if (args.length > 6) {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddRank"));
+						sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"));
 						return;
 					}
 
 					RankCoupon rc = CouponCodes.getCouponHandler().createNewRankCoupon(name, group, usetimes, time, new HashMap<String, Boolean>());
 
 					if (rc.addToDatabase()) {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.Added", name));
+						sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
 						return;
 					} else {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.AlreadyExists"));
+						sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.SyntaxError"));
+					sender.sendMessage(LocaleHandler.getString("Command.Add.SyntaxError"));
 					return;
 				}
 			} else {
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddRank"));
+				sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"));
 				return;
 			}
 		} else
@@ -147,25 +147,25 @@ public class AddCommand implements Runnable {
 					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
 					if (args.length >= 6) time = Integer.parseInt(args[5]);
 					if (args.length > 6) {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddXp"));
+						sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"));
 						return;
 					}
 
 					XpCoupon xc = CouponCodes.getCouponHandler().createNewXpCoupon(name, xp, usetimes, time, new HashMap<String, Boolean>());
 
 					if (xc.addToDatabase()) {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.Added", name));
+						sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
 						return;
 					} else {
-						sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.AlreadyExists"));
+						sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
 						return;
 					}
 				} catch (NumberFormatException e) {
-					sender.sendMessage(LocaleHandler.getString(sender, "Command.Add.SyntaxError"));
+					sender.sendMessage(LocaleHandler.getString("Command.Add.SyntaxError"));
 					return;
 				}
 			} else {
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddXp"));
+				sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"));
 				return;
 			}
 		} else {
@@ -174,10 +174,10 @@ public class AddCommand implements Runnable {
 	}
 
 	private void helpAdd(CommandSender sender) {
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.Header"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddItem"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddEcon"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddRank"));
-		sender.sendMessage(LocaleHandler.getString(sender, "Command.Help.AddXp"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.Header"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"));
 	}
 }

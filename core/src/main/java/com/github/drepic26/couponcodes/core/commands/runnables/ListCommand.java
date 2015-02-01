@@ -19,10 +19,10 @@ public class ListCommand implements Runnable {
 		StringBuilder sb = new StringBuilder();
 			ArrayList<String> c = CouponCodes.getCouponHandler().getCoupons();
 			if (c.isEmpty() || c.size() <= 0 || c == null) {
-				sender.sendMessage(LocaleHandler.getString(sender, "Command.List.NoFound"));
+				sender.sendMessage(LocaleHandler.getString("Command.List.NoFound"));
 				return;
 			} else {
-				sb.append(LocaleHandler.getString(sender, "Command.List.List"));
+				sb.append(LocaleHandler.getString("Command.List.List"));
 				for (int i = 0; i < c.size(); i++) {
 					sb.append(c.get(i));
 					if (!(Integer.valueOf(i+1).equals(c.size()))){
