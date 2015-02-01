@@ -9,7 +9,6 @@
 #
 
 # Language the plugin should use by default.
-# If translated, players will get strings in their own locale.
 # If you would like to help translate this plugin to your language, you can contribute here: https://crowdin.com/project/couponcodes
 # available languages are: en_US       nl     en_PT
 #                          US English  Dutch  Pirate Speak
