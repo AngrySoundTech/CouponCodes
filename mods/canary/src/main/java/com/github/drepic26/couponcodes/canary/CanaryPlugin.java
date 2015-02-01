@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.github.drepic26.couponcodes.api.CouponCodes;
 import com.github.drepic26.couponcodes.canary.config.CanaryConfigHandler;
 import com.github.drepic26.couponcodes.canary.coupon.CanaryCouponHandler;
+import com.github.drepic26.couponcodes.canary.coupon.CanaryCouponTimer;
 import com.github.drepic26.couponcodes.canary.database.CanaryDatabaseHandler;
 import com.github.drepic26.couponcodes.canary.listeners.CanaryListener;
 import com.github.drepic26.couponcodes.canary.metrics.CustomDataSender;
@@ -36,6 +37,10 @@ public class CanaryPlugin extends Plugin {
 		CouponCodes.setCouponHandler(new CanaryCouponHandler());
 
 		CouponCodes.setPermissionHandler(new CanaryPermissionHandler());
+
+		if (CouponCodes.getConfigHandler().getUseThread()) {
+			Canary.getServer().addSynchronousTask(new CanaryCouponTimer(this, 200L));
+		}
 
 		if (CouponCodes.getConfigHandler().getUseMetrics()) {
 			try {
