@@ -1,6 +1,5 @@
 package com.github.drepic26.couponcodes.canary;
 
-import java.util.UUID;
 
 import net.canarymod.Canary;
 import net.canarymod.tasks.TaskOwner;
@@ -25,7 +24,7 @@ public class CanaryModTransformer extends ServerModTransformer {
 
 	@Override
 	public Player getModPlayer(String uuid) {
-		net.canarymod.api.entity.living.humanoid.Player canaryPlayer = Canary.getServer().getPlayerFromUUID(UUID.fromString(uuid));
+		net.canarymod.api.entity.living.humanoid.Player canaryPlayer = Canary.getServer().getPlayerFromUUID(uuid);
 		if (canaryPlayer == null)
 			return null;
 
