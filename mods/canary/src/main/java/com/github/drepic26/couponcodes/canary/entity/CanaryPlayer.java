@@ -42,4 +42,9 @@ public class CanaryPlayer extends SimplePlayer {
 		return canaryPlayer.getLocale();
 	}
 
+	@Override
+	public String getUUID() {
+		return canaryPlayer.getUUIDString();
+	}
+
 }

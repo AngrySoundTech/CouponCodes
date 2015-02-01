@@ -43,8 +43,13 @@ public class InfoCommand implements Runnable {
 					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", "None"));
 				else {
 					HashMap<String,Boolean> usedPlayers = c.getUsedPlayers();
-					for (String s : usedPlayers.keySet()) s = CouponCodes.getModTransformer().getPlayerName(s);
-					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", CouponCodes.getCouponHandler().playerHashToString(usedPlayers)));
+					StringBuilder sb = new StringBuilder();
+					for (String s : usedPlayers.keySet()) {
+						if (usedPlayers.get(s)) {
+							sb.append(CouponCodes.getModTransformer().getPlayerName(s)+", ");
+						}
+					}
+					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", sb.toString()));
 				}
 				if (c instanceof ItemCoupon)
 					sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Items", CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs())));

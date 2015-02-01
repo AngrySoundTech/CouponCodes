@@ -1,6 +1,8 @@
 package com.github.drepic26.couponcodes.canary;
 
 
+import java.util.UUID;
+
 import net.canarymod.Canary;
 import net.canarymod.tasks.TaskOwner;
 
@@ -32,8 +34,8 @@ public class CanaryModTransformer extends ServerModTransformer {
 	}
 
 	@Override
-	public String getPlayerName(String UUID) {
-		return Canary.getServer().getOfflinePlayer(UUID).getName();
+	public String getPlayerName(String uuid) {
+		return Canary.getServer().getOfflinePlayer(UUID.fromString(uuid)).getName();
 	}
 
 }
