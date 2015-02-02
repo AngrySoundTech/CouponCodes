@@ -1,3 +1,7 @@
+3.1.2
+=
+* Canary: Fixed bug with coupon time not updating
+
 3.1.1
 =
 * Added German

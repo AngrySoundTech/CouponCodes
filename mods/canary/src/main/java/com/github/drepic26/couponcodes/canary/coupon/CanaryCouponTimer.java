@@ -12,7 +12,7 @@ import com.github.drepic26.couponcodes.api.event.coupon.CouponTimeChangeEvent;
 public class CanaryCouponTimer extends ServerTask {
 
 	public CanaryCouponTimer(TaskOwner owner, long delay) {
-		super(owner, delay);
+		super(owner, delay, true);
 	}
 
 	private ArrayList<String> cl = new ArrayList<String>();
@@ -24,7 +24,7 @@ public class CanaryCouponTimer extends ServerTask {
 		if (cl == null) return;
 
 		for (String name : cl) {
-			c = CouponCodes.getCouponHandler().getBasicCoupon(name);
+			c = CouponCodes.getCouponHandler().getCoupon(name);
 			if (c == null) continue;
 			if (c.isExpired() || c.getTime() == -1) continue;
 
