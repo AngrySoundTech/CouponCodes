@@ -5,12 +5,12 @@
   <name>CouponCodes-Sponge</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
   <packaging>jar</packaging>
-  <version>3.1</version>
+  <version>3.1.1</version>
 
   <parent>
     <groupId>com.github.drepic26.couponcodes</groupId>
     <artifactId>couponcodes-parent</artifactId>
-    <version>3.1</version>
+    <version>3.1.1</version>
     <relativePath>../../</relativePath>
   </parent>
 
@@ -33,7 +33,7 @@
     <dependency>
       <groupId>com.github.drepic26.couponcodes</groupId>
       <artifactId>core</artifactId>
-      <version>3.1</version>
+      <version>3.1.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

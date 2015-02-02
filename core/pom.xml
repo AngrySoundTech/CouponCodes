@@ -5,12 +5,12 @@
   <name>CouponCodes-Core</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
   <packaging>jar</packaging>
-  <version>3.1</version>
+  <version>3.1.1</version>
 
   <parent>
     <groupId>com.github.drepic26.couponcodes</groupId>
     <artifactId>couponcodes-parent</artifactId>
-    <version>3.1</version>
+    <version>3.1.1</version>
   </parent>
 
   <properties>
@@ -41,7 +41,7 @@
     <dependency>
       <groupId>com.github.drepic26.couponcodes</groupId>
       <artifactId>api</artifactId>
-      <version>3.1</version>
+      <version>3.1.1</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

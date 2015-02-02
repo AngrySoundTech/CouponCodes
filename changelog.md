@@ -1,3 +1,8 @@
+3.1.1
+=
+* Added German
+* Fixed tiny bug with Bukkit author.
+
 3.1
 =
 * Added Localization. You can now set the plugin language to English, Dutch, or Pirate. If you would like to contribute to translations, you can on [Crowdin](https://crowdin.com/project/couponcodes)

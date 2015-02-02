@@ -1,8 +1,8 @@
 CouponCodes 3! [![Build Status](https://travis-ci.org/Drepic26/CouponCodes3.svg?branch=master)](https://travis-ci.org/Drepic26/CouponCodes3)
 ========
-<!--Because I'm super lazy every image here is going to be stiched
+<!--Because I'm super lazy every image here is going to be stitched
     together. Please don't kill me. http://imgur.com/a/W4aYd -->
- ![statussymbols](http://i.imgur.com/giMW91o.png)
+ ![statussymbols](http://i.imgur.com/CKcuuxw.png)
 
 Building
 =
