@@ -12,6 +12,7 @@ build
 javadoc
 site
 dependency-reduced-pom.xml
+maven-eclipse.xml
 
 # Files #
 *.bat
