@@ -5,12 +5,12 @@
   <name>CouponCodes-Universal</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
   <packaging>jar</packaging>
-  <version>3.1.1</version>
+  <version>3.1.2-SNAPSHOT</version>
 
   <parent>
     <groupId>com.github.drepic26.couponcodes</groupId>
     <artifactId>couponcodes-parent</artifactId>
-    <version>3.1.1</version>
+    <version>3.1.2-SNAPSHOT</version>
     <relativePath>../../</relativePath>
   </parent>
 
@@ -29,31 +29,31 @@
     <dependency>
       <groupId>com.github.drepic26.couponcodes</groupId>
       <artifactId>core</artifactId>
-      <version>3.1.1</version>
+      <version>3.1.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.github.drepic26.couponcodes.mods</groupId>
       <artifactId>bukkit</artifactId>
-      <version>3.1.1</version>
+      <version>3.1.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.github.drepic26.couponcodes.mods</groupId>
       <artifactId>sponge</artifactId>
-      <version>3.1.1</version>
+      <version>3.1.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.github.drepic26.couponcodes.mods</groupId>
       <artifactId>granite</artifactId>
-      <version>3.1.1</version>
+      <version>3.1.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.github.drepic26.couponcodes.mods</groupId>
       <artifactId>canary</artifactId>
-      <version>3.1.1</version>
+      <version>3.1.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
