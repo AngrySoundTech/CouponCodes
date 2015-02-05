@@ -1,0 +1,10 @@
+site_name: CouponCodes
+site_favicon: favicon.ico
+repo_url: https://github.com/Drepic26/CouponCodes3
+theme: readthedocs
+
+pages:
+  - ['index.md', 'Home']
+  - ['user-guide/installation.md', 'Installation']
+  - ['developer-guide/api.md', 'API']
+  - ['about/license.md', 'License']
