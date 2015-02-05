@@ -4,15 +4,18 @@
 .externalToolBuilders
 .classpath
 .project
+.metadata
 
 # Generated #
 obj
 target
 build
+bin
 javadoc
 site
 dependency-reduced-pom.xml
 maven-eclipse.xml
+*.class
 
 # Files #
 *.bat
