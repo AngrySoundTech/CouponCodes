@@ -1,5 +1,6 @@
 3.1.2
 =
+* IMPORTANT API UPDATE: (This does not mean anything for normal users, only devs) The project package has been refracted for the new domain, and anything using the api as of 3.1.1 will not work. In addition, [we now have a maven repo](http://repo.drevelopment.com)! Documentation to come.
 * Canary: Fixed bug with coupon time not updating
 
 3.1.1
