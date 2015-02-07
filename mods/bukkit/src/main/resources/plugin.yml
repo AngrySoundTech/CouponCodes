@@ -1,6 +1,6 @@
 name: CouponCodes
 author: Drepic26
-main: com.github.drepic26.couponcodes.bukkit.BukkitPlugin
+main: com.drevelopment.couponcodes.bukkit.BukkitPlugin
 version: ${version}
 softdepend: [Vault]
 commands:

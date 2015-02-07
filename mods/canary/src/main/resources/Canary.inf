@@ -1,4 +1,4 @@
-main-class = com.github.drepic26.couponcodes.canary.CanaryPlugin
+main-class = com.drevelopment.couponcodes.canary.CanaryPlugin
 name = CouponCodes
 author = Drepic26
 version = ${project.version}
