@@ -103,4 +103,17 @@
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>drevelopment.releases</id>
+      <name>Drevelopment releases</name>
+      <url>http://repo.drevelopment.com/content/repositories/releases/</url>
+    </repository>
+
+    <snapshotRepository>
+      <id>drevelopment.snapshots</id>
+      <name>Drevelopment snapshots</name>
+      <url>http://repo.drevelopment.com/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
