@@ -16,6 +16,7 @@ site
 dependency-reduced-pom.xml
 maven-eclipse.xml
 *.class
+git.properties
 
 # Files #
 *.bat
