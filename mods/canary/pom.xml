@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.drepic26.couponcodes.mods</groupId>
+  <groupId>com.drevelopment.couponcodes.mods</groupId>
   <artifactId>canary</artifactId>
   <name>CouponCodes-Canary</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
@@ -8,7 +8,7 @@
   <version>3.1.2-SNAPSHOT</version>
 
   <parent>
-    <groupId>com.github.drepic26.couponcodes</groupId>
+    <groupId>com.drevelopment.couponcodes</groupId>
     <artifactId>couponcodes-parent</artifactId>
     <version>3.1.2-SNAPSHOT</version>
     <relativePath>../../</relativePath>
@@ -31,7 +31,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.drepic26.couponcodes</groupId>
+      <groupId>com.drevelopment.couponcodes</groupId>
       <artifactId>core</artifactId>
       <version>3.1.2-SNAPSHOT</version>
       <scope>compile</scope>
@@ -79,7 +79,7 @@
             <configuration>
               <artifactSet>
                 <includes>
-                  <include>com.github.drepic26.couponcodes:core</include>
+                  <include>com.drevelopment.couponcodes:core</include>
                 </includes>
               </artifactSet>
             </configuration>
