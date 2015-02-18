@@ -20,12 +20,20 @@ public interface ModTransformer {
 	public Player getPlayer(String UUID);
 
 	/**
-	 * <b>*{@link #getPlayer(String)} should be used instead*</b><p>
+	 * <b>{@link #getPlayer(String)} should be used instead</b><p>
 	 * Gets the player from the server software, wrapped by {@link Player}
 	 * @param UUID The UUID of the player to get
 	 * @return Player A new instance of the player
 	 */
 	public Player getModPlayer(String UUID);
+
+	/**
+	 * Removes a player wrapper from the plugin.
+	 * <p>A player should be removed when they log out, so that they can be wrapped again when
+	 * they next log in</p>
+	 * @param player The player to remove
+	 */
+	public void removePlayer(Player player);
 
 	/**
 	 * This should be used in case the player you want to get the name of may be offline

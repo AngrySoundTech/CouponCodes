@@ -5,12 +5,12 @@
   <name>CouponCodes-Canary</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
   <packaging>jar</packaging>
-  <version>3.1.2</version>
+  <version>3.1.3</version>
 
   <parent>
     <groupId>com.drevelopment.couponcodes</groupId>
     <artifactId>couponcodes-parent</artifactId>
-    <version>3.1.2</version>
+    <version>3.1.3</version>
     <relativePath>../../</relativePath>
   </parent>
 
@@ -33,7 +33,7 @@
     <dependency>
       <groupId>com.drevelopment.couponcodes</groupId>
       <artifactId>core</artifactId>
-      <version>3.1.2</version>
+      <version>3.1.3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

@@ -10,9 +10,6 @@ public abstract class ServerModTransformer implements ModTransformer {
 
 	protected final Map<String, Player> players = new HashMap<String, Player>();
 
-	/**
-	 * Gets a player. If we have not gotten them yet, we get them from the server
-	 */
 	public Player getPlayer(String UUID) {
 		if (players.containsKey(UUID)) return players.get(UUID);
 		Player player = getModPlayer(UUID);
@@ -21,5 +18,9 @@ public abstract class ServerModTransformer implements ModTransformer {
 			return player;
 		}
 		return player;
+	}
+
+	public void removePlayer(Player player) {
+		players.remove(player.getUUID());
 	}
 }
