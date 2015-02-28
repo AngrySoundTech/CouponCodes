@@ -94,6 +94,7 @@
           <artifactSet>
             <includes>
               <include>com.drevelopment:multipluginlib.core</include>
+              <include>com.drevelopment:couponcodes.api</include>
             </includes>
           </artifactSet>
           <relocations>

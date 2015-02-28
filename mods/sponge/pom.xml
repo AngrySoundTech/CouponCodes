@@ -78,7 +78,7 @@
           <createSourcesJar>true</createSourcesJar>
           <artifactSet>
             <includes>
-              <include>com.drevelopment.couponcodes:core</include>
+              <include>com.drevelopment:couponcodes.core</include>
               <include>com.drevelopment:multipluginlib.sponge</include>
             </includes>
           </artifactSet>

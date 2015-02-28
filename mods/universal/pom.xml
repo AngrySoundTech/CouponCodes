@@ -91,7 +91,10 @@
             <configuration>
               <artifactSet>
                 <includes>
-                  <include>com.drevelopment.couponcodes.mods:*</include>
+                  <include>com.drevelopment:couponcodes.bukkit</include>
+                  <include>com.drevelopment:couponcodes.canary</include>
+                  <include>com.drevelopment:couponcodes.granite</include>
+                  <include>com.drevelopment:couponcodes.sponge</include>
                 </includes>
               </artifactSet>
             </configuration>
