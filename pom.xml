@@ -33,6 +33,13 @@
     <module>mods/universal</module>
   </modules>
 
+  <repositories>
+    <repository>
+      <id>Drevelopment</id>
+      <url>http://repo.drevelopment.com/content/repositories/public/</url>
+    </repository>
+  </repositories>
+
   <build>
     <defaultGoal>clean package</defaultGoal>
     <plugins>

@@ -52,6 +52,12 @@
       <version>1.5</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>com.drevelopment</groupId>
+      <artifactId>multipluginlib.bukkit</artifactId>
+      <version>1.0</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -75,31 +81,38 @@
           <target>1.6</target>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>1.4</version>
+        <version>2.3</version>
+        <configuration>
+          <createSourcesJar>true</createSourcesJar>
+          <filters>
+            <filter>
+              <excludes>
+                <exclude>org/yaml/**</exclude>
+              </excludes>
+            </filter>
+          </filters>
+          <artifactSet>
+            <includes>
+              <include>com.drevelopment.couponcodes:core</include>
+              <include>com.drevelopment:multipluginlib.bukkit</include>
+            </includes>
+          </artifactSet>
+          <relocations>
+            <relocation>
+              <pattern>com.drevelopment.multipluginlib</pattern>
+              <shadedPattern>com.drevelopment.couponcodes</shadedPattern>
+            </relocation>
+          </relocations>
+        </configuration>
         <executions>
           <execution>
             <phase>package</phase>
             <goals>
               <goal>shade</goal>
             </goals>
-            <configuration>
-              <filters>
-                <filter>
-                  <excludes>
-                    <exclude>org/yaml/**</exclude>
-                  </excludes>
-                </filter>
-              </filters>
-              <artifactSet>
-                <includes>
-                  <include>com.drevelopment.couponcodes:core</include>
-                </includes>
-              </artifactSet>
-            </configuration>
           </execution>
         </executions>
       </plugin>

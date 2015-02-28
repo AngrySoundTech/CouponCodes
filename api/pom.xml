@@ -17,6 +17,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>com.drevelopment</groupId>
+      <artifactId>multipluginlib.api</artifactId>
+      <version>1.0</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
   <build>
     <finalName>${project.name}-${project.version}</finalName>
     <defaultGoal>clean package</defaultGoal>
@@ -31,7 +40,6 @@
           <target>1.6</target>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -42,6 +50,33 @@
               <goal>javadoc</goal>
             </goals>
             <phase>process-resources</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <createSourcesJar>true</createSourcesJar>
+          <artifactSet>
+            <includes>
+              <include>com.drevelopment:multipluginlib.api</include>
+            </includes>
+          </artifactSet>
+          <relocations>
+            <relocation>
+              <pattern>com.drevelopment.multipluginlib</pattern>
+              <shadedPattern>com.drevelopment.couponcodes</shadedPattern>
+            </relocation>
+          </relocations>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
