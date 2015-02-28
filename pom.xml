@@ -9,6 +9,7 @@
 
   <properties>
     <couponcodes.version>3.2-SNAPSHOT</couponcodes.version>
+    <multipluginlib.version>1.0</multipluginlib.version>
     <minecraft.version>1.8.1</minecraft.version>
     <bukkit.version>1.8-R0.1-SNAPSHOT</bukkit.version>
     <canary.version>1.2.0-SNAPSHOT</canary.version>

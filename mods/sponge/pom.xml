@@ -44,7 +44,7 @@
     <dependency>
       <groupId>com.drevelopment</groupId>
       <artifactId>multipluginlib.sponge</artifactId>
-      <version>1.0</version>
+      <version>${multipluginlib.version}</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

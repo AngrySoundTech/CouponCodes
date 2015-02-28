@@ -50,7 +50,7 @@
     <dependency>
       <groupId>com.drevelopment</groupId>
       <artifactId>multipluginlib.granite</artifactId>
-      <version>1.0</version>
+      <version>${multipluginlib.version}</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
