@@ -19,23 +19,6 @@
     <plugin.version>${couponcodes.version}</plugin.version>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>mcstats</id>
-      <url>http://repo.mcstats.org/content/repositories/public</url>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>mcstats</id>
-      <url>http://repo.mcstats.org/content/repositories/public</url>
-      <releases>
-        <updatePolicy>daily</updatePolicy>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
-
   <dependencies>
     <dependency>
       <groupId>com.drevelopment.couponcodes</groupId>

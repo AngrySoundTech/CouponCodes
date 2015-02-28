@@ -38,13 +38,13 @@
     <dependency>
       <groupId>org.granitemc</groupId>
       <artifactId>graniteapi</artifactId>
-      <version>0.2.0-SNAPSHOT</version>
+      <version>${granite.version}</version>
       <scope>provided</scope>
     </dependency>
 	<dependency>
       <groupId>org.granitemc</groupId>
       <artifactId>granite</artifactId>
-      <version>0.2.0-SNAPSHOT</version>
+      <version>${granite.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
