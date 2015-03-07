@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.drevelopment</groupId>
-  <artifactId>couponcodes</artifactId>
+  <groupId>com.drevelopment.couponcodes</groupId>
+  <artifactId>parent</artifactId>
   <name>CouponCodes</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
   <packaging>pom</packaging>
@@ -9,7 +9,7 @@
 
   <properties>
     <couponcodes.version>3.2-SNAPSHOT</couponcodes.version>
-    <multipluginlib.version>1.0</multipluginlib.version>
+    <multipluginlib.version>1.0-SNAPSHOT</multipluginlib.version>
     <minecraft.version>1.8.1</minecraft.version>
     <bukkit.version>1.8-R0.1-SNAPSHOT</bukkit.version>
     <canary.version>1.2.0-SNAPSHOT</canary.version>

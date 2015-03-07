@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.drevelopment</groupId>
-  <artifactId>couponcodes.api</artifactId>
+  <groupId>com.drevelopment.couponcodes</groupId>
+  <artifactId>api</artifactId>
   <name>CouponCodes-API</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
   <packaging>jar</packaging>
 
   <parent>
-    <groupId>com.drevelopment</groupId>
-    <artifactId>couponcodes</artifactId>
+    <groupId>com.drevelopment.couponcodes</groupId>
+    <artifactId>parent</artifactId>
     <version>${couponcodes.version}</version>
   </parent>
 
