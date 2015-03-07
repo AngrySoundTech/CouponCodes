@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.drevelopment.couponcodes</groupId>
     <artifactId>parent</artifactId>
-    <version>${couponcodes.version}</version>
+    <version>3.2-SNAPSHOT</version>
     <relativePath>../../</relativePath>
   </parent>
 
@@ -26,33 +26,33 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>couponcodes.core</artifactId>
-      <version>${couponcodes.version}</version>
+      <groupId>com.drevelopment.couponcodes</groupId>
+      <artifactId>core</artifactId>
+      <version>3.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>couponcodes.bukkit</artifactId>
-      <version>${couponcodes.version}</version>
+      <groupId>com.drevelopment.couponcodes</groupId>
+      <artifactId>bukkit</artifactId>
+      <version>3.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>couponcodes.sponge</artifactId>
-      <version>${couponcodes.version}</version>
+      <groupId>com.drevelopment.couponcodes</groupId>
+      <artifactId>sponge</artifactId>
+      <version>3.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>couponcodes.granite</artifactId>
-      <version>${couponcodes.version}</version>
+      <groupId>com.drevelopment.couponcodes</groupId>
+      <artifactId>granite</artifactId>
+      <version>3.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>couponcodes.canary</artifactId>
-      <version>${couponcodes.version}</version>
+      <groupId>com.drevelopment.couponcodes</groupId>
+      <artifactId>canary</artifactId>
+      <version>3.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

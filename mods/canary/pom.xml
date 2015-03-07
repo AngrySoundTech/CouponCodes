@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.drevelopment.couponcodes</groupId>
     <artifactId>parent</artifactId>
-    <version>${couponcodes.version}</version>
+    <version>3.2-SNAPSHOT</version>
     <relativePath>../../</relativePath>
   </parent>
 
@@ -30,21 +30,21 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>couponcodes.core</artifactId>
-      <version>${couponcodes.version}</version>
+      <groupId>com.drevelopment.couponcodes</groupId>
+      <artifactId>core</artifactId>
+      <version>3.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>net.canarymod</groupId>
       <artifactId>CanaryLib</artifactId>
-      <version>${canary.version}</version>
+      <version>1.2.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>multipluginlib.canary</artifactId>
-      <version>${multipluginlib.version}</version>
+      <groupId>com.drevelopment.multipluginlib</groupId>
+      <artifactId>canary</artifactId>
+      <version>1.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -78,8 +78,8 @@
           <createSourcesJar>true</createSourcesJar>
           <artifactSet>
             <includes>
-              <include>com.drevelopment:couponcodes.core</include>
-              <include>com.drevelopment:multipluginlib.canary</include>
+              <include>com.drevelopment.couponcodes:core</include>
+              <include>com.drevelopment.multipluginlib:canary</include>
             </includes>
           </artifactSet>
           <relocations>

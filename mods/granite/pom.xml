@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.drevelopment.couponcodes</groupId>
     <artifactId>parent</artifactId>
-    <version>${couponcodes.version}</version>
+    <version>3.2-SNAPSHOT</version>
     <relativePath>../../</relativePath>
   </parent>
 
@@ -30,27 +30,27 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>couponcodes.core</artifactId>
-      <version>${couponcodes.version}</version>
+      <groupId>com.drevelopment.couponcodes</groupId>
+      <artifactId>core</artifactId>
+      <version>3.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.granitemc</groupId>
       <artifactId>graniteapi</artifactId>
-      <version>${granite.version}</version>
+      <version>0.2.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
 	<dependency>
       <groupId>org.granitemc</groupId>
       <artifactId>granite</artifactId>
-      <version>${granite.version}</version>
+      <version>0.2.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>multipluginlib.granite</artifactId>
-      <version>${multipluginlib.version}</version>
+      <groupId>com.drevelopment.multipluginlib</groupId>
+      <artifactId>granite</artifactId>
+      <version>1.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -84,8 +84,8 @@
           <createSourcesJar>true</createSourcesJar>
           <artifactSet>
             <includes>
-              <include>com.drevelopment:couponcodes.core</include>
-              <include>com.drevelopment:multipluginlib.granite</include>
+              <include>com.drevelopment.couponcodes:core</include>
+              <include>com.drevelopment.multipluginlib:granite</include>
             </includes>
           </artifactSet>
           <relocations>

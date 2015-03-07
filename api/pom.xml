@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.drevelopment.couponcodes</groupId>
     <artifactId>parent</artifactId>
-    <version>${couponcodes.version}</version>
+    <version>3.2-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -18,9 +18,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.drevelopment</groupId>
-      <artifactId>multipluginlib.api</artifactId>
-      <version>${multipluginlib.version}</version>
+      <groupId>com.drevelopment.multipluginlib</groupId>
+      <artifactId>api</artifactId>
+      <version>1.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -60,7 +60,7 @@
           <createSourcesJar>true</createSourcesJar>
           <artifactSet>
             <includes>
-              <include>com.drevelopment:multipluginlib.api</include>
+              <include>com.drevelopment.multipluginlib:api</include>
             </includes>
           </artifactSet>
           <relocations>

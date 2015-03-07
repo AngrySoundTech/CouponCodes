@@ -5,16 +5,10 @@
   <name>CouponCodes</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
   <packaging>pom</packaging>
-  <version>${couponcodes.version}</version>
+  <version>3.2-SNAPSHOT</version>
 
   <properties>
-    <couponcodes.version>3.2-SNAPSHOT</couponcodes.version>
-    <multipluginlib.version>1.0-SNAPSHOT</multipluginlib.version>
     <minecraft.version>1.8.1</minecraft.version>
-    <bukkit.version>1.8-R0.1-SNAPSHOT</bukkit.version>
-    <canary.version>1.2.0-SNAPSHOT</canary.version>
-    <granite.version>0.2.0-SNAPSHOT</granite.version>
-    <sponge.version>1.1-SNAPSHOT</sponge.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
