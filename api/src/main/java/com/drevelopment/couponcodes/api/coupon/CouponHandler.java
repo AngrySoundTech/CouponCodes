@@ -126,6 +126,17 @@ public interface CouponHandler {
 	 */
 	public XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers);
 
+	/**
+	 * Creates a new {@link CommandCoupon}
+	 * @param name The name of the coupon
+	 * @param cmd The command the coupon will execute
+	 * @param usetimes The amount of times the coupon can be used
+	 * @param time The time the coupon has to be redeemed
+	 * @param usedplayers The players who have used this coupon
+	 * @return The newly created coupon
+	 */
+	public CommandCoupon createNewCommandCoupon(String name, String cmd, int usetimes, int time, HashMap<String, Boolean> usedplayers);
+
 	public String itemHashToString(HashMap<Integer, Integer> hash);
 
 	public HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender);

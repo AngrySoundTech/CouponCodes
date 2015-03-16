@@ -37,6 +37,9 @@ public class CanaryDataAccess extends DataAccess {
 	@Column(columnName="xp", dataType=DataType.INTEGER)
 	public int xp;
 
+	@Column(columnName="command", dataType=DataType.STRING)
+	public String command;
+
 	@Override
 	public DataAccess getInstance() {
 		return new CanaryDataAccess();

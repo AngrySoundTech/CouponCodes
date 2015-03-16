@@ -64,7 +64,8 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
 		}
 		try {
 			((SQLDatabaseHandler)CouponCodes.getDatabaseHandler()).open();
-			((SQLDatabaseHandler)CouponCodes.getDatabaseHandler()).createTable("CREATE TABLE IF NOT EXISTS couponcodes (name VARCHAR(24), ctype VARCHAR(10), usetimes INT(10), usedplayers TEXT(1024), ids VARCHAR(255), money INT(10), groupname VARCHAR(20), timeuse INT(100), xp INT(10))");
+			((SQLDatabaseHandler)CouponCodes.getDatabaseHandler()).createTable("CREATE TABLE IF NOT EXISTS couponcodes (name VARCHAR(24), ctype VARCHAR(10), usetimes INT(10), usedplayers TEXT(1024), ids VARCHAR(255), money INT(10), groupname VARCHAR(20), timeuse INT(100), xp INT(10), command VARCHAR(255))");
+			((SQLDatabaseHandler)CouponCodes.getDatabaseHandler()).query("IF COL_LENGTH('couponcodes', 'command') IS NULL BEGIN ALTER TABLE couponcodes ADD command varchar(255) NULL END");
 			CouponCodes.setCouponHandler(new BukkitCouponHandler(this, ((SQLDatabaseHandler)CouponCodes.getDatabaseHandler())));
 		} catch (SQLException e) {
 			e.printStackTrace();

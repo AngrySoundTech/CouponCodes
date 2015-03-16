@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 
 import com.drevelopment.couponcodes.api.command.CommandSender;
+import com.drevelopment.couponcodes.api.coupon.CommandCoupon;
 import com.drevelopment.couponcodes.api.coupon.Coupon;
 import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
 import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
@@ -19,6 +20,7 @@ import com.drevelopment.couponcodes.api.coupon.XpCoupon;
 import com.drevelopment.couponcodes.bukkit.BukkitPlugin;
 import com.drevelopment.couponcodes.bukkit.database.SQLDatabaseHandler;
 import com.drevelopment.couponcodes.bukkit.database.options.MySQLOptions;
+import com.drevelopment.couponcodes.core.coupon.SimpleCommandCoupon;
 import com.drevelopment.couponcodes.core.coupon.SimpleCouponHandler;
 import com.drevelopment.couponcodes.core.coupon.SimpleEconomyCoupon;
 import com.drevelopment.couponcodes.core.coupon.SimpleItemCoupon;
@@ -89,6 +91,17 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 				p.setString(4, playerHashToString(c.getUsedPlayers()));
 				p.setInt(5, c.getTime());
 				p.setInt(6, c.getXp());
+			} else
+
+			if (coupon instanceof CommandCoupon) {
+				CommandCoupon c = (CommandCoupon) coupon;
+				p = con.prepareStatement("INSERT INTO couponcodes (name, ctype, usetimes, usedplayers, timeuse, command) "+"VALUES (?, ?, ?, ?, ?, ?)");
+				p.setString(1, c.getName());
+				p.setString(2, c.getType());
+				p.setInt(3, c.getUseTimes());
+				p.setString(4, playerHashToString(c.getUsedPlayers()));
+				p.setInt(5, c.getTime());
+				p.setString(6, c.getCmd());
 			}
 
 			p.addBatch();
@@ -164,6 +177,8 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 				databaseHandler.query("UPDATE couponcodes SET groupname='"+((RankCoupon) coupon).getGroup()+"' WHERE name='"+coupon.getName()+"'");
 			else if (coupon instanceof XpCoupon)
 				databaseHandler.query("UPDATE couponcodes SET xp='"+((XpCoupon) coupon).getXp()+"' WHERE name='"+coupon.getName()+"'");
+			else if (coupon instanceof CommandCoupon)
+				databaseHandler.query("UPDATE couponcodes SET command='"+((CommandCoupon) coupon).getCmd()+"' WHERE name='"+coupon.getName()+"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -196,6 +211,8 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 				return createNewRankCoupon(coupon, rs.getString("groupname"), usetimes, time, usedplayers);
 			else if (rs.getString("ctype").equalsIgnoreCase("Xp"))
 				return createNewXpCoupon(coupon, rs.getInt("xp"), usetimes, time, usedplayers);
+			else if (rs.getString("ctype").equalsIgnoreCase("Command"))
+				return createNewCommandCoupon(coupon, rs.getString("command"), usetimes, time, usedplayers);
 			else
 				return null;
 		} catch (SQLException e) {
@@ -222,6 +239,8 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 				return createNewRankCoupon(coupon, null, usetimes, time, null);
 			else if (type.equalsIgnoreCase("Xp"))
 				return this.createNewXpCoupon(coupon, 0, usetimes, time, null);
+			else if (type.equalsIgnoreCase("command"))
+				return this.createNewCommandCoupon(coupon, null, usetimes, time, null);
 			else
 				return null;
 		} catch (SQLException e) {
@@ -237,6 +256,7 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 		int econ = 0;
 		int rank = 0;
 		int xp = 0;
+		int cmd = 0;
 
 		for (String name : list) {
 			Coupon c = getBasicCoupon(name);
@@ -244,6 +264,7 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 			if (c instanceof EconomyCoupon) econ++;
 			if (c instanceof RankCoupon) rank++;
 			if (c instanceof XpCoupon) xp++;
+			if (c instanceof CommandCoupon) cmd++;
 		}
 
 		if (type.equalsIgnoreCase("Item"))
@@ -254,6 +275,8 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 			return rank;
 		else if (type.equalsIgnoreCase("Xp"))
 			return xp;
+		else if (type.equalsIgnoreCase("Command"))
+			return cmd;
 		else
 			return 0;
 	}
@@ -276,6 +299,11 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 	@Override
 	public XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
 		return new SimpleXpCoupon(name, usetimes, time, usedplayers, xp);
+	}
+
+	@Override
+	public CommandCoupon createNewCommandCoupon(String name, String cmd, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
+		return new SimpleCommandCoupon(name, usetimes, time, usedplayers, cmd);
 	}
 
 	@Override

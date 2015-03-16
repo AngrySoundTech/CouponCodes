@@ -14,12 +14,14 @@ import net.canarymod.database.exceptions.DatabaseReadException;
 import net.canarymod.database.exceptions.DatabaseWriteException;
 
 import com.drevelopment.couponcodes.api.command.CommandSender;
+import com.drevelopment.couponcodes.api.coupon.CommandCoupon;
 import com.drevelopment.couponcodes.api.coupon.Coupon;
 import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
 import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
 import com.drevelopment.couponcodes.api.coupon.RankCoupon;
 import com.drevelopment.couponcodes.api.coupon.XpCoupon;
 import com.drevelopment.couponcodes.canary.database.CanaryDataAccess;
+import com.drevelopment.couponcodes.core.coupon.SimpleCommandCoupon;
 import com.drevelopment.couponcodes.core.coupon.SimpleCouponHandler;
 import com.drevelopment.couponcodes.core.coupon.SimpleEconomyCoupon;
 import com.drevelopment.couponcodes.core.coupon.SimpleItemCoupon;
@@ -49,6 +51,9 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 			} else
 			if (coupon instanceof XpCoupon) {
 				da.xp = ((XpCoupon) coupon).getXp();
+			} else
+			if (coupon instanceof CommandCoupon) {
+				da.command = ((CommandCoupon) coupon).getCmd();
 			}
 
 			HashMap<String, Object> filter = new HashMap<String, Object>();
@@ -139,6 +144,9 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 		if (coupon instanceof XpCoupon) {
 			da.xp = ((XpCoupon) coupon).getXp();
 		}
+		if (coupon instanceof CommandCoupon) {
+			da.command = ((CommandCoupon) coupon).getCmd();
+		}
 
 		HashMap<String, Object> filter = new HashMap<String, Object>();
 		filter.put("name", coupon.getName());
@@ -180,6 +188,8 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 			return createNewRankCoupon(coupon, da.groupname, usetimes, time, usedplayers);
 		else if (da.ctype.equalsIgnoreCase("Xp"))
 			return createNewXpCoupon(coupon, da.xp, usetimes, time, usedplayers);
+		else if (da.ctype.equalsIgnoreCase("Command"))
+			return createNewCommandCoupon(coupon, da.command, usetimes, time, usedplayers);
 		else
 			return null;
 	}
@@ -209,6 +219,8 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 			return createNewRankCoupon(coupon, null, usetimes, time, null);
 		else if (da.ctype.equalsIgnoreCase("Xp"))
 			return createNewXpCoupon(coupon, 0, usetimes, time, null);
+		else if (da.ctype.equalsIgnoreCase("Command"))
+			return createNewCommandCoupon(coupon, null, usetimes, time, null);
 		else
 			return null;
 	}
@@ -220,6 +232,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 		int econ = 0;
 		int rank = 0;
 		int xp = 0;
+		int cmd = 0;
 
 		for (String name : list) {
 			Coupon c = getBasicCoupon(name);
@@ -227,6 +240,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 			if (c instanceof EconomyCoupon) econ++;
 			if (c instanceof RankCoupon) rank++;
 			if (c instanceof XpCoupon) xp++;
+			if (c instanceof CommandCoupon) cmd++;
 		}
 
 		if (type.equalsIgnoreCase("Item"))
@@ -237,6 +251,8 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 			return rank;
 		else if (type.equalsIgnoreCase("Xp"))
 			return xp;
+		else if (type.equalsIgnoreCase("Cmd"))
+			return cmd;
 		else
 			return 0;
 	}
@@ -259,6 +275,11 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 	@Override
 	public XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
 		return new SimpleXpCoupon(name, usetimes, time, usedplayers, xp);
+	}
+
+	@Override
+	public CommandCoupon createNewCommandCoupon(String name, String cmd, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
+		return new SimpleCommandCoupon(name, usetimes, time, usedplayers, cmd);
 	}
 
 	@Override

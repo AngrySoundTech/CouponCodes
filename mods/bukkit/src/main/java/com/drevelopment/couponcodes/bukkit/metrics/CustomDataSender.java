@@ -42,6 +42,12 @@ public class CustomDataSender implements Runnable {
 				return ch.getAmountOf("Xp");
 			}
 		});
+	    couponTypesGraph.addPlotter(new Metrics.Plotter("Command Coupons") {
+			@Override
+			public int getValue() {
+				return ch.getAmountOf("Command");
+			}
+		});
 	    // Database types
 	    Graph dbTypesGraph = metrics.createGraph("Database Type");
 	    dbTypesGraph.addPlotter(new Metrics.Plotter(CouponCodes.getDatabaseHandler().getDatabaseType()) {

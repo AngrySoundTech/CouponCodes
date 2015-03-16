@@ -3,6 +3,7 @@ package com.drevelopment.couponcodes.core.coupon;
 import java.util.HashMap;
 
 import com.drevelopment.couponcodes.api.CouponCodes;
+import com.drevelopment.couponcodes.api.coupon.CommandCoupon;
 import com.drevelopment.couponcodes.api.coupon.Coupon;
 import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
 import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
@@ -97,6 +98,7 @@ public class SimpleCoupon implements Coupon {
 		if (this instanceof EconomyCoupon) return "Economy";
 		if (this instanceof RankCoupon) return "Rank";
 		if (this instanceof XpCoupon) return "Xp";
+		if (this instanceof CommandCoupon) return "Command";
 		else
 			return null;
 	}
