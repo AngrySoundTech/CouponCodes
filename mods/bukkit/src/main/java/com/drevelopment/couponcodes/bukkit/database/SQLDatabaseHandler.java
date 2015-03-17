@@ -81,7 +81,7 @@ public class SQLDatabaseHandler implements DatabaseHandler {
 		ResultSet rs = null;
 
 		st = conn.createStatement();
-		if (query.toLowerCase().contains("delete") || query.toLowerCase().contains("update") || query.toLowerCase().contains("insert")) {
+		if (query.toLowerCase().contains("delete") || query.toLowerCase().contains("update") || query.toLowerCase().contains("insert") || query.toLowerCase().contains("alter")) {
 			st.executeUpdate(query);
 			return rs;
 		} else {
