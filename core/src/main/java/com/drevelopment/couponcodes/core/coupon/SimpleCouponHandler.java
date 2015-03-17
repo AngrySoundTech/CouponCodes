@@ -1,12 +1,86 @@
 package com.drevelopment.couponcodes.core.coupon;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.drevelopment.couponcodes.api.command.CommandSender;
+import com.drevelopment.couponcodes.api.coupon.CommandCoupon;
+import com.drevelopment.couponcodes.api.coupon.Coupon;
 import com.drevelopment.couponcodes.api.coupon.CouponHandler;
+import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
+import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
+import com.drevelopment.couponcodes.api.coupon.RankCoupon;
+import com.drevelopment.couponcodes.api.coupon.XpCoupon;
 
 public abstract class SimpleCouponHandler implements CouponHandler {
+
+	@Override
+	public boolean couponExists(Coupon coupon) {
+		return getCoupons().contains(coupon.getName());
+	}
+
+	@Override
+	public boolean couponExists(String coupon) {
+		return getCoupons().contains(coupon);
+	}
+
+	@Override
+	public int getAmountOf(String type) {
+		ArrayList<String> list = getCoupons();
+		int item = 0;
+		int econ = 0;
+		int rank = 0;
+		int xp = 0;
+		int cmd = 0;
+
+		for (String name : list) {
+			Coupon c = getBasicCoupon(name);
+			if (c instanceof ItemCoupon) item++;
+			if (c instanceof EconomyCoupon) econ++;
+			if (c instanceof RankCoupon) rank++;
+			if (c instanceof XpCoupon) xp++;
+			if (c instanceof CommandCoupon) cmd++;
+		}
+
+		if (type.equalsIgnoreCase("Item"))
+			return item;
+		else if (type.equalsIgnoreCase("Economy"))
+			return econ;
+		else if (type.equalsIgnoreCase("Rank"))
+			return rank;
+		else if (type.equalsIgnoreCase("Xp"))
+			return xp;
+		else if (type.equalsIgnoreCase("Cmd"))
+			return cmd;
+		else
+			return 0;
+	}
+
+	@Override
+	public ItemCoupon createNewItemCoupon(String name, int usetimes, int time, HashMap<Integer, Integer> ids, HashMap<String, Boolean> usedplayers) {
+		return new SimpleItemCoupon(name, usetimes, time, usedplayers, ids);
+	}
+
+	@Override
+	public EconomyCoupon createNewEconomyCoupon(String name, int usetimes, int time, HashMap<String, Boolean> usedplayers, int money) {
+		return new SimpleEconomyCoupon(name, usetimes, time, usedplayers, money);
+	}
+
+	@Override
+	public RankCoupon createNewRankCoupon(String name, String group, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
+		return new SimpleRankCoupon(name, group, usetimes, time, usedplayers);
+	}
+
+	@Override
+	public XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
+		return new SimpleXpCoupon(name, usetimes, time, usedplayers, xp);
+	}
+
+	@Override
+	public CommandCoupon createNewCommandCoupon(String name, String cmd, int usetimes, int time, HashMap<String, Boolean> usedplayers) {
+		return new SimpleCommandCoupon(name, usetimes, time, usedplayers, cmd);
+	}
 
 	public abstract HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender);
 
