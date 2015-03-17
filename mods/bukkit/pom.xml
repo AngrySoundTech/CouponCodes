@@ -51,12 +51,6 @@
       <version>1.5</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>com.drevelopment.multipluginlib</groupId>
-      <artifactId>bukkit</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
   </dependencies>
 
   <build>
@@ -96,15 +90,8 @@
           <artifactSet>
             <includes>
               <include>com.drevelopment.couponcodes:core</include>
-              <include>com.drevelopment.multipluginlib:bukkit</include>
             </includes>
           </artifactSet>
-          <relocations>
-            <relocation>
-              <pattern>com.drevelopment.multipluginlib</pattern>
-              <shadedPattern>com.drevelopment.couponcodes</shadedPattern>
-            </relocation>
-          </relocations>
         </configuration>
         <executions>
           <execution>
