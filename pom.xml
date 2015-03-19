@@ -3,6 +3,7 @@
   <groupId>com.drevelopment.couponcodes</groupId>
   <artifactId>parent</artifactId>
   <name>CouponCodes</name>
+  <inceptionYear>2015</inceptionYear>
   <url>https://github.com/Drepic26/CouponCodes3</url>
   <packaging>pom</packaging>
   <version>3.2-SNAPSHOT</version>
@@ -107,6 +108,32 @@
             <forceLongFormat>false</forceLongFormat>
           </gitDescribe>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>2.10</version>
+        <configuration>
+          <header>com/mycila/maven/plugin/license/templates/MIT.txt</header>
+          <properties>
+            <owner>Nicholas Feldman (Drepic26)</owner>
+          </properties>
+          <excludes>
+            <exclude>**/README</exclude>
+            <exclude>**/pom.xml</exclude>
+            <exclude>**/mkdocs.yml</exclude>
+            <exclude>**/Metrics.java</exclude>
+            <exclude>src/test/resources/**</exclude>
+            <exclude>src/main/resources/**</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
