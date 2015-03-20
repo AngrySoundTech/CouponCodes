@@ -121,6 +121,7 @@
           <excludes>
             <exclude>**/README</exclude>
             <exclude>**/pom.xml</exclude>
+            <exclude>**/maven-eclipse.xml</exclude>
             <exclude>**/mkdocs.yml</exclude>
             <exclude>**/Metrics.java</exclude>
             <exclude>src/test/resources/**</exclude>
