@@ -1,3 +1,7 @@
+3.2
+=
+* Add Russian and Polish
+
 3.1.3
 =
 * Fixed bug where commands would not give any output after relogging
