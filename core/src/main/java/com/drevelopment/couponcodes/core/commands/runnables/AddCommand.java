@@ -55,18 +55,14 @@ public class AddCommand implements Runnable {
 				try {
 
 					String name = args[2];
-					int usetimes = 1;
-					int time = -1;
 
 					if (name.equalsIgnoreCase("random")) name = RandomName.generateName();
-					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
-					if (args.length >= 6) time = Integer.parseInt(args[5]);
-					if (args.length > 6) {
+					if (args.length >= 5) {
 						sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"));
 						return;
 					}
 
-					ItemCoupon ic = CouponCodes.getCouponHandler().createNewItemCoupon(name, usetimes, time, CouponCodes.getCouponHandler().itemStringToHash(args[3], sender), new HashMap<String, Boolean>());
+					ItemCoupon ic = CouponCodes.getCouponHandler().createNewItemCoupon(name, 1, -1, CouponCodes.getCouponHandler().itemStringToHash(args[3], sender), new HashMap<String, Boolean>());
 
 					if (ic.addToDatabase()) {
 						sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
@@ -90,19 +86,15 @@ public class AddCommand implements Runnable {
 			if (args.length >= 4) {
 				try {
 					String name = args[2];
-					int usetimes = 1;
-					int time = -1;
 					int money = Integer.parseInt(args[3]);
 
 					if (name.equalsIgnoreCase("random")) name = RandomName.generateName();
-					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
-					if (args.length >= 6) time = Integer.parseInt(args[5]);
-					if (args.length > 6) {
+					if (args.length >= 5) {
 						sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"));
 						return;
 					}
 
-					EconomyCoupon ec = CouponCodes.getCouponHandler().createNewEconomyCoupon(name, usetimes, time, new HashMap<String, Boolean>(), money);
+					EconomyCoupon ec = CouponCodes.getCouponHandler().createNewEconomyCoupon(name, 1, -1, new HashMap<String, Boolean>(), money);
 
 					if (ec.addToDatabase()) {
 						sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
@@ -127,18 +119,14 @@ public class AddCommand implements Runnable {
 				try {
 					String name = args[2];
 					String group = args[3];
-					int usetimes = 1;
-					int time = -1;
 
 					if (name.equalsIgnoreCase("random")) name = RandomName.generateName();
-					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
-					if (args.length >= 6) time = Integer.parseInt(args[5]);
-					if (args.length > 6) {
+					if (args.length >= 5) {
 						sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"));
 						return;
 					}
 
-					RankCoupon rc = CouponCodes.getCouponHandler().createNewRankCoupon(name, group, usetimes, time, new HashMap<String, Boolean>());
+					RankCoupon rc = CouponCodes.getCouponHandler().createNewRankCoupon(name, group, 1, -1, new HashMap<String, Boolean>());
 
 					if (rc.addToDatabase()) {
 						sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
@@ -162,18 +150,14 @@ public class AddCommand implements Runnable {
 				try {
 					String name = args[2];
 					int xp = Integer.parseInt(args[3]);
-					int usetimes = 1;
-					int time = -1;
 
 					if (name.equalsIgnoreCase("random")) name = RandomName.generateName();
-					if (args.length >= 5) usetimes = Integer.parseInt(args[4]);
-					if (args.length >= 6) time = Integer.parseInt(args[5]);
-					if (args.length > 6) {
+					if (args.length >= 5) {
 						sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"));
 						return;
 					}
 
-					XpCoupon xc = CouponCodes.getCouponHandler().createNewXpCoupon(name, xp, usetimes, time, new HashMap<String, Boolean>());
+					XpCoupon xc = CouponCodes.getCouponHandler().createNewXpCoupon(name, xp, 1, -1, new HashMap<String, Boolean>());
 
 					if (xc.addToDatabase()) {
 						sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));

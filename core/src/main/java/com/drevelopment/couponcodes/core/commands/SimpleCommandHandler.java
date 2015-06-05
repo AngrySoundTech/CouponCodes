@@ -31,6 +31,8 @@ import com.drevelopment.couponcodes.core.commands.runnables.InfoCommand;
 import com.drevelopment.couponcodes.core.commands.runnables.ListCommand;
 import com.drevelopment.couponcodes.core.commands.runnables.RedeemCommand;
 import com.drevelopment.couponcodes.core.commands.runnables.RemoveCommand;
+import com.drevelopment.couponcodes.core.commands.runnables.TimeCommand;
+import com.drevelopment.couponcodes.core.commands.runnables.UsesCommand;
 import com.drevelopment.couponcodes.core.util.LocaleHandler;
 
 public class SimpleCommandHandler implements CommandHandler {
@@ -52,6 +54,24 @@ public class SimpleCommandHandler implements CommandHandler {
 					return true;
 				}
 			} else
+			if (args[0].equalsIgnoreCase("time")) {
+				if (sender.hasPermission("cc.time")) {
+					CouponCodes.getModTransformer().scheduleRunnable(new TimeCommand(sender, args));
+					return true;
+				} else {
+					sender.sendMessage(LocaleHandler.getString("Command.NoPermission"));
+					return true;
+				}
+			} else
+			if (args[0].equalsIgnoreCase("uses")) {
+				if (sender.hasPermission("cc.uses")) {
+					CouponCodes.getModTransformer().scheduleRunnable(new UsesCommand(sender, args));
+					return true;
+				} else {
+					sender.sendMessage(LocaleHandler.getString("Command.NoPermission"));
+					return true;
+				}
+			}
 			if (args[0].equalsIgnoreCase("remove")) {
 				if (sender.hasPermission("cc.remove")) {
 					CouponCodes.getModTransformer().scheduleRunnable(new RemoveCommand(sender, args));
@@ -108,6 +128,8 @@ public class SimpleCommandHandler implements CommandHandler {
 		sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"));
 		sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"));
 		sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.Time"));
+		sender.sendMessage(LocaleHandler.getString("Command.Help.Uses"));
 		sender.sendMessage(LocaleHandler.getString("Command.Help.Redeem"));
 		sender.sendMessage(LocaleHandler.getString("Command.Help.Remove"));
 		sender.sendMessage(LocaleHandler.getString("Command.Help.List"));

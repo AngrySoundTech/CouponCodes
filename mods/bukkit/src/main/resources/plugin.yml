@@ -20,22 +20,28 @@ permissions:
             cc.update: true
     cc.add:
         description: Allows you to add a coupon
-        default: false
+        default: ops
+    cc.time:
+        description: Allows you to change the time of a coupon
+        default: ops
+    cc.uses:
+        description: Allows you to change the uses of a coupon
+        default: ops
     cc.redeem:
         description: Allows you to redeem a coupon
-        default: false
+        default: true
     cc.remove:
         description: Allows you to remove a coupon
-        default: false
+        default: ops
     cc.list:
         description: Allows you to see a list of all the coupons
-        default: false
+        default: ops
     cc.info:
         description: Allows you to view information on coupons
-        default: false
+        default: ops
     cc.update:
         description: Notifies you when there is an update
-        default: false
+        default: ops
     cc.reload:
         description: Allows you to reload the database
-        default: false
+        default: ops
