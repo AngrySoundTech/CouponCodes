@@ -22,6 +22,7 @@
  */
 package com.drevelopment.couponcodes.api;
 
+import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.entity.Player;
 
 public interface ModTransformer {
@@ -63,5 +64,13 @@ public interface ModTransformer {
 	 * @return The name of the player
 	 */
 	public String getPlayerName(String UUID);
+
+	/**
+	 * Runs a command as either console, or the specified player.
+	 * <p>If sender is null or not an instance of {@link Player}, the command will be run as console.</p>
+	 * @param sender The Sender to run the command as. If null, will default to console.
+	 * @param command The command to run, Without the <code>/</code> in front.
+	 */
+	public void runCommand(CommandSender sender, String command);
 
 }

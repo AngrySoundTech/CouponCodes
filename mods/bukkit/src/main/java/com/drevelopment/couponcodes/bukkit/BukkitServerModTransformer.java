@@ -26,6 +26,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 
+import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.entity.Player;
 import com.drevelopment.couponcodes.bukkit.entity.BukkitPlayer;
 import com.drevelopment.couponcodes.core.ServerModTransformer;
@@ -56,6 +57,15 @@ public class BukkitServerModTransformer extends ServerModTransformer {
 	@Override
 	public String getPlayerName(String uuid) {
 		return Bukkit.getOfflinePlayer(UUID.fromString(uuid)).getName();
+	}
+
+	@Override
+	public void runCommand(CommandSender sender, String command) {
+		if (sender instanceof Player) {
+			Bukkit.getServer().dispatchCommand(Bukkit.getPlayer(UUID.fromString(((Player) sender).getUUID())), command);
+		} else {
+			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+		}
 	}
 
 }

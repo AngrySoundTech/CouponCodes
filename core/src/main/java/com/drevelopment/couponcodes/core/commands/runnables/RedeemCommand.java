@@ -27,6 +27,7 @@ import java.util.Map;
 
 import com.drevelopment.couponcodes.api.CouponCodes;
 import com.drevelopment.couponcodes.api.command.CommandSender;
+import com.drevelopment.couponcodes.api.coupon.CommandCoupon;
 import com.drevelopment.couponcodes.api.coupon.Coupon;
 import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
 import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
@@ -116,6 +117,12 @@ public class RedeemCommand implements Runnable{
 				XpCoupon c = (XpCoupon) coupon;
 				((Player) sender).setLevel(((Player)sender).getLevel()+c.getXp());
 				sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemXp", c.getName(), c.getXp()));
+			} else
+
+			if (coupon instanceof CommandCoupon) {
+				CommandCoupon c = (CommandCoupon) coupon;
+				CouponCodes.getModTransformer().runCommand(null, c.getCmd().replace("%p", ((Player) sender).getName()));
+				sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemCmd", c.getName()));
 			}
 
 			HashMap<String, Boolean> up = coupon.getUsedPlayers();

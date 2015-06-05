@@ -26,6 +26,7 @@ import java.util.HashMap;
 
 import com.drevelopment.couponcodes.api.CouponCodes;
 import com.drevelopment.couponcodes.api.command.CommandSender;
+import com.drevelopment.couponcodes.api.coupon.CommandCoupon;
 import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
 import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
 import com.drevelopment.couponcodes.api.coupon.RankCoupon;
@@ -52,8 +53,6 @@ public class AddCommand implements Runnable {
 
 		if (args[1].equalsIgnoreCase("item")) {
 			if (args.length >= 4) {
-				try {
-
 					String name = args[2];
 
 					if (name.equalsIgnoreCase("random")) name = RandomName.generateName();
@@ -71,20 +70,13 @@ public class AddCommand implements Runnable {
 						sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
 						return;
 					}
-
-				} catch (NumberFormatException e) {
-					sender.sendMessage(LocaleHandler.getString("Command.Add.SyntaxError"));
-					return;
-				}
 			} else {
 				sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"));
 				return;
 			}
 		} else
-
 		if (args[1].equalsIgnoreCase("econ")) {
 			if (args.length >= 4) {
-				try {
 					String name = args[2];
 					int money = Integer.parseInt(args[3]);
 
@@ -103,20 +95,14 @@ public class AddCommand implements Runnable {
 						sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
 						return;
 					}
-				} catch (NumberFormatException e) {
-					sender.sendMessage(LocaleHandler.getString("Command.Add.SyntaxError"));
-					return;
-				}
 			} else {
 				sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"));
 				return;
 			}
 
 		} else
-
 		if (args[1].equalsIgnoreCase("rank")) {
 			if (args.length >= 4) {
-				try {
 					String name = args[2];
 					String group = args[3];
 
@@ -135,19 +121,13 @@ public class AddCommand implements Runnable {
 						sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
 						return;
 					}
-				} catch (NumberFormatException e) {
-					sender.sendMessage(LocaleHandler.getString("Command.Add.SyntaxError"));
-					return;
-				}
 			} else {
 				sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"));
 				return;
 			}
 		} else
-
 		if (args[1].equalsIgnoreCase("xp")) {
 			if (args.length >= 4) {
-				try {
 					String name = args[2];
 					int xp = Integer.parseInt(args[3]);
 
@@ -166,13 +146,33 @@ public class AddCommand implements Runnable {
 						sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
 						return;
 					}
-				} catch (NumberFormatException e) {
-					sender.sendMessage(LocaleHandler.getString("Command.Add.SyntaxError"));
-					return;
-				}
 			} else {
 				sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"));
 				return;
+			}
+		} else
+		if (args[1].equalsIgnoreCase("cmd")) {
+			if (args.length >= 4) {
+				String name = args[2];
+				StringBuilder sb = new StringBuilder();
+				for (int i = 3; i < args.length; i++) {
+					sb.append(args[i] + " ");
+				}
+				String cmd = sb.toString();
+
+				if (name.equalsIgnoreCase("random")) name = RandomName.generateName();
+
+				CommandCoupon cc = CouponCodes.getCouponHandler().createNewCommandCoupon(name, cmd, 1, -1, new HashMap<String, Boolean>());
+
+				if (cc.addToDatabase()) {
+					sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
+					return;
+				} else {
+					sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
+					return;
+				}
+			} else {
+				sender.sendMessage(LocaleHandler.getString("Command.Help.AddCmd"));
 			}
 		} else {
 			helpAdd(sender);

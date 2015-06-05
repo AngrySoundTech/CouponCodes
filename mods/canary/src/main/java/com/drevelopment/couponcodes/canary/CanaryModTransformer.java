@@ -28,6 +28,7 @@ import java.util.UUID;
 import net.canarymod.Canary;
 import net.canarymod.tasks.TaskOwner;
 
+import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.entity.Player;
 import com.drevelopment.couponcodes.canary.entity.CanaryPlayer;
 import com.drevelopment.couponcodes.canary.runnable.CanaryRunnable;
@@ -58,6 +59,15 @@ public class CanaryModTransformer extends ServerModTransformer {
 	@Override
 	public String getPlayerName(String uuid) {
 		return Canary.getServer().getOfflinePlayer(UUID.fromString(uuid)).getName();
+	}
+
+	@Override
+	public void runCommand(CommandSender sender, String command) {
+		if (sender instanceof Player) {
+			Canary.getServer().getPlayerFromUUID(((Player) sender).getUUID()).executeCommand(command.split(" "));
+		} else {
+			Canary.getServer().consoleCommand(command);
+		}
 	}
 
 }
