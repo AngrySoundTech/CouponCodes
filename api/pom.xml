@@ -1,6 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.drevelopment.couponcodes</groupId>
   <artifactId>api</artifactId>
   <name>CouponCodes-API</name>
   <url>https://github.com/Drepic26/CouponCodes3</url>
@@ -26,22 +25,14 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.9</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>javadoc</goal>
-            </goals>
-            <phase>process-resources</phase>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
