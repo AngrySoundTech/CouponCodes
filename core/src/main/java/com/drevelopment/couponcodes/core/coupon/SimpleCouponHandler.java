@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.drevelopment.couponcodes.api.CouponCodes;
 import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.coupon.CommandCoupon;
 import com.drevelopment.couponcodes.api.coupon.Coupon;
@@ -104,8 +105,31 @@ public abstract class SimpleCouponHandler implements CouponHandler {
 		return new SimpleCommandCoupon(name, usetimes, time, usedplayers, cmd);
 	}
 
-	public abstract HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender);
+	@Override
+	public HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender) {
+		HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
+		String[] sp = args.split(",");
+		try {
+			for (String s: sp) {
+				int a = 0;
+				int b = 0;
+				if (CouponCodes.getModTransformer().isNumeric(s.split(":")[0])) {
+					a =  Integer.parseInt(s.split(":")[0]);
+				} else {
+					a = CouponCodes.getModTransformer().getIdFromName(s.split(":")[0]);
+				}
+				if (CouponCodes.getModTransformer().isNumeric(s.split(":")[1])) {
+					b = Integer.parseInt(s.split(":")[1]);
+				}
+				ids.put(a, b);
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		return ids;
+	}
 
+	@Override
 	public String itemHashToString(HashMap<Integer, Integer> hash) {
 		StringBuilder sb = new StringBuilder();
 		for (Map.Entry<Integer, Integer> en : hash.entrySet()) {
@@ -115,6 +139,7 @@ public abstract class SimpleCouponHandler implements CouponHandler {
 		return sb.toString();
 	}
 
+	@Override
 	public String playerHashToString(HashMap<String, Boolean> hash) {
 		if (hash.isEmpty() || hash == null || hash.size() < 1) return "";
 		StringBuilder sb = new StringBuilder();
@@ -125,6 +150,7 @@ public abstract class SimpleCouponHandler implements CouponHandler {
 		return sb.toString();
 	}
 
+	@Override
 	public HashMap<String, Boolean> playerStringToHash(String args) {
 		HashMap<String, Boolean> pl = new HashMap<String, Boolean>();
 		if (args.equals(null) || args.length() < 1) return pl;

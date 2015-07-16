@@ -29,10 +29,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.Material;
-
-import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.coupon.CommandCoupon;
 import com.drevelopment.couponcodes.api.coupon.Coupon;
 import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
@@ -254,31 +250,6 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	@Override
-	public HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender) {
-		HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
-		String[] sp = args.split(",");
-		try {
-			for (int i = 0; i < sp.length; i++) {
-				int a = 0;
-				if (StringUtils.isNumeric(sp[i].split(":")[0])) {
-					a = Integer.parseInt(sp[i].split(":")[0]);
-				} else {
-					if (Material.matchMaterial(sp[i].split(":")[0]) != null) {
-						a = Material.matchMaterial(sp[i].split(":")[0]).getId();
-					} else {
-						a = 1;
-					}
-				}
-				int b = Integer.parseInt(sp[i].split(":")[1]);
-					ids.put(a, b);
-			}
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		return ids;
 	}
 
 	public BukkitPlugin getPlugin() {

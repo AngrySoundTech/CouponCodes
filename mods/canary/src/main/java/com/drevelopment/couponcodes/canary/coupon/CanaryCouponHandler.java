@@ -27,15 +27,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
-import net.canarymod.Canary;
 import net.canarymod.database.DataAccess;
 import net.canarymod.database.Database;
 import net.canarymod.database.exceptions.DatabaseReadException;
 import net.canarymod.database.exceptions.DatabaseWriteException;
 
-import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.coupon.CommandCoupon;
 import com.drevelopment.couponcodes.api.coupon.Coupon;
 import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
@@ -230,31 +226,6 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
 			return createNewCommandCoupon(coupon, null, usetimes, time, null);
 		else
 			return null;
-	}
-
-	@Override
-	public HashMap<Integer, Integer> itemStringToHash(String args,CommandSender sender) {
-		HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
-		String[] sp = args.split(",");
-		try {
-			for (int i = 0; i < sp.length; i++) {
-				int a = 0;
-				if (NumberUtils.isNumber(sp[i].split(":")[0])) {
-					a = Integer.parseInt(sp[i].split(":")[0]);
-				} else {
-					if (Canary.factory().getItemFactory().newItem(sp[i].split(":")[0]) != null) {
-						a = Canary.factory().getItemFactory().newItem(sp[i].split(":")[0]).getId();
-					} else {
-						a = 1;
-					}
-				}
-				int b = Integer.parseInt(sp[i].split(":")[1]);
-					ids.put(a, b);
-			}
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		return ids;
 	}
 
 }

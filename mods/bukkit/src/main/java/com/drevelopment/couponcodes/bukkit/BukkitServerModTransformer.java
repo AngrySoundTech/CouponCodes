@@ -24,7 +24,9 @@ package com.drevelopment.couponcodes.bukkit;
 
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 
 import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.entity.Player;
@@ -66,6 +68,20 @@ public class BukkitServerModTransformer extends ServerModTransformer {
 		} else {
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
 		}
+	}
+
+	@Override
+	public int getIdFromName(String item) {
+		if (Material.matchMaterial(item)  != null) {
+			return Material.matchMaterial(item).getId();
+		} else {
+			return 0;
+		}
+	}
+
+	@Override
+	public boolean isNumeric(String string) {
+		return StringUtils.isNumeric(string);
 	}
 
 }

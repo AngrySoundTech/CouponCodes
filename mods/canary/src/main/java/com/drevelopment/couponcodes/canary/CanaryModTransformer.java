@@ -25,6 +25,8 @@ package com.drevelopment.couponcodes.canary;
 
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
+
 import net.canarymod.Canary;
 import net.canarymod.tasks.TaskOwner;
 
@@ -68,6 +70,20 @@ public class CanaryModTransformer extends ServerModTransformer {
 		} else {
 			Canary.getServer().consoleCommand(command);
 		}
+	}
+
+	@Override
+	public int getIdFromName(String item) {
+		if (Canary.factory().getItemFactory().newItem(item) != null) {
+			return Canary.factory().getItemFactory().newItem(item).getId();
+		} else {
+			return 0;
+		}
+	}
+
+	@Override
+	public boolean isNumeric(String string) {
+		return StringUtils.isNumeric(string);
 	}
 
 }
