@@ -20,3 +20,4 @@ git.properties
 
 # Files #
 *.bat
+.DS_Store
