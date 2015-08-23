@@ -51,17 +51,13 @@ public class CanaryListener implements CommandListener {
         message = trimCommand(message);
         int indexOfSpace = message.indexOf(' ');
 
-        try {
-            if (indexOfSpace != -1) {
-                String command = message.substring(0, indexOfSpace);
-                String args[] = message.substring(indexOfSpace + 1).split(" ");
+        if (indexOfSpace != -1) {
+            String command = message.substring(0, indexOfSpace);
+            String args[] = message.substring(indexOfSpace + 1).split(" ");
 
-                return CouponCodes.getCommandHandler().handleCommand(command, args, sender);
-            } else {
-                return CouponCodes.getCommandHandler().handleCommand(message, sender);
-            }
-        } catch (CommandException e) {
-            return false;
+            return CouponCodes.getCommandHandler().handleCommand(command, args, sender);
+        } else {
+            return CouponCodes.getCommandHandler().handleCommand(message, sender);
         }
     }
 
