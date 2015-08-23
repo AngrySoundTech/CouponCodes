@@ -30,33 +30,33 @@ public interface Player extends CommandSender {
      * Gets the name of the player.
      * @return The name of the player
      */
-    public String getName();
+    String getName();
 
     /**
      * Gets the unique identifier of a player.
      * @return the unique identifier of the player
      */
-    public String getUUID();
+    String getUUID();
 
     /**
      * Gets the current level of the player.
      * @return The current level of the player
      */
-    public int getLevel();
+    int getLevel();
 
     /**
      * Sets the level of the player.
      * @param xp The level of the player to set to
      */
-    public void setLevel(int xp);
+    void setLevel(int xp);
 
     /**
      * Gives the player the specified item and amount.
      * @param item The id of the item to give the player
      * @param amount The amount of the item to give the player
      */
-    public void giveItem(int item, int amount);
+    void giveItem(int item, int amount);
 
-    public String getLocale();
+    String getLocale();
 
 }

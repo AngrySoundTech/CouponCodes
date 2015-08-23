@@ -122,10 +122,8 @@ public class RedeemCommand implements Runnable {
             coupon.setUsedPlayers(up);
             coupon.setUseTimes(coupon.getUseTimes() - 1);
             CouponCodes.getCouponHandler().updateCoupon(coupon);
-            return;
         } else {
             sender.sendMessage(LocaleHandler.getString("Command.Help.Redeem"));
-            return;
         }
     }
 }

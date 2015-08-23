@@ -66,7 +66,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
             da.command = ((CommandCoupon) coupon).getCmd();
         }
 
-        HashMap<String, Object> filter = new HashMap<String, Object>();
+        HashMap<String, Object> filter = new HashMap<>();
         filter.put("name", coupon.getName());
 
         try {
@@ -82,7 +82,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
         if (!couponExists(coupon))
             return false;
         CanaryDataAccess da = new CanaryDataAccess();
-        HashMap<String, Object> filter = new HashMap<String, Object>();
+        HashMap<String, Object> filter = new HashMap<>();
         filter.put("name", coupon.getName());
         try {
             Database.get().remove(da, filter);
@@ -97,7 +97,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
         if (!couponExists(coupon))
             return false;
         CanaryDataAccess da = new CanaryDataAccess();
-        HashMap<String, Object> filter = new HashMap<String, Object>();
+        HashMap<String, Object> filter = new HashMap<>();
         filter.put("name", coupon);
         try {
             Database.get().remove(da, filter);
@@ -111,9 +111,9 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
     @Override
     public ArrayList<String> getCoupons() {
         CanaryDataAccess da = new CanaryDataAccess();
-        List<CanaryDataAccess> ds = new ArrayList<CanaryDataAccess>();
-        Map<String, Object> filter = new HashMap<String, Object>();
-        ArrayList<String> coupons = new ArrayList<String>();
+        List<CanaryDataAccess> ds = new ArrayList<>();
+        Map<String, Object> filter = new HashMap<>();
+        ArrayList<String> coupons = new ArrayList<>();
         try {
             Database.get().loadAll(da, (List<DataAccess>) (List<?>) ds, filter);
         } catch (DatabaseReadException e) {
@@ -147,7 +147,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
             da.command = ((CommandCoupon) coupon).getCmd();
         }
 
-        HashMap<String, Object> filter = new HashMap<String, Object>();
+        HashMap<String, Object> filter = new HashMap<>();
         filter.put("name", coupon.getName());
         try {
             Database.get().update(da, filter);
@@ -166,7 +166,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
         if (!couponExists(coupon))
             return null;
         CanaryDataAccess da = new CanaryDataAccess();
-        HashMap<String, Object> filter = new HashMap<String, Object>();
+        HashMap<String, Object> filter = new HashMap<>();
         filter.put("name", coupon);
 
         try {
@@ -199,7 +199,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
         if (!couponExists(coupon))
             return null;
         CanaryDataAccess da = new CanaryDataAccess();
-        HashMap<String, Object> filter = new HashMap<String, Object>();
+        HashMap<String, Object> filter = new HashMap<>();
         filter.put("name", coupon);
 
         try {

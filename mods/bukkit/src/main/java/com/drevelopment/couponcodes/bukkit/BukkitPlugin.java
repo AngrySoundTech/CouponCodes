@@ -136,7 +136,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
                 metrics = new Metrics(this);
                 CouponCodes.getModTransformer().scheduleRunnable(new CustomDataSender(metrics));
                 metrics.start();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
         }
 

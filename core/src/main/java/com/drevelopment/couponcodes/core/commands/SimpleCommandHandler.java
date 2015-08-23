@@ -37,7 +37,7 @@ import com.drevelopment.couponcodes.core.util.LocaleHandler;
 
 public class SimpleCommandHandler implements CommandHandler {
     // Handle a command with args
-    public boolean handleCommand(String command, String[] args, CommandSender sender) throws CommandException {
+    public boolean handleCommand(String command, String[] args, CommandSender sender) {
         if (command.equalsIgnoreCase("coupon")) {
             // Help
             if (args[0].equalsIgnoreCase("help")) {
@@ -108,7 +108,7 @@ public class SimpleCommandHandler implements CommandHandler {
     }
 
     // Handle a command with no args
-    public boolean handleCommand(String command, CommandSender sender) throws CommandException {
+    public boolean handleCommand(String command, CommandSender sender) {
         if (command.equalsIgnoreCase("coupon")) {
             help(sender);
             return true;

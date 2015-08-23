@@ -28,12 +28,12 @@ public interface CommandCoupon extends Coupon {
      * Gets the command the coupon will execute
      * @return The command the coupon will execute
      */
-    public String getCmd();
+    String getCmd();
 
     /**
      * Sets the command the coupon will execute
      * @param cmd The command the coupon will execute
      */
-    public void setCmd(String cmd);
+    void setCmd(String cmd);
 
 }

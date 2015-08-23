@@ -33,7 +33,7 @@ import com.drevelopment.couponcodes.api.event.coupon.CouponTimeChangeEvent;
 
 public class CanaryCouponTimer extends ServerTask {
 
-    private ArrayList<String> cl = new ArrayList<String>();
+    private ArrayList<String> cl = new ArrayList<>();
     private Coupon c;
     public CanaryCouponTimer(TaskOwner owner, long delay) {
         super(owner, delay, true);

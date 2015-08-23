@@ -42,7 +42,6 @@ public class ListCommand implements Runnable {
         ArrayList<String> c = CouponCodes.getCouponHandler().getCoupons();
         if (c.isEmpty() || c.size() <= 0 || c == null) {
             sender.sendMessage(LocaleHandler.getString("Command.List.NoFound"));
-            return;
         } else {
             sb.append(LocaleHandler.getString("Command.List.List"));
             for (int i = 0; i < c.size(); i++) {
@@ -52,7 +51,6 @@ public class ListCommand implements Runnable {
                 }
             }
             sender.sendMessage(sb.toString());
-            return;
         }
     }
 

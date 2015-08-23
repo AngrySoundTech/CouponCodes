@@ -62,7 +62,7 @@ public class VaultPermissionHandler extends SuperPermsPermissionHandler {
 
     @Override
     public Set<String> getGroups(Player player) {
-        Set<String> groups = new HashSet<String>();
+        Set<String> groups = new HashSet<>();
         if (isEnabled()) {
             org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
             try {
@@ -73,7 +73,7 @@ public class VaultPermissionHandler extends SuperPermsPermissionHandler {
                 }
 
                 Collections.addAll(groups, vaultGroups);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
         }
@@ -83,11 +83,11 @@ public class VaultPermissionHandler extends SuperPermsPermissionHandler {
     @Override
     public void setPlayerGroup(Player player, String group) {
         if (permission.getName().equalsIgnoreCase("PermissionsBukkit")) {
-            permission.playerAddGroup((String) null, Bukkit.getOfflinePlayer(UUID.fromString(player.getUUID())), group);
-            for (String i : permission.getPlayerGroups((String) null, Bukkit.getOfflinePlayer(UUID.fromString(player.getUUID())))) {
+            permission.playerAddGroup(null, Bukkit.getOfflinePlayer(UUID.fromString(player.getUUID())), group);
+            for (String i : permission.getPlayerGroups(null, Bukkit.getOfflinePlayer(UUID.fromString(player.getUUID())))) {
                 if (i.equalsIgnoreCase(group))
                     continue;
-                permission.playerRemoveGroup((String) null, Bukkit.getOfflinePlayer(UUID.fromString(player.getUUID())), i);
+                permission.playerRemoveGroup(null, Bukkit.getOfflinePlayer(UUID.fromString(player.getUUID())), i);
             }
         } else {
             permission.playerAddGroup(((BukkitPlayer) player).getBukkitPlayer(), group);

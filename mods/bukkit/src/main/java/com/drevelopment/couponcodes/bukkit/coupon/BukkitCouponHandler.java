@@ -146,16 +146,14 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
 
     @Override
     public ArrayList<String> getCoupons() {
-        ArrayList<String> c = new ArrayList<String>();
+        ArrayList<String> c = new ArrayList<>();
         try {
             ResultSet rs = databaseHandler.query("SELECT name FROM couponcodes");
             if (rs == null)
                 return c;
             while (rs.next())
                 c.add(rs.getString(1));
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             e.printStackTrace();
         }
         return c;

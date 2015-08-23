@@ -57,10 +57,8 @@ public class RemoveCommand implements Runnable {
             }
             CouponCodes.getCouponHandler().removeCouponFromDatabase(CouponCodes.getCouponHandler().createNewItemCoupon(args[1], 0, -1, null, null));
             sender.sendMessage(LocaleHandler.getString("Command.Remove.Removed", args[1]));
-            return;
         } else {
             sender.sendMessage(LocaleHandler.getString("Command.Help.Remove"));
-            return;
         }
     }
 }

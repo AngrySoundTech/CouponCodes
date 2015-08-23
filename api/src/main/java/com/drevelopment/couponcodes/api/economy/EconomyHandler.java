@@ -31,6 +31,6 @@ public interface EconomyHandler {
      * @param uuid The unique identifier of the player to give the money to
      * @param amount The amount of money to give to the player
      */
-    public abstract void giveMoney(String uuid, int amount);
+    void giveMoney(String uuid, int amount);
 
 }

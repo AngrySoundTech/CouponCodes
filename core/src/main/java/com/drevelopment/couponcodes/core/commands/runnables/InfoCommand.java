@@ -68,7 +68,7 @@ public class InfoCommand implements Runnable {
                     StringBuilder sb = new StringBuilder();
                     for (String s : usedPlayers.keySet()) {
                         if (usedPlayers.get(s)) {
-                            sb.append(CouponCodes.getModTransformer().getPlayerName(s) + ", ");
+                            sb.append(CouponCodes.getModTransformer().getPlayerName(s)).append(", ");
                         }
                     }
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", sb.toString()));
@@ -82,10 +82,8 @@ public class InfoCommand implements Runnable {
                 else if (c instanceof XpCoupon)
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Xp", ((XpCoupon) c).getXp()));
                 sender.sendMessage(LocaleHandler.getString("Command.Info.FancyWrap"));
-                return;
             } else {
                 sender.sendMessage(LocaleHandler.getString("Command.Shared.DoesNotExist"));
-                return;
             }
         } else {
             StringBuilder sb1 = new StringBuilder();
@@ -107,7 +105,7 @@ public class InfoCommand implements Runnable {
                 String xp2 = null;
                 DecimalFormat d = new DecimalFormat("##.##");
                 for (String name : co) {
-                    sb1.append(name + ", ");
+                    sb1.append(name).append(", ");
                     Coupon coo = CouponCodes.getCouponHandler().getBasicCoupon(name);
                     if (coo instanceof ItemCoupon)
                         it++;
@@ -134,7 +132,6 @@ public class InfoCommand implements Runnable {
             sender.sendMessage(sb2.toString());
             sender.sendMessage(LocaleHandler.getString("Command.Info.Total", total));
             sender.sendMessage(LocaleHandler.getString("Command.Info.FancyWrap"));
-            return;
         }
 
     }

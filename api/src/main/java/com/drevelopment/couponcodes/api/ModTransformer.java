@@ -32,7 +32,7 @@ public interface ModTransformer {
      * <p> Schedules a delayed task on the server
      * @param runnable Runnable to schedule
      */
-    public void scheduleRunnable(Runnable runnable);
+    void scheduleRunnable(Runnable runnable);
 
     /**
      * Gets the Player.
@@ -40,7 +40,7 @@ public interface ModTransformer {
      * @param UUID The unique identifier of the player to get
      * @return The player
      */
-    public Player getPlayer(String UUID);
+    Player getPlayer(String UUID);
 
     /**
      * <b>{@link #getPlayer(String)} should be used instead</b><p>
@@ -48,7 +48,7 @@ public interface ModTransformer {
      * @param UUID The UUID of the player to get
      * @return Player A new instance of the player
      */
-    public Player getModPlayer(String UUID);
+    Player getModPlayer(String UUID);
 
     /**
      * Removes a player wrapper from the plugin.
@@ -56,14 +56,14 @@ public interface ModTransformer {
      * they next log in</p>
      * @param player The player to remove
      */
-    public void removePlayer(Player player);
+    void removePlayer(Player player);
 
     /**
      * This should be used in case the player you want to get the name of may be offline
      * @param UUID The UUID of the player's name to get
      * @return The name of the player
      */
-    public String getPlayerName(String UUID);
+    String getPlayerName(String UUID);
 
     /**
      * Runs a command as either console, or the specified player.
@@ -71,15 +71,15 @@ public interface ModTransformer {
      * @param sender The Sender to run the command as. If null, will default to console.
      * @param command The command to run, Without the <code>/</code> in front.
      */
-    public void runCommand(CommandSender sender, String command);
+    void runCommand(CommandSender sender, String command);
 
     /**
      * Gets the ID of an item from it's name
      * @param item The item to get the ID of
      * @return The ID of of the item
      */
-    public int getIdFromName(String item);
+    int getIdFromName(String item);
 
-    public boolean isNumeric(String string);
+    boolean isNumeric(String string);
 
 }

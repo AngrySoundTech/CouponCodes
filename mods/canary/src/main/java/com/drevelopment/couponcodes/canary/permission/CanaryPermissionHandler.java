@@ -49,7 +49,7 @@ public class CanaryPermissionHandler implements PermissionHandler {
 
     @Override
     public Set<String> getGroups(Player player) {
-        Set<String> groups = new TreeSet<String>();
+        Set<String> groups = new TreeSet<>();
         groups.add(Canary.getServer().getPlayerFromUUID(player.getUUID()).getGroup().getName());
         return groups;
     }
@@ -57,8 +57,6 @@ public class CanaryPermissionHandler implements PermissionHandler {
     @Override
     public void setPlayerGroup(Player player, String group) {
         Canary.getServer().getPlayerFromUUID(player.getUUID()).setGroup(Canary.usersAndGroups().getGroup(group));
-        ;
-        ;
     }
 
     @Override

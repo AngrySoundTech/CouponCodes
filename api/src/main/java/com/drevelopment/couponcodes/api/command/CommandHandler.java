@@ -32,7 +32,7 @@ public interface CommandHandler {
      * @return True if the command was handled successfully
      * @throws CommandException
      */
-    public boolean handleCommand(String command, String[] args, CommandSender sender) throws CommandException;
+    boolean handleCommand(String command, String[] args, CommandSender sender);
 
     /**
      * Handles a command with no arguments.
@@ -41,6 +41,6 @@ public interface CommandHandler {
      * @return True if the command was handled successfully
      * @throws CommandException
      */
-    public boolean handleCommand(String command, CommandSender sender) throws CommandException;
+    boolean handleCommand(String command, CommandSender sender);
 
 }

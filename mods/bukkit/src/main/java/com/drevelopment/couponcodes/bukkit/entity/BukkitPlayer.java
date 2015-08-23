@@ -63,17 +63,8 @@ public class BukkitPlayer extends SimplePlayer {
             Object ep = getMethod("getHandle", bukkitPlayer.getClass()).invoke(bukkitPlayer, (Object[]) null);
             Field f = ep.getClass().getDeclaredField("locale");
             f.setAccessible(true);
-            String language = (String) f.get(ep);
-            return language;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (SecurityException e) {
+            return (String) f.get(ep);
+        } catch (IllegalAccessException | SecurityException | NoSuchFieldException | InvocationTargetException | IllegalArgumentException e) {
             e.printStackTrace();
         }
         return null;

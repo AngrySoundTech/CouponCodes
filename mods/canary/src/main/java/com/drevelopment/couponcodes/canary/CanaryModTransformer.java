@@ -28,7 +28,6 @@ import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 
 import net.canarymod.Canary;
-import net.canarymod.tasks.TaskOwner;
 
 import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.entity.Player;
@@ -46,7 +45,7 @@ public class CanaryModTransformer extends ServerModTransformer {
 
     @Override
     public void scheduleRunnable(Runnable runnable) {
-        Canary.getServer().addSynchronousTask(new CanaryRunnable((TaskOwner) plugin, runnable, 0));
+        Canary.getServer().addSynchronousTask(new CanaryRunnable(plugin, runnable, 0));
     }
 
     @Override

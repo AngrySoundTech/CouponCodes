@@ -114,7 +114,7 @@ public abstract class SimpleCouponHandler implements CouponHandler {
     public String itemHashToString(HashMap<Integer, Integer> hash) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Integer, Integer> en : hash.entrySet()) {
-            sb.append(en.getKey() + ":" + en.getValue() + ",");
+            sb.append(en.getKey()).append(":").append(en.getValue()).append(",");
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
@@ -122,7 +122,7 @@ public abstract class SimpleCouponHandler implements CouponHandler {
 
     @Override
     public HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender) {
-        HashMap<Integer, Integer> ids = new HashMap<Integer, Integer>();
+        HashMap<Integer, Integer> ids = new HashMap<>();
         String[] sp = args.split(",");
         try {
             for (String s : sp) {
@@ -150,7 +150,7 @@ public abstract class SimpleCouponHandler implements CouponHandler {
             return "";
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Boolean> en : hash.entrySet()) {
-            sb.append(en.getKey() + ":" + en.getValue() + ",");
+            sb.append(en.getKey()).append(":").append(en.getValue()).append(",");
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
@@ -158,14 +158,14 @@ public abstract class SimpleCouponHandler implements CouponHandler {
 
     @Override
     public HashMap<String, Boolean> playerStringToHash(String args) {
-        HashMap<String, Boolean> pl = new HashMap<String, Boolean>();
+        HashMap<String, Boolean> pl = new HashMap<>();
         if (args.equals(null) || args.length() < 1)
             return pl;
         String[] sp = args.split(",");
         try {
-            for (int i = 0; i < sp.length; i++) {
-                String a = String.valueOf(sp[i].split(":")[0]);
-                Boolean b = Boolean.valueOf(sp[i].split(":")[1]);
+            for (String aSp : sp) {
+                String a = String.valueOf(aSp.split(":")[0]);
+                Boolean b = Boolean.valueOf(aSp.split(":")[1]);
                 pl.put(a, b);
             }
         } catch (NumberFormatException e) {

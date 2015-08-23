@@ -43,11 +43,11 @@ public class BukkitCouponTimer implements Runnable {
         if (ch.getDatabaseHandler().getDatabaseOptions() instanceof MySQLOptions) {
             try {
                 ch.getDatabaseHandler().open();
-            } catch (SQLException e) {
+            } catch (SQLException ignored) {
             }
         }
 
-        cl = new ArrayList<String>();
+        cl = new ArrayList<>();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class BukkitCouponTimer implements Runnable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }

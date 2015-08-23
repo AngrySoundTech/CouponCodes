@@ -55,7 +55,7 @@ public class SuperPermsPermissionHandler implements PermissionHandler {
     @Override
     public Set<String> getGroups(Player player) {
         org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
-        Set<String> groups = new HashSet<String>();
+        Set<String> groups = new HashSet<>();
 
         for (PermissionAttachmentInfo pai : bukkitPlayer.getEffectivePermissions()) {
             if (pai.getPermission().startsWith(GROUP_PREFIX)) {

@@ -30,7 +30,7 @@ import com.drevelopment.couponcodes.api.entity.Player;
 
 public abstract class ServerModTransformer implements ModTransformer {
 
-    protected final Map<String, Player> players = new HashMap<String, Player>();
+    protected final Map<String, Player> players = new HashMap<>();
 
     public Player getPlayer(String UUID) {
         if (players.containsKey(UUID))

@@ -66,14 +66,11 @@ public class AddCommand implements Runnable {
 
                 if (ic.addToDatabase()) {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
-                    return;
                 } else {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
-                    return;
                 }
             } else {
                 sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"));
-                return;
             }
         } else if (args[1].equalsIgnoreCase("econ")) {
             if (args.length >= 4) {
@@ -91,14 +88,11 @@ public class AddCommand implements Runnable {
 
                 if (ec.addToDatabase()) {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
-                    return;
                 } else {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
-                    return;
                 }
             } else {
                 sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"));
-                return;
             }
 
         } else if (args[1].equalsIgnoreCase("rank")) {
@@ -117,14 +111,11 @@ public class AddCommand implements Runnable {
 
                 if (rc.addToDatabase()) {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
-                    return;
                 } else {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
-                    return;
                 }
             } else {
                 sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"));
-                return;
             }
         } else if (args[1].equalsIgnoreCase("xp")) {
             if (args.length >= 4) {
@@ -142,21 +133,18 @@ public class AddCommand implements Runnable {
 
                 if (xc.addToDatabase()) {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
-                    return;
                 } else {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
-                    return;
                 }
             } else {
                 sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"));
-                return;
             }
         } else if (args[1].equalsIgnoreCase("cmd")) {
             if (args.length >= 4) {
                 String name = args[2];
                 StringBuilder sb = new StringBuilder();
                 for (int i = 3; i < args.length; i++) {
-                    sb.append(args[i] + " ");
+                    sb.append(args[i]).append(" ");
                 }
                 String cmd = sb.toString();
 
@@ -167,10 +155,8 @@ public class AddCommand implements Runnable {
 
                 if (cc.addToDatabase()) {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));
-                    return;
                 } else {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"));
-                    return;
                 }
             } else {
                 sender.sendMessage(LocaleHandler.getString("Command.Help.AddCmd"));

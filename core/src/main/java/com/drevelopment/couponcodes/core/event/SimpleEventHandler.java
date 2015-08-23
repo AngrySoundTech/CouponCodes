@@ -32,7 +32,7 @@ import com.drevelopment.couponcodes.api.event.EventHandler;
 
 public class SimpleEventHandler implements EventHandler {
 
-    private List<Class<?>> handlers = new ArrayList<Class<?>>();
+    private List<Class<?>> handlers = new ArrayList<>();
 
     @Override
     public Event post(final Event event) {
@@ -42,10 +42,10 @@ public class SimpleEventHandler implements EventHandler {
                 for (Class<?> handler : getHandlers()) {
                     Method[] methods = handler.getMethods();
 
-                    for (int i = 0; i < methods.length; ++i) {
-                        CouponListener couponListener = methods[i].getAnnotation(CouponListener.class);
+                    for (Method method : methods) {
+                        CouponListener couponListener = method.getAnnotation(CouponListener.class);
                         if (couponListener != null) {
-                            Class<?>[] methodParams = methods[i].getParameterTypes();
+                            Class<?>[] methodParams = method.getParameterTypes();
 
                             if (methodParams.length < 1)
                                 continue;
@@ -54,7 +54,7 @@ public class SimpleEventHandler implements EventHandler {
                                 continue;
 
                             try {
-                                methods[i].invoke(handler.newInstance(), event);
+                                method.invoke(handler.newInstance(), event);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

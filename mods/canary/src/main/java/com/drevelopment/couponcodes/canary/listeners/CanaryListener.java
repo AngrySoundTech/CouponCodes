@@ -42,7 +42,7 @@ public class CanaryListener implements CommandListener {
 
             StringBuilder sb = new StringBuilder();
             for (String s : parameters)
-                sb.append(s + " ");
+                sb.append(s).append(" ");
             handleCommandEvent(com.drevelopment.couponcodes.api.command.Command.Sender.PLAYER, player, sb.toString());
         }
     }
