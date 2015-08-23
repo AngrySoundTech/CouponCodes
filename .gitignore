@@ -1,11 +1,3 @@
-# IDEs #
-.idea
-.settings
-.externalToolBuilders
-.classpath
-.project
-.metadata
-
 # Generated #
 obj
 target
@@ -15,9 +7,17 @@ javadoc
 site
 dependency-reduced-pom.xml
 maven-eclipse.xml
-*.class
 git.properties
 
 # Files #
 *.bat
 .DS_Store
+
+# IDEs #
+.idea
+.impl
+.settings
+.externalToolBuilders
+.classpath
+.project
+.metatdata

@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2015 Nicholas Feldman (Drepic26)
- *
+ * <p/>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p/>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p/>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,9 +31,9 @@ import com.drevelopment.couponcodes.api.CouponCodes;
 
 public final class LocaleHandler {
 
-	private static final String BUNDLE_ROOT = "com.drevelopment.couponcodes.locale.locale";
+    private static final String BUNDLE_ROOT = "com.drevelopment.couponcodes.locale.locale";
 
-	private static ResourceBundle bundle = null;
+    private static ResourceBundle bundle = null;
     private static ResourceBundle enBundle = null;
 
     public static String getString(String key) {
@@ -54,12 +54,10 @@ public final class LocaleHandler {
 
         try {
             return getString(key, bundle, messageArguments);
-        }
-        catch (MissingResourceException ex) {
+        } catch (MissingResourceException ex) {
             try {
                 return getString(key, enBundle, messageArguments);
-            }
-            catch (MissingResourceException ex2) {
+            } catch (MissingResourceException ex2) {
                 if (!key.contains("Guides")) {
                     System.out.println("Could not find locale string: " + key);
                 }
@@ -100,8 +98,7 @@ public final class LocaleHandler {
 
             if (myLocale.length == 1) {
                 locale = new Locale(myLocale[0]);
-            }
-            else if (myLocale.length >= 2) {
+            } else if (myLocale.length >= 2) {
                 locale = new Locale(myLocale[0], myLocale[1]);
             }
 

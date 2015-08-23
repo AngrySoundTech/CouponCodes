@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2015 Nicholas Feldman (Drepic26)
- *
+ * <p/>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p/>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p/>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,55 +28,55 @@ import com.drevelopment.couponcodes.bukkit.metrics.Metrics.Graph;
 
 public class CustomDataSender implements Runnable {
 
-	private Metrics metrics;
-	private CouponHandler ch;
+    private Metrics metrics;
+    private CouponHandler ch;
 
-	public CustomDataSender(Metrics metrics) {
-		this.metrics = metrics;
-		this.ch = CouponCodes.getCouponHandler();
-	}
+    public CustomDataSender(Metrics metrics) {
+        this.metrics = metrics;
+        this.ch = CouponCodes.getCouponHandler();
+    }
 
-	@Override
-	public void run() {
-		// Coupon Types
-	    Graph couponTypesGraph = metrics.createGraph("Coupon Types");
-	    couponTypesGraph.addPlotter(new Metrics.Plotter("Item Coupons") {
-			@Override
-			public int getValue() {
-				return ch.getAmountOf("Item");
-			}
-		});
-	    couponTypesGraph.addPlotter(new Metrics.Plotter("Economy Coupons") {
-			@Override
-			public int getValue() {
-				return ch.getAmountOf("Economy");
-			}
-		});
-	    couponTypesGraph.addPlotter(new Metrics.Plotter("Rank Coupons") {
-			@Override
-			public int getValue() {
-				return ch.getAmountOf("Rank");
-			}
-		});
-	    couponTypesGraph.addPlotter(new Metrics.Plotter("Xp Coupons") {
-			@Override
-			public int getValue() {
-				return ch.getAmountOf("Xp");
-			}
-		});
-	    couponTypesGraph.addPlotter(new Metrics.Plotter("Command Coupons") {
-			@Override
-			public int getValue() {
-				return ch.getAmountOf("Command");
-			}
-		});
-	    // Database types
-	    Graph dbTypesGraph = metrics.createGraph("Database Type");
-	    dbTypesGraph.addPlotter(new Metrics.Plotter(CouponCodes.getDatabaseHandler().getDatabaseType()) {
-			@Override
-			public int getValue() {
-				return 1;
-			}
-		});
-	}
+    @Override
+    public void run() {
+        // Coupon Types
+        Graph couponTypesGraph = metrics.createGraph("Coupon Types");
+        couponTypesGraph.addPlotter(new Metrics.Plotter("Item Coupons") {
+            @Override
+            public int getValue() {
+                return ch.getAmountOf("Item");
+            }
+        });
+        couponTypesGraph.addPlotter(new Metrics.Plotter("Economy Coupons") {
+            @Override
+            public int getValue() {
+                return ch.getAmountOf("Economy");
+            }
+        });
+        couponTypesGraph.addPlotter(new Metrics.Plotter("Rank Coupons") {
+            @Override
+            public int getValue() {
+                return ch.getAmountOf("Rank");
+            }
+        });
+        couponTypesGraph.addPlotter(new Metrics.Plotter("Xp Coupons") {
+            @Override
+            public int getValue() {
+                return ch.getAmountOf("Xp");
+            }
+        });
+        couponTypesGraph.addPlotter(new Metrics.Plotter("Command Coupons") {
+            @Override
+            public int getValue() {
+                return ch.getAmountOf("Command");
+            }
+        });
+        // Database types
+        Graph dbTypesGraph = metrics.createGraph("Database Type");
+        dbTypesGraph.addPlotter(new Metrics.Plotter(CouponCodes.getDatabaseHandler().getDatabaseType()) {
+            @Override
+            public int getValue() {
+                return 1;
+            }
+        });
+    }
 }

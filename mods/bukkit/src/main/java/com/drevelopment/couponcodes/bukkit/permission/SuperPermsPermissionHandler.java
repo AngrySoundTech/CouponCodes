@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2015 Nicholas Feldman (Drepic26)
- *
+ * <p/>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p/>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p/>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,44 +34,44 @@ import com.drevelopment.couponcodes.api.permission.PermissionHandler;
 
 public class SuperPermsPermissionHandler implements PermissionHandler {
 
-	private static final String GROUP_PREFIX = "group.";
+    private static final String GROUP_PREFIX = "group.";
 
-	@Override
-	public String getName() {
-		return "Default";
-	}
+    @Override
+    public String getName() {
+        return "Default";
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
-	@Override
-	public boolean hasPermission(Player player, String node) {
-		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
-		return bukkitPlayer != null && bukkitPlayer.hasPermission(node);
-	}
+    @Override
+    public boolean hasPermission(Player player, String node) {
+        org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
+        return bukkitPlayer != null && bukkitPlayer.hasPermission(node);
+    }
 
-	@Override
-	public Set<String> getGroups(Player player) {
-		org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
-		Set<String> groups = new HashSet<String>();
+    @Override
+    public Set<String> getGroups(Player player) {
+        org.bukkit.entity.Player bukkitPlayer = Bukkit.getPlayer(UUID.fromString(player.getUUID()));
+        Set<String> groups = new HashSet<String>();
 
-		for (PermissionAttachmentInfo pai : bukkitPlayer.getEffectivePermissions()) {
-			if (pai.getPermission().startsWith(GROUP_PREFIX)) {
-				groups.add(pai.getPermission().substring(GROUP_PREFIX.length()));
-			}
-		}
-		return groups;
-	}
+        for (PermissionAttachmentInfo pai : bukkitPlayer.getEffectivePermissions()) {
+            if (pai.getPermission().startsWith(GROUP_PREFIX)) {
+                groups.add(pai.getPermission().substring(GROUP_PREFIX.length()));
+            }
+        }
+        return groups;
+    }
 
-	@Override
-	public void setPlayerGroup(Player player, String group) {
-		
-	}
+    @Override
+    public void setPlayerGroup(Player player, String group) {
 
-	@Override
-	public boolean groupSupport() {
-		return false;
-	}
+    }
+
+    @Override
+    public boolean groupSupport() {
+        return false;
+    }
 }

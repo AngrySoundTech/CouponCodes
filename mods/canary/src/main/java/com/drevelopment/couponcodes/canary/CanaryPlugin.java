@@ -1,17 +1,17 @@
 /**
  * The MIT License
  * Copyright (c) 2015 Nicholas Feldman (Drepic26)
- *
+ * <p/>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p/>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p/>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -43,47 +43,48 @@ import net.canarymod.plugin.Plugin;
 
 public class CanaryPlugin extends Plugin {
 
-	private Logman logger;
-	private Metrics metrics;
+    private Logman logger;
+    private Metrics metrics;
 
-	@Override
-	public boolean enable() {
-		logger = this.getLogman();
+    @Override
+    public boolean enable() {
+        logger = this.getLogman();
 
-		CouponCodes.setEventHandler(new SimpleEventHandler());
-		CouponCodes.setCommandHandler(new SimpleCommandHandler());
-		CouponCodes.setModTransformer(new CanaryModTransformer(this));
-		CouponCodes.setConfigHandler(new CanaryConfigHandler(this));
+        CouponCodes.setEventHandler(new SimpleEventHandler());
+        CouponCodes.setCommandHandler(new SimpleCommandHandler());
+        CouponCodes.setModTransformer(new CanaryModTransformer(this));
+        CouponCodes.setConfigHandler(new CanaryConfigHandler(this));
 
-		CouponCodes.setDatabaseHandler(new CanaryDatabaseHandler());
-		CouponCodes.setCouponHandler(new CanaryCouponHandler());
+        CouponCodes.setDatabaseHandler(new CanaryDatabaseHandler());
+        CouponCodes.setCouponHandler(new CanaryCouponHandler());
 
-		CouponCodes.setPermissionHandler(new CanaryPermissionHandler());
+        CouponCodes.setPermissionHandler(new CanaryPermissionHandler());
 
-		if (CouponCodes.getConfigHandler().getUseThread()) {
-			Canary.getServer().addSynchronousTask(new CanaryCouponTimer(this, 200L));
-		}
+        if (CouponCodes.getConfigHandler().getUseThread()) {
+            Canary.getServer().addSynchronousTask(new CanaryCouponTimer(this, 200L));
+        }
 
-		if (CouponCodes.getConfigHandler().getUseMetrics()) {
-			try {
-				metrics = new Metrics(this);
-				CouponCodes.getModTransformer().scheduleRunnable(new CustomDataSender(metrics));
-				metrics.start();
-			} catch (IOException e) {}
-		}
+        if (CouponCodes.getConfigHandler().getUseMetrics()) {
+            try {
+                metrics = new Metrics(this);
+                CouponCodes.getModTransformer().scheduleRunnable(new CustomDataSender(metrics));
+                metrics.start();
+            } catch (IOException e) {
+            }
+        }
 
-		try {
-			Canary.commands().registerCommands(new CanaryListener(), this, false);
-		} catch (CommandDependencyException e) {
-			return false;
-		}
+        try {
+            Canary.commands().registerCommands(new CanaryListener(), this, false);
+        } catch (CommandDependencyException e) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public void disable() {
-		CouponCodes.setModTransformer(null);
-	}
+    @Override
+    public void disable() {
+        CouponCodes.setModTransformer(null);
+    }
 
 }
