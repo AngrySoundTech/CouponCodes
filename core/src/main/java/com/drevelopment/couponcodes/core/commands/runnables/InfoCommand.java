@@ -59,7 +59,6 @@ public class InfoCommand implements Runnable {
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.TimeLeft", c.getTime()));
                 else
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.TimeLeft", "unlimited"));
-                sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Expired", c.isExpired()));
 
                 if (c.getUsedPlayers().isEmpty())
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", "None"));
