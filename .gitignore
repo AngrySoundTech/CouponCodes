@@ -16,6 +16,7 @@ git.properties
 # IDEs #
 .idea
 .impl
+.iml
 .settings
 .externalToolBuilders
 .classpath
