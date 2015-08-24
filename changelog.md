@@ -1,5 +1,7 @@
 3.2
 =
+* Add Command Coupons
+* Time and uses are now in a separate command
 * Add Russian and Polish
 
 3.1.3
