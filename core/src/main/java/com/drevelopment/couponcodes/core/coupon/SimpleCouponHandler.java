@@ -35,6 +35,7 @@ import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
 import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
 import com.drevelopment.couponcodes.api.coupon.RankCoupon;
 import com.drevelopment.couponcodes.api.coupon.XpCoupon;
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 
 public abstract class SimpleCouponHandler implements CouponHandler {
 
@@ -86,8 +87,8 @@ public abstract class SimpleCouponHandler implements CouponHandler {
     }
 
     @Override
-    public ItemCoupon createNewItemCoupon(String name, int usetimes, int time, HashMap<Integer, Integer> ids, HashMap<String, Boolean> usedplayers) {
-        return new SimpleItemCoupon(name, usetimes, time, usedplayers, ids);
+    public ItemCoupon createNewItemCoupon(String name, int usetimes, int time, HashMap<String, Integer> items, HashMap<String, Boolean> usedplayers) {
+        return new SimpleItemCoupon(name, usetimes, time, usedplayers, items);
     }
 
     @Override
@@ -111,9 +112,9 @@ public abstract class SimpleCouponHandler implements CouponHandler {
     }
 
     @Override
-    public String itemHashToString(HashMap<Integer, Integer> hash) {
+    public String itemHashToString(HashMap<String, Integer> hash) {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Integer, Integer> en : hash.entrySet()) {
+        for (Map.Entry<String, Integer> en : hash.entrySet()) {
             sb.append(en.getKey()).append(":").append(en.getValue()).append(",");
         }
         sb.deleteCharAt(sb.length() - 1);
@@ -121,22 +122,25 @@ public abstract class SimpleCouponHandler implements CouponHandler {
     }
 
     @Override
-    public HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender) {
-        HashMap<Integer, Integer> ids = new HashMap<>();
+    public HashMap<String, Integer> itemStringToHash(String args, CommandSender sender) throws UnknownMaterialException {
+        HashMap<String, Integer> ids = new HashMap<>();
         String[] sp = args.split(",");
         try {
             for (String s : sp) {
-                int a = 0;
-                int b = 0;
-                if (CouponCodes.getModTransformer().isNumeric(s.split(":")[0])) {
-                    a = Integer.parseInt(s.split(":")[0]);
+                String name;
+                int amount = 0;
+
+                if (CouponCodes.getModTransformer().isValidMaterial(s.split(":")[0].toUpperCase())) {
+                    name = s.split(":")[0].toUpperCase();
                 } else {
-                    a = CouponCodes.getModTransformer().getIdFromName(s.split(":")[0]);
+                    throw new UnknownMaterialException(s.split(":")[0].toUpperCase());
                 }
+
                 if (CouponCodes.getModTransformer().isNumeric(s.split(":")[1])) {
-                    b = Integer.parseInt(s.split(":")[1]);
+                    amount = Integer.parseInt(s.split(":")[1]);
                 }
-                ids.put(a, b);
+
+                ids.put(name, amount);
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();

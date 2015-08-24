@@ -23,7 +23,6 @@
 package com.drevelopment.couponcodes.canary.listeners;
 
 import com.drevelopment.couponcodes.api.CouponCodes;
-import com.drevelopment.couponcodes.api.command.CommandException;
 import com.drevelopment.couponcodes.api.entity.Player;
 
 import net.canarymod.chat.MessageReceiver;

@@ -73,13 +73,8 @@ public interface ModTransformer {
      */
     void runCommand(CommandSender sender, String command);
 
-    /**
-     * Gets the ID of an item from it's name
-     * @param item The item to get the ID of
-     * @return The ID of of the item
-     */
-    int getIdFromName(String item);
-
     boolean isNumeric(String string);
+
+    boolean isValidMaterial(String material);
 
 }

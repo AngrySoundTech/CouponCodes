@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.drevelopment.couponcodes.api.command.CommandSender;
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 
 public interface CouponHandler {
 
@@ -109,11 +110,11 @@ public interface CouponHandler {
      * @param name The name of the coupon
      * @param usetimes The amount of times the coupon can be used
      * @param time The time the coupon has to be redeemed
-     * @param ids The ids the coupon is for
+     * @param items The items the coupon is for
      * @param usedplayers The players who have used this coupon
      * @return The newly created coupon
      */
-    ItemCoupon createNewItemCoupon(String name, int usetimes, int time, HashMap<Integer, Integer> ids, HashMap<String, Boolean> usedplayers);
+    ItemCoupon createNewItemCoupon(String name, int usetimes, int time, HashMap<String, Integer> items, HashMap<String, Boolean> usedplayers);
 
     /**
      * Creates a new {@link EconomyCoupon}
@@ -159,9 +160,9 @@ public interface CouponHandler {
      */
     CommandCoupon createNewCommandCoupon(String name, String cmd, int usetimes, int time, HashMap<String, Boolean> usedplayers);
 
-    String itemHashToString(HashMap<Integer, Integer> hash);
+    String itemHashToString(HashMap<String, Integer> hash);
 
-    HashMap<Integer, Integer> itemStringToHash(String args, CommandSender sender);
+    HashMap<String, Integer> itemStringToHash(String args, CommandSender sender) throws UnknownMaterialException;
 
     String playerHashToString(HashMap<String, Boolean> hash);
 

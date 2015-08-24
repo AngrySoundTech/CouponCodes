@@ -26,6 +26,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -91,12 +92,15 @@ public class BukkitPlayer extends SimplePlayer {
     }
 
     @Override
-    public void giveItem(int item, int amount) {
-        if (bukkitPlayer.getInventory().firstEmpty() == -1) {
-            bukkitPlayer.getLocation().getWorld().dropItem(bukkitPlayer.getLocation(), new ItemStack(item, amount));
-        } else {
-            bukkitPlayer.getInventory().addItem(new ItemStack(item, amount));
-        }
+    public void giveItem(String item, int amount) throws IllegalArgumentException {
+        if (Material.getMaterial(item) != null) {
+            if (bukkitPlayer.getInventory().firstEmpty() == -1) {
+                bukkitPlayer.getLocation().getWorld().dropItem(bukkitPlayer.getLocation(), new ItemStack(Material.getMaterial(item), amount));
+            } else {
+                bukkitPlayer.getInventory().addItem(new ItemStack(Material.getMaterial(item), amount));
+            }
+        } else
+            throw new IllegalArgumentException("Unknown item name");
     }
 
     private Method getMethod(String name, Class<? extends Player> class1) {

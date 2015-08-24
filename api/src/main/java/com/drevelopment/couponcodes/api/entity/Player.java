@@ -52,10 +52,10 @@ public interface Player extends CommandSender {
 
     /**
      * Gives the player the specified item and amount.
-     * @param item The id of the item to give the player
+     * @param item The name of the item to give the player
      * @param amount The amount of the item to give the player
      */
-    void giveItem(int item, int amount);
+    void giveItem(String item, int amount) throws IllegalArgumentException;
 
     String getLocale();
 

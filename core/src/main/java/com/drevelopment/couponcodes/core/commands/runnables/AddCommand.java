@@ -31,6 +31,7 @@ import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
 import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
 import com.drevelopment.couponcodes.api.coupon.RankCoupon;
 import com.drevelopment.couponcodes.api.coupon.XpCoupon;
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 import com.drevelopment.couponcodes.core.util.LocaleHandler;
 import com.drevelopment.couponcodes.core.util.RandomName;
 
@@ -62,7 +63,14 @@ public class AddCommand implements Runnable {
                     return;
                 }
 
-                ItemCoupon ic = CouponCodes.getCouponHandler().createNewItemCoupon(name, 1, -1, CouponCodes.getCouponHandler().itemStringToHash(args[3], sender), new HashMap<String, Boolean>());
+                HashMap<String, Integer> itemHash;
+                try {
+                    itemHash = CouponCodes.getCouponHandler().itemStringToHash(args[3], sender);
+                } catch (UnknownMaterialException e) {
+                    sender.sendMessage(LocaleHandler.getString("Command.Add.InvalidName", e.getItemName()));
+                    return;
+                }
+                ItemCoupon ic = CouponCodes.getCouponHandler().createNewItemCoupon(name, 1, -1, itemHash, new HashMap<String, Boolean>());
 
                 if (ic.addToDatabase()) {
                     sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name));

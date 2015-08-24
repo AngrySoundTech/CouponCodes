@@ -35,6 +35,7 @@ import com.drevelopment.couponcodes.api.coupon.EconomyCoupon;
 import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
 import com.drevelopment.couponcodes.api.coupon.RankCoupon;
 import com.drevelopment.couponcodes.api.coupon.XpCoupon;
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 import com.drevelopment.couponcodes.bukkit.BukkitPlugin;
 import com.drevelopment.couponcodes.bukkit.database.SQLDatabaseHandler;
 import com.drevelopment.couponcodes.bukkit.database.options.MySQLOptions;
@@ -70,7 +71,7 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
                 p.setString(2, c.getType());
                 p.setInt(3, c.getUseTimes());
                 p.setString(4, playerHashToString(c.getUsedPlayers()));
-                p.setString(5, itemHashToString(c.getIDs()));
+                p.setString(5, itemHashToString(c.getItems()));
                 p.setInt(6, c.getTime());
             } else if (coupon instanceof EconomyCoupon) {
                 EconomyCoupon c = (EconomyCoupon) coupon;
@@ -167,7 +168,7 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
             databaseHandler.query("UPDATE couponcodes SET timeuse='" + coupon.getTime() + "' WHERE name='" + coupon.getName() + "'");
 
             if (coupon instanceof ItemCoupon)
-                databaseHandler.query("UPDATE couponcodes SET ids='" + itemHashToString(((ItemCoupon) coupon).getIDs()) + "' WHERE name='" + coupon.getName() + "'");
+                databaseHandler.query("UPDATE couponcodes SET ids='" + itemHashToString(((ItemCoupon) coupon).getItems()) + "' WHERE name='" + coupon.getName() + "'");
             else if (coupon instanceof EconomyCoupon)
                 databaseHandler.query("UPDATE couponcodes SET money='" + ((EconomyCoupon) coupon).getMoney() + "' WHERE name='" + coupon.getName() + "'");
             else if (coupon instanceof RankCoupon)
@@ -203,7 +204,12 @@ public class BukkitCouponHandler extends SimpleCouponHandler {
             HashMap<String, Boolean> usedplayers = playerStringToHash(rs.getString("usedplayers"));
 
             if (rs.getString("ctype").equalsIgnoreCase("Item"))
-                return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(rs.getString("ids"), null), usedplayers);
+                try {
+                    return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(rs.getString("ids"), null), usedplayers);
+                } catch (UnknownMaterialException e) {
+                    // This should never happen, unless the database was modified by something not this plugin
+                    return null;
+                }
             else if (rs.getString("ctype").equalsIgnoreCase("Economy"))
                 return createNewEconomyCoupon(coupon, usetimes, time, usedplayers, rs.getInt("money"));
             else if (rs.getString("ctype").equalsIgnoreCase("Rank"))

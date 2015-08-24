@@ -29,7 +29,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.drevelopment.couponcodes.api.CouponCodes;
 import com.drevelopment.couponcodes.api.command.Command;
-import com.drevelopment.couponcodes.api.command.CommandException;
 import com.drevelopment.couponcodes.api.entity.Player;
 import com.drevelopment.couponcodes.bukkit.BukkitPlugin;
 

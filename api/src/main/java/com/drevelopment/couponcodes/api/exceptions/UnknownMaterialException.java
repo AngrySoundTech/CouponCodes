@@ -20,22 +20,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.drevelopment.couponcodes.core.coupon;
+package com.drevelopment.couponcodes.api.exceptions;
 
-import java.util.HashMap;
+public class UnknownMaterialException extends Exception {
 
-import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
+    private String name;
 
-public class SimpleItemCoupon extends SimpleCoupon implements ItemCoupon {
-
-    private HashMap<String, Integer> items;
-
-    public SimpleItemCoupon(String name, int usetimes, int time, HashMap<String, Boolean> usedplayers, HashMap<String, Integer> items) {
-        super(name, usetimes, time, usedplayers);
-        this.items = items;
+    public UnknownMaterialException(String name) {
+        this.name = name;
     }
 
-    public HashMap<String, Integer> getItems() {
-        return items;
+    public String getItemName() {
+        return name;
     }
 }

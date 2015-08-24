@@ -26,12 +26,12 @@ import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 
 import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.entity.Player;
 import com.drevelopment.couponcodes.bukkit.entity.BukkitPlayer;
 import com.drevelopment.couponcodes.core.ServerModTransformer;
+import org.bukkit.Material;
 
 public class BukkitServerModTransformer extends ServerModTransformer {
 
@@ -71,17 +71,13 @@ public class BukkitServerModTransformer extends ServerModTransformer {
     }
 
     @Override
-    public int getIdFromName(String item) {
-        if (Material.matchMaterial(item) != null) {
-            return Material.matchMaterial(item).getId();
-        } else {
-            return 0;
-        }
+    public boolean isNumeric(String string) {
+        return StringUtils.isNumeric(string);
     }
 
     @Override
-    public boolean isNumeric(String string) {
-        return StringUtils.isNumeric(string);
+    public boolean isValidMaterial(String name) {
+        return Material.getMaterial(name) != null;
     }
 
 }

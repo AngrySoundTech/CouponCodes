@@ -73,7 +73,7 @@ public class InfoCommand implements Runnable {
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", sb.toString()));
                 }
                 if (c instanceof ItemCoupon)
-                    sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Items", CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getIDs())));
+                    sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Items", CouponCodes.getCouponHandler().itemHashToString(((ItemCoupon) c).getItems())));
                 else if (c instanceof EconomyCoupon)
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Money", ((EconomyCoupon) c).getMoney()));
                 else if (c instanceof RankCoupon)

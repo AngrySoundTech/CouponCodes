@@ -25,6 +25,7 @@ package com.drevelopment.couponcodes.canary.entity;
 import net.canarymod.Canary;
 
 import com.drevelopment.couponcodes.core.entity.SimplePlayer;
+import net.canarymod.api.inventory.ItemType;
 
 public class CanaryPlayer extends SimplePlayer {
 
@@ -60,8 +61,11 @@ public class CanaryPlayer extends SimplePlayer {
     }
 
     @Override
-    public void giveItem(int item, int amount) {
-        canaryPlayer.giveItem(Canary.factory().getItemFactory().newItem(item, 0, amount));
+    public void giveItem(String item, int amount) throws IllegalArgumentException {
+        if (ItemType.fromString(item) != null) {
+            canaryPlayer.giveItem(Canary.factory().getItemFactory().newItem(ItemType.fromString(item), 0, amount));
+        } else
+            throw new IllegalArgumentException("Unknown item name");
     }
 
     @Override

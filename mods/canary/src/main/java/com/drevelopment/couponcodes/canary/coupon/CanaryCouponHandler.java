@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 import net.canarymod.database.DataAccess;
 import net.canarymod.database.Database;
 import net.canarymod.database.exceptions.DatabaseReadException;
@@ -55,7 +56,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
         da.timeuse = coupon.getTime();
 
         if (coupon instanceof ItemCoupon) {
-            da.ids = itemHashToString(((ItemCoupon) coupon).getIDs());
+            da.ids = itemHashToString(((ItemCoupon) coupon).getItems());
         } else if (coupon instanceof EconomyCoupon) {
             da.money = ((EconomyCoupon) coupon).getMoney();
         } else if (coupon instanceof RankCoupon) {
@@ -135,7 +136,7 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
         da.ctype = coupon.getType();
 
         if (coupon instanceof ItemCoupon) {
-            da.ids = itemHashToString(((ItemCoupon) coupon).getIDs());
+            da.ids = itemHashToString(((ItemCoupon) coupon).getItems());
         } else if (coupon instanceof EconomyCoupon) {
             da.money = ((EconomyCoupon) coupon).getMoney();
         } else if (coupon instanceof RankCoupon) {
@@ -181,7 +182,12 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
         HashMap<String, Boolean> usedplayers = playerStringToHash(da.usedplayers);
 
         if (da.ctype.equalsIgnoreCase("Item"))
-            return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(da.ids, null), usedplayers);
+            try {
+                return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(da.ids, null), usedplayers);
+            } catch (UnknownMaterialException e) {
+                // This should never happen, unless the database was modified by something not this plugin
+                return null;
+            }
         else if (da.ctype.equalsIgnoreCase("Economy"))
             return createNewEconomyCoupon(coupon, usetimes, time, usedplayers, da.money);
         else if (da.ctype.equalsIgnoreCase("Rank"))

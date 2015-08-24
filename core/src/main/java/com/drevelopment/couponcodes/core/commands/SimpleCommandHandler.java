@@ -23,7 +23,6 @@
 package com.drevelopment.couponcodes.core.commands;
 
 import com.drevelopment.couponcodes.api.CouponCodes;
-import com.drevelopment.couponcodes.api.command.CommandException;
 import com.drevelopment.couponcodes.api.command.CommandHandler;
 import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.core.commands.runnables.AddCommand;

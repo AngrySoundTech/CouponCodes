@@ -49,6 +49,6 @@ public abstract class SimplePlayer implements CommandSender, Player {
 
     public abstract void setLevel(int level);
 
-    public abstract void giveItem(int item, int amount);
+    public abstract void giveItem(String item, int amount);
 
 }

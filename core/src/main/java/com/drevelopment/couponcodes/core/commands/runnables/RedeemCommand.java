@@ -85,7 +85,7 @@ public class RedeemCommand implements Runnable {
 
             if (coupon instanceof ItemCoupon) {
                 ItemCoupon c = (ItemCoupon) coupon;
-                for (Map.Entry<Integer, Integer> en : c.getIDs().entrySet()) {
+                for (Map.Entry<String, Integer> en : c.getItems().entrySet()) {
                     ((Player) sender).giveItem(en.getKey(), en.getValue());
                 }
                 sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemItem", c.getName()));
