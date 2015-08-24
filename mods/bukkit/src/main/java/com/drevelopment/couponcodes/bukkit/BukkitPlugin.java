@@ -24,13 +24,20 @@ package com.drevelopment.couponcodes.bukkit;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Logger;
 
+import com.drevelopment.couponcodes.api.coupon.Coupon;
+import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -53,6 +60,8 @@ import com.drevelopment.couponcodes.bukkit.updater.Updater;
 import com.drevelopment.couponcodes.core.commands.SimpleCommandHandler;
 import com.drevelopment.couponcodes.core.event.SimpleEventHandler;
 import com.drevelopment.couponcodes.core.util.LocaleHandler;
+
+import javax.xml.transform.Result;
 
 public class BukkitPlugin extends JavaPlugin implements Listener {
 
@@ -96,9 +105,6 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
         try {
             ((SQLDatabaseHandler) CouponCodes.getDatabaseHandler()).open();
             ((SQLDatabaseHandler) CouponCodes.getDatabaseHandler()).createTable("CREATE TABLE IF NOT EXISTS couponcodes (name VARCHAR(24), ctype VARCHAR(10), usetimes INT(10), usedplayers TEXT(1024), ids VARCHAR(255), money INT(10), groupname VARCHAR(20), timeuse INT(100), xp INT(10), command VARCHAR(255))");
-            // Compatability for moving to version 3.1->3.2+
-            if (!((SQLDatabaseHandler) CouponCodes.getDatabaseHandler()).getConnection().getMetaData().getColumns(null, null, "couponcodes", "command").next())
-                ((SQLDatabaseHandler) CouponCodes.getDatabaseHandler()).query("ALTER TABLE couponcodes ADD COLUMN command VARCHAR(255)");
             CouponCodes.setCouponHandler(new BukkitCouponHandler(this, ((SQLDatabaseHandler) CouponCodes.getDatabaseHandler())));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,6 +112,44 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
+
+        logger.info(LocaleHandler.getString("Console.Database.Convert3.2"));
+        // 3.1 -> 3.2+
+        try {
+            // Add command column
+            if (!((SQLDatabaseHandler) CouponCodes.getDatabaseHandler()).getConnection().getMetaData().getColumns(null, null, "couponcodes", "command").next())
+                ((SQLDatabaseHandler) CouponCodes.getDatabaseHandler()).query("ALTER TABLE couponcodes ADD COLUMN command VARCHAR(255)");
+            // IDs -> Names
+            ResultSet rs = ((SQLDatabaseHandler) CouponCodes.getDatabaseHandler()).query("SELECT name,ids FROM couponcodes WHERE ctype='Item'");
+            if (rs != null) {
+                while (rs.next()) {
+                    HashMap<String, String> replacements = new HashMap<>();
+                    for (String sp : rs.getString("ids").split(",")) {
+                        if (StringUtils.isNumeric(sp.split(":")[0])) {
+                            @SuppressWarnings("deprecation") // Warning ignored. This is a compatibility patch from old versions.
+                            String name = Material.getMaterial(Integer.parseInt(sp.split(":")[0])).toString();
+                            String oldid = sp.split(":")[0];
+                            replacements.put(name, oldid);
+                        }
+                    }
+                    String itemlist = rs.getString("ids");
+                    for (String key : replacements.keySet()) {
+                        itemlist = itemlist.replace(replacements.get(key),key);
+                        logger.info("ID: "+ replacements.get(key) + " changed to: " + key);
+                        logger.info(LocaleHandler.getString("Console.Database.Changed", replacements.get(key), key));
+                    }
+                    ((SQLDatabaseHandler) CouponCodes.getDatabaseHandler()).query("UPDATE couponcodes SET ids='"+itemlist+ "' WHERE name='"+rs.getString("name")+"'");
+
+                }
+            }
+
+        } catch (SQLException e) {
+            logger.severe(LocaleHandler.getString("Console.Database.FailedUpdate"));
+            e.printStackTrace();
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+        logger.info("Database updating successful");
 
         // Vault
         if (!setupVault()) {
