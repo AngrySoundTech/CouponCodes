@@ -25,6 +25,7 @@ package com.drevelopment.couponcodes.core.entity;
 import com.drevelopment.couponcodes.api.CouponCodes;
 import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.entity.Player;
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 
 public abstract class SimplePlayer implements CommandSender, Player {
 
@@ -49,6 +50,6 @@ public abstract class SimplePlayer implements CommandSender, Player {
 
     public abstract void setLevel(int level);
 
-    public abstract void giveItem(String item, int amount);
+    public abstract void giveItem(String item, int amount) throws UnknownMaterialException;
 
 }

@@ -27,11 +27,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.logging.Logger;
 
-import com.drevelopment.couponcodes.api.coupon.Coupon;
-import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
@@ -60,8 +57,6 @@ import com.drevelopment.couponcodes.bukkit.updater.Updater;
 import com.drevelopment.couponcodes.core.commands.SimpleCommandHandler;
 import com.drevelopment.couponcodes.core.event.SimpleEventHandler;
 import com.drevelopment.couponcodes.core.util.LocaleHandler;
-
-import javax.xml.transform.Result;
 
 public class BukkitPlugin extends JavaPlugin implements Listener {
 

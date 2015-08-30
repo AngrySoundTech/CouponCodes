@@ -22,6 +22,7 @@
  */
 package com.drevelopment.couponcodes.canary.entity;
 
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 import net.canarymod.Canary;
 
 import com.drevelopment.couponcodes.core.entity.SimplePlayer;
@@ -61,11 +62,11 @@ public class CanaryPlayer extends SimplePlayer {
     }
 
     @Override
-    public void giveItem(String item, int amount) throws IllegalArgumentException {
+    public void giveItem(String item, int amount) throws UnknownMaterialException {
         if (ItemType.fromString(item) != null) {
             canaryPlayer.giveItem(Canary.factory().getItemFactory().newItem(ItemType.fromString(item), 0, amount));
         } else
-            throw new IllegalArgumentException("Unknown item name");
+            throw new UnknownMaterialException(item);
     }
 
     @Override

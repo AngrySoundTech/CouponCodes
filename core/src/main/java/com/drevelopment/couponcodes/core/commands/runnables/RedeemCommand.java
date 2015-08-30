@@ -34,6 +34,7 @@ import com.drevelopment.couponcodes.api.coupon.ItemCoupon;
 import com.drevelopment.couponcodes.api.coupon.RankCoupon;
 import com.drevelopment.couponcodes.api.coupon.XpCoupon;
 import com.drevelopment.couponcodes.api.entity.Player;
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 import com.drevelopment.couponcodes.core.util.LocaleHandler;
 
 public class RedeemCommand implements Runnable {
@@ -86,7 +87,9 @@ public class RedeemCommand implements Runnable {
             if (coupon instanceof ItemCoupon) {
                 ItemCoupon c = (ItemCoupon) coupon;
                 for (Map.Entry<String, Integer> en : c.getItems().entrySet()) {
-                    ((Player) sender).giveItem(en.getKey(), en.getValue());
+                    try {
+                        ((Player) sender).giveItem(en.getKey(), en.getValue());
+                    } catch (UnknownMaterialException ignored) {}
                 }
                 sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemItem", c.getName()));
             } else if (coupon instanceof EconomyCoupon) {

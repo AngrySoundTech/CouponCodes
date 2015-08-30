@@ -23,6 +23,7 @@
 package com.drevelopment.couponcodes.api.entity;
 
 import com.drevelopment.couponcodes.api.command.CommandSender;
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 
 public interface Player extends CommandSender {
 
@@ -55,7 +56,7 @@ public interface Player extends CommandSender {
      * @param item The name of the item to give the player
      * @param amount The amount of the item to give the player
      */
-    void giveItem(String item, int amount) throws IllegalArgumentException;
+    void giveItem(String item, int amount) throws UnknownMaterialException;
 
     String getLocale();
 

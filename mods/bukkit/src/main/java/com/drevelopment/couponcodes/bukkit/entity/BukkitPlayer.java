@@ -23,9 +23,9 @@
 package com.drevelopment.couponcodes.bukkit.entity;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.drevelopment.couponcodes.api.exceptions.UnknownMaterialException;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -65,7 +65,7 @@ public class BukkitPlayer extends SimplePlayer {
             Field f = ep.getClass().getDeclaredField("locale");
             f.setAccessible(true);
             return (String) f.get(ep);
-        } catch (IllegalAccessException | SecurityException | NoSuchFieldException | InvocationTargetException | IllegalArgumentException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -92,7 +92,7 @@ public class BukkitPlayer extends SimplePlayer {
     }
 
     @Override
-    public void giveItem(String item, int amount) throws IllegalArgumentException {
+    public void giveItem(String item, int amount) throws UnknownMaterialException {
         if (Material.getMaterial(item) != null) {
             if (bukkitPlayer.getInventory().firstEmpty() == -1) {
                 bukkitPlayer.getLocation().getWorld().dropItem(bukkitPlayer.getLocation(), new ItemStack(Material.getMaterial(item), amount));
@@ -100,7 +100,7 @@ public class BukkitPlayer extends SimplePlayer {
                 bukkitPlayer.getInventory().addItem(new ItemStack(Material.getMaterial(item), amount));
             }
         } else
-            throw new IllegalArgumentException("Unknown item name");
+            throw new UnknownMaterialException(item);
     }
 
     private Method getMethod(String name, Class<? extends Player> class1) {
