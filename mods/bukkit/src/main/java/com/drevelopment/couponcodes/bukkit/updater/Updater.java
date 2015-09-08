@@ -55,6 +55,7 @@ import org.json.simple.JSONValue;
  * @version 2.3
  */
 
+@SuppressWarnings("ALL")
 public class Updater {
 
     /* Constants */
