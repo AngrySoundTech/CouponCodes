@@ -7,7 +7,7 @@
     <inceptionYear>2015</inceptionYear>
     <url>https://github.com/Drepic26/CouponCodes3</url>
     <packaging>pom</packaging>
-    <version>3.2</version>
+    <version>3.2.1-SNAPSHOT</version>
 
     <properties>
         <minecraft.version>1.8.1</minecraft.version>
