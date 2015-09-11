@@ -72,7 +72,7 @@ public class SQLDatabaseHandler implements DatabaseHandler {
         if (dop instanceof MySQLOptions) {
             this.conn = DriverManager.getConnection("jdbc:mysql://" + ((MySQLOptions) dop).getHostname() + ":" +
                             ((MySQLOptions) dop).getPort() + "/" +
-                            ((MySQLOptions) dop).getDatabase(),
+                            ((MySQLOptions) dop).getDatabase() + "?autoReconnect=true",
                     ((MySQLOptions) dop).getUsername(),
                     ((MySQLOptions) dop).getPassword());
             return true;
@@ -98,10 +98,9 @@ public class SQLDatabaseHandler implements DatabaseHandler {
     }
 
     public ResultSet query(String query) throws SQLException {
-        Statement st = null;
+        Statement st = conn.createStatement();
         ResultSet rs = null;
 
-        st = conn.createStatement();
         if (query.toLowerCase().contains("delete") || query.toLowerCase().contains("update") || query.toLowerCase().contains("insert") || query.toLowerCase().contains("alter")) {
             st.executeUpdate(query);
             return rs;
