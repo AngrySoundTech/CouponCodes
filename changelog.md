@@ -1,3 +1,7 @@
+3.2.1
+=
+* Enable auto-reconnecting when MySQL Closes the connection
+
 3.2
 =
 * Add Command Coupons
