@@ -43,12 +43,8 @@ import net.canarymod.plugin.Plugin;
 
 public class CanaryPlugin extends Plugin {
 
-    private Logman logger;
-    private Metrics metrics;
-
     @Override
     public boolean enable() {
-        logger = this.getLogman();
 
         CouponCodes.setEventHandler(new SimpleEventHandler());
         CouponCodes.setCommandHandler(new SimpleCommandHandler());
@@ -66,7 +62,7 @@ public class CanaryPlugin extends Plugin {
 
         if (CouponCodes.getConfigHandler().getUseMetrics()) {
             try {
-                metrics = new Metrics(this);
+                Metrics metrics = new Metrics(this);
                 CouponCodes.getModTransformer().scheduleRunnable(new CustomDataSender(metrics));
                 metrics.start();
             } catch (IOException ignored) {

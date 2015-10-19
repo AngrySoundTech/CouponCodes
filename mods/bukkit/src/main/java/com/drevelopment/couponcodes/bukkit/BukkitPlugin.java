@@ -61,10 +61,8 @@ import com.drevelopment.couponcodes.core.util.LocaleHandler;
 public class BukkitPlugin extends JavaPlugin implements Listener {
 
     private Logger logger = null;
-    private Metrics metrics;
 
     private Economy econ = null;
-    private Permission perm = null;
 
     @Override
     public void onDisable() {
@@ -172,7 +170,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
         // Metrics
         if (CouponCodes.getConfigHandler().getUseMetrics()) {
             try {
-                metrics = new Metrics(this);
+                Metrics metrics = new Metrics(this);
                 CouponCodes.getModTransformer().scheduleRunnable(new CustomDataSender(metrics));
                 metrics.start();
             } catch (IOException ignored) {
@@ -195,7 +193,6 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
                 return false;
             } else {
                 econ = ep.getProvider();
-                perm = pe.getProvider();
                 return true;
             }
         } catch (NoClassDefFoundError e) {
