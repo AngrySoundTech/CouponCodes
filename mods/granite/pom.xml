@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>granite</artifactId>
     <name>CouponCodes-Granite</name>
-    <url>https://github.com/Drepic26/CouponCodes3</url>
+    <url>https://github.com/AngrySoundTech/CouponCodes3</url>
     <packaging>jar</packaging>
 
     <parent>

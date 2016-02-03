@@ -1,4 +1,4 @@
 main-class = com.drevelopment.couponcodes.canary.CanaryPlugin
 name = CouponCodes
-author = Drepic26
+author = AngrySoundTech
 version = ${project.version}

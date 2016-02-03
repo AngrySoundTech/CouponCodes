@@ -5,7 +5,7 @@
     <artifactId>parent</artifactId>
     <name>CouponCodes</name>
     <inceptionYear>2015</inceptionYear>
-    <url>https://github.com/Drepic26/CouponCodes3</url>
+    <url>https://github.com/AngrySoundTech/CouponCodes3</url>
     <packaging>pom</packaging>
     <version>3.2</version>
 
@@ -16,13 +16,13 @@
 
     <ciManagement>
         <system>Travis</system>
-        <url>https://travis-ci.org/Drepic26/CouponCodes3</url>
+        <url>https://travis-ci.org/AngrySoundTech/CouponCodes3</url>
     </ciManagement>
 
     <scm>
-        <developerConnection>scm:git:git@github.com:Drepic26/CouponCodes3.git</developerConnection>
-        <connection>scm:git:git://github.com:Drepic26/CouponCodes3.git</connection>
-        <url>https://github.com/Drepic26/CouponCodes3</url>
+        <developerConnection>scm:git:git@github.com:AngrySoundTech/CouponCodes3.git</developerConnection>
+        <connection>scm:git:git://github.com:AngrySoundTech/CouponCodes3.git</connection>
+        <url>https://github.com/AngrySoundTech/CouponCodes3</url>
     </scm>
 
     <modules>
@@ -52,7 +52,7 @@
                 <configuration>
                     <header>MIT.txt</header>
                     <properties>
-                        <owner>Nicholas Feldman (Drepic26)</owner>
+                        <owner>Nicholas Feldman (AngrySoundTech)</owner>
                     </properties>
                     <excludes>
                         <exclude>**/README</exclude>

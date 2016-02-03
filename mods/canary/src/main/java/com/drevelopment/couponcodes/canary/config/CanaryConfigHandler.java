@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2015 Nicholas Feldman (Drepic26)
+ * Copyright (c) 2015 Nicholas Feldman (AngrySoundTech)
  * <p/>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -68,7 +68,7 @@ public class CanaryConfigHandler implements ConfigHandler {
         config.addHeaderLines("If you are receiving errors, please report it on Github. It really helps the development of this plugin.");
         config.addHeaderLines("If you are interested in how this plugin works (code wise) you can view the source code from GitHub.");
         config.addHeaderLines("You can also open an issue here for any feature requests / bug reporting.");
-        config.addHeaderLines("https://github.com/Drepic26/CouponCodes-Revived");
+        config.addHeaderLines("https://github.com/AngrySoundTech/CouponCodes3");
         config.getString("locale", "en_US");
         config.addComment("locale", "");
         config.addComment("locale", "Language the plugin should use by default.");
