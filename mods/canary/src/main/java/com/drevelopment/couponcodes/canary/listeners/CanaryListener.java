@@ -25,11 +25,14 @@ package com.drevelopment.couponcodes.canary.listeners;
 import com.drevelopment.couponcodes.api.CouponCodes;
 import com.drevelopment.couponcodes.api.entity.Player;
 
+import com.drevelopment.couponcodes.core.listeners.SimpleListener;
 import net.canarymod.chat.MessageReceiver;
 import net.canarymod.commandsys.Command;
 import net.canarymod.commandsys.CommandListener;
+import net.canarymod.hook.HookHandler;
+import net.canarymod.hook.player.DisconnectionHook;
 
-public class CanaryListener implements CommandListener {
+public class CanaryListener extends SimpleListener implements CommandListener {
 
     @Command(aliases = {"coupon"},
             description = "Base coupon command",
@@ -46,28 +49,8 @@ public class CanaryListener implements CommandListener {
         }
     }
 
-    private boolean handleCommandEvent(com.drevelopment.couponcodes.api.command.Command.Sender type, Player sender, String message) {
-        message = trimCommand(message);
-        int indexOfSpace = message.indexOf(' ');
-
-        if (indexOfSpace != -1) {
-            String command = message.substring(0, indexOfSpace);
-            String args[] = message.substring(indexOfSpace + 1).split(" ");
-
-            return CouponCodes.getCommandHandler().handleCommand(command, args, sender);
-        } else {
-            return CouponCodes.getCommandHandler().handleCommand(message, sender);
-        }
-    }
-
-    private String trimCommand(String command) {
-        if (command.startsWith("/")) {
-            if (command.length() == 1) {
-                return "";
-            } else {
-                command = command.substring(1);
-            }
-        }
-        return command.trim();
+    @HookHandler
+    public void onPlayerQuit(DisconnectionHook event) {
+        CouponCodes.getModTransformer().removePlayer(CouponCodes.getModTransformer().getPlayer(event.getPlayer().getUUIDString()));
     }
 }
