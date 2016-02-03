@@ -9,7 +9,7 @@
     <parent>
         <groupId>com.drevelopment.couponcodes</groupId>
         <artifactId>parent</artifactId>
-        <version>3.2</version>
+        <version>3.2.1</version>
         <relativePath>../../</relativePath>
     </parent>
 
@@ -28,31 +28,25 @@
         <dependency>
             <groupId>com.drevelopment.couponcodes</groupId>
             <artifactId>core</artifactId>
-            <version>3.2</version>
+            <version>3.2.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.drevelopment.couponcodes</groupId>
             <artifactId>bukkit</artifactId>
-            <version>3.2</version>
+            <version>3.2.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.drevelopment.couponcodes</groupId>
             <artifactId>sponge</artifactId>
-            <version>3.2</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.drevelopment.couponcodes</groupId>
-            <artifactId>granite</artifactId>
-            <version>3.2</version>
+            <version>3.2.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.drevelopment.couponcodes</groupId>
             <artifactId>canary</artifactId>
-            <version>3.2</version>
+            <version>3.2.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
