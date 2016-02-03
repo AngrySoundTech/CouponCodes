@@ -30,7 +30,6 @@ public interface CommandHandler {
      * @param args The arguments of the command
      * @param sender The sender of the command
      * @return True if the command was handled successfully
-     * @throws CommandException
      */
     boolean handleCommand(String command, String[] args, CommandSender sender);
 
@@ -39,7 +38,6 @@ public interface CommandHandler {
      * @param command The command to handle. This is what immediately follows the <code>/</code>
      * @param sender The sender of the command
      * @return True if the command was handled successfully
-     * @throws CommandException
      */
     boolean handleCommand(String command, CommandSender sender);
 

@@ -53,7 +53,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.zip.GZIPOutputStream;
 
-@SuppressWarnings("RedundantThrows")
+@SuppressWarnings("ALL")
 public class Metrics {
 
     /**

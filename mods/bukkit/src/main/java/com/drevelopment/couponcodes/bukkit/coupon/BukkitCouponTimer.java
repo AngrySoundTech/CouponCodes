@@ -34,7 +34,6 @@ public class BukkitCouponTimer implements Runnable {
 
     private BukkitCouponHandler ch;
     private ArrayList<String> cl;
-    private Coupon c;
 
     public BukkitCouponTimer() {
         ch = (BukkitCouponHandler) CouponCodes.getCouponHandler();
@@ -60,7 +59,7 @@ public class BukkitCouponTimer implements Runnable {
             for (String name : cl) {
                 if (ch.getDatabaseHandler().getConnection().isClosed())
                     return;
-                c = ch.getBasicCoupon(name);
+                Coupon c = ch.getBasicCoupon(name);
                 if (c == null)
                     continue;
                 if (c.isExpired() || c.getTime() == -1)

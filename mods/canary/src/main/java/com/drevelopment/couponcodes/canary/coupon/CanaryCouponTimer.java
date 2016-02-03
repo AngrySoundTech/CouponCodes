@@ -33,20 +33,18 @@ import com.drevelopment.couponcodes.api.event.coupon.CouponTimeChangeEvent;
 
 public class CanaryCouponTimer extends ServerTask {
 
-    private ArrayList<String> cl = new ArrayList<>();
-    private Coupon c;
     public CanaryCouponTimer(TaskOwner owner, long delay) {
         super(owner, delay, true);
     }
 
     @Override
     public void run() {
-        cl = CouponCodes.getCouponHandler().getCoupons();
+        ArrayList<String> cl = CouponCodes.getCouponHandler().getCoupons();
         if (cl == null)
             return;
 
         for (String name : cl) {
-            c = CouponCodes.getCouponHandler().getCoupon(name);
+            Coupon c = CouponCodes.getCouponHandler().getCoupon(name);
             if (c == null)
                 continue;
             if (c.isExpired() || c.getTime() == -1)
