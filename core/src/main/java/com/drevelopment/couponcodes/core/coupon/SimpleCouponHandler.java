@@ -115,7 +115,7 @@ public abstract class SimpleCouponHandler implements CouponHandler {
     public String itemHashToString(HashMap<String, Integer> hash) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Integer> en : hash.entrySet()) {
-            sb.append(en.getKey()).append(":").append(en.getValue()).append(",");
+            sb.append(en.getKey()).append(",").append(en.getValue()).append("|");
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
@@ -124,22 +124,19 @@ public abstract class SimpleCouponHandler implements CouponHandler {
     @Override
     public HashMap<String, Integer> itemStringToHash(String args, CommandSender sender) throws UnknownMaterialException {
         HashMap<String, Integer> ids = new HashMap<>();
-        String[] sp = args.split(",");
+        String[] sp = args.split("\\|");
         try {
             for (String s : sp) {
                 String name;
                 int amount = 0;
-
-                if (CouponCodes.getModTransformer().isValidMaterial(s.split(":")[0].toUpperCase())) {
-                    name = s.split(":")[0].toUpperCase();
+                if (CouponCodes.getModTransformer().isValidMaterial(s.split(",")[0].toUpperCase())) {
+                    name = s.split(",")[0].toUpperCase();
                 } else {
-                    throw new UnknownMaterialException(s.split(":")[0].toUpperCase());
+                    throw new UnknownMaterialException(s.split(",")[0].toUpperCase());
                 }
-
-                if (CouponCodes.getModTransformer().isNumeric(s.split(":")[1])) {
-                    amount = Integer.parseInt(s.split(":")[1]);
+                if (CouponCodes.getModTransformer().isNumeric(s.split(",")[1])) {
+                    amount = Integer.parseInt(s.split(",")[1]);
                 }
-
                 ids.put(name, amount);
             }
         } catch (NumberFormatException e) {

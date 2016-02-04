@@ -26,6 +26,8 @@ import com.drevelopment.couponcodes.core.commands.ServerSender;
 import net.canarymod.Canary;
 import net.canarymod.chat.MessageReceiver;
 
+import java.text.Normalizer;
+
 public class CanaryServerSender extends ServerSender {
 
     MessageReceiver canaryCaller;

@@ -48,7 +48,6 @@ public class CanaryListener implements CommandListener {
             Player player = CouponCodes.getModTransformer().getPlayer(((net.canarymod.api.entity.living.humanoid.Player) caller).getUUIDString());
             CouponCodes.getCommandHandler().handleCommandEvent(player, sb.toString());
         } else {
-            System.out.println("RAW " + sb.toString());
             CouponCodes.getCommandHandler().handleCommandEvent(new CanaryServerSender(caller), sb.toString());
         }
     }
