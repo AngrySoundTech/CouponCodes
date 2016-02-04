@@ -47,11 +47,4 @@ public interface CommandSender {
      */
     String getLocale();
 
-    /**
-     * Where the command was sent from, either player or server
-     */
-    enum Type {
-        PLAYER, SERVER;
-    }
-
 }

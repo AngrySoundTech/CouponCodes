@@ -115,7 +115,7 @@ public class SimpleCommandHandler implements CommandHandler {
     }
 
     @Override
-    public boolean handleCommandEvent(CommandSender.Type type, CommandSender sender, String message) {
+    public boolean handleCommandEvent(CommandSender sender, String message) {
         message = trimCommand(message);
         int indexOfSpace = message.indexOf(" ");
 

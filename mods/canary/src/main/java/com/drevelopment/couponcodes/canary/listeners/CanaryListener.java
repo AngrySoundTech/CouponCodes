@@ -40,16 +40,16 @@ public class CanaryListener implements CommandListener {
             permissions = {/*"cc.add", "cc.remove", "cc.redeem", "cc.list", "cc.info"*/""},
             toolTip = "/coupon help")
     public void couponCommand(MessageReceiver caller, String[] parameters) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : parameters) {
+            sb.append(s).append(" ");
+        }
         if (caller instanceof net.canarymod.api.entity.living.humanoid.Player) {
-            StringBuilder sb = new StringBuilder();
-            for (String s : parameters)
-                sb.append(s).append(" ");
-            if (((net.canarymod.api.entity.living.humanoid.Player) caller).isPlayer()) {
-                Player player = CouponCodes.getModTransformer().getPlayer(((net.canarymod.api.entity.living.humanoid.Player) caller).getUUIDString());
-                CouponCodes.getCommandHandler().handleCommandEvent(CommandSender.Type.PLAYER, player, sb.toString());
-            } else {
-                CouponCodes.getCommandHandler().handleCommandEvent(CommandSender.Type.SERVER, new CanaryServerSender(caller), sb.toString());
-            }
+            Player player = CouponCodes.getModTransformer().getPlayer(((net.canarymod.api.entity.living.humanoid.Player) caller).getUUIDString());
+            CouponCodes.getCommandHandler().handleCommandEvent(player, sb.toString());
+        } else {
+            System.out.println("RAW " + sb.toString());
+            CouponCodes.getCommandHandler().handleCommandEvent(new CanaryServerSender(caller), sb.toString());
         }
     }
 

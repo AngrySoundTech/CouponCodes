@@ -47,7 +47,7 @@ public class BukkitListener implements Listener {
         CommandSender sender = plugin.wrapPlayer(event.getPlayer());
         String command = event.getMessage();
 
-        if (CouponCodes.getCommandHandler().handleCommandEvent(CommandSender.Type.PLAYER, sender, command)) {
+        if (CouponCodes.getCommandHandler().handleCommandEvent(sender, command)) {
             event.setCancelled(true);
         }
     }
@@ -55,7 +55,7 @@ public class BukkitListener implements Listener {
     @EventHandler
     public void onServerCommand(ServerCommandEvent event) {
         String command = event.getCommand();
-        if (CouponCodes.getCommandHandler().handleCommandEvent(CommandSender.Type.SERVER, new BukkitServerSender(event.getSender()), command)) {
+        if (CouponCodes.getCommandHandler().handleCommandEvent(new BukkitServerSender(event.getSender()), command)) {
             event.setCancelled(true);
         }
     }

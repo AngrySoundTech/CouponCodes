@@ -43,10 +43,9 @@ public interface CommandHandler {
 
     /**
      * Handle a raw command message
-     * @param type The type of sender, either player or server
      * @param sender The sender of the command
      * @param message The raw command message
      * @return True if the command was handled successfully
      */
-    boolean handleCommandEvent(CommandSender.Type type, CommandSender sender, String message);
+    boolean handleCommandEvent(CommandSender sender, String message);
 }
