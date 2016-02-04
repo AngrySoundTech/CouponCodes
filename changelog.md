@@ -1,6 +1,7 @@
 3.2.1
 =
 * Enable auto-reconnecting when MySQL Closes the connection
+* Fix executing commands from the console (Small API changes)
 
 3.2
 =

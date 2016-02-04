@@ -58,6 +58,4 @@ public interface Player extends CommandSender {
      */
     void giveItem(String item, int amount) throws UnknownMaterialException;
 
-    String getLocale();
-
 }

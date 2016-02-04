@@ -23,16 +23,17 @@
 package com.drevelopment.couponcodes.canary.listeners;
 
 import com.drevelopment.couponcodes.api.CouponCodes;
+import com.drevelopment.couponcodes.api.command.CommandSender;
 import com.drevelopment.couponcodes.api.entity.Player;
 
-import com.drevelopment.couponcodes.core.listeners.SimpleListener;
+import com.drevelopment.couponcodes.canary.entity.CanaryServerSender;
 import net.canarymod.chat.MessageReceiver;
 import net.canarymod.commandsys.Command;
 import net.canarymod.commandsys.CommandListener;
 import net.canarymod.hook.HookHandler;
 import net.canarymod.hook.player.DisconnectionHook;
 
-public class CanaryListener extends SimpleListener implements CommandListener {
+public class CanaryListener implements CommandListener {
 
     @Command(aliases = {"coupon"},
             description = "Base coupon command",
@@ -40,12 +41,15 @@ public class CanaryListener extends SimpleListener implements CommandListener {
             toolTip = "/coupon help")
     public void couponCommand(MessageReceiver caller, String[] parameters) {
         if (caller instanceof net.canarymod.api.entity.living.humanoid.Player) {
-            Player player = CouponCodes.getModTransformer().getPlayer(((net.canarymod.api.entity.living.humanoid.Player) caller).getUUIDString());
-
             StringBuilder sb = new StringBuilder();
             for (String s : parameters)
                 sb.append(s).append(" ");
-            handleCommandEvent(com.drevelopment.couponcodes.api.command.Command.Sender.PLAYER, player, sb.toString());
+            if (((net.canarymod.api.entity.living.humanoid.Player) caller).isPlayer()) {
+                Player player = CouponCodes.getModTransformer().getPlayer(((net.canarymod.api.entity.living.humanoid.Player) caller).getUUIDString());
+                CouponCodes.getCommandHandler().handleCommandEvent(CommandSender.Type.PLAYER, player, sb.toString());
+            } else {
+                CouponCodes.getCommandHandler().handleCommandEvent(CommandSender.Type.SERVER, new CanaryServerSender(caller), sb.toString());
+            }
         }
     }
 

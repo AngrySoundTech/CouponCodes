@@ -22,18 +22,19 @@
  */
 package com.drevelopment.couponcodes.bukkit.listeners;
 
-import com.drevelopment.couponcodes.core.listeners.SimpleListener;
+import com.drevelopment.couponcodes.api.command.CommandSender;
+import com.drevelopment.couponcodes.bukkit.entity.BukkitServerSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.drevelopment.couponcodes.api.CouponCodes;
-import com.drevelopment.couponcodes.api.command.Command;
 import com.drevelopment.couponcodes.api.entity.Player;
 import com.drevelopment.couponcodes.bukkit.BukkitPlugin;
+import org.bukkit.event.server.ServerCommandEvent;
 
-public class BukkitListener extends SimpleListener implements Listener {
+public class BukkitListener implements Listener {
 
     private BukkitPlugin plugin;
 
@@ -43,10 +44,18 @@ public class BukkitListener extends SimpleListener implements Listener {
 
     @EventHandler
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
-        Player player = plugin.wrapPlayer(event.getPlayer());
+        CommandSender sender = plugin.wrapPlayer(event.getPlayer());
         String command = event.getMessage();
 
-        if (handleCommandEvent(Command.Sender.PLAYER, player, command)) {
+        if (CouponCodes.getCommandHandler().handleCommandEvent(CommandSender.Type.PLAYER, sender, command)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onServerCommand(ServerCommandEvent event) {
+        String command = event.getCommand();
+        if (CouponCodes.getCommandHandler().handleCommandEvent(CommandSender.Type.SERVER, new BukkitServerSender(event.getSender()), command)) {
             event.setCancelled(true);
         }
     }

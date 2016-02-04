@@ -35,14 +35,13 @@ import com.drevelopment.couponcodes.core.commands.runnables.UsesCommand;
 import com.drevelopment.couponcodes.core.util.LocaleHandler;
 
 public class SimpleCommandHandler implements CommandHandler {
-    // Handle a command with args
+
+    @Override
     public boolean handleCommand(String command, String[] args, CommandSender sender) {
         if (command.equalsIgnoreCase("coupon")) {
-            // Help
             if (args[0].equalsIgnoreCase("help")) {
                 help(sender);
                 return true;
-                // Commands
             } else if (args[0].equalsIgnoreCase("add")) {
                 if (sender.hasPermission("cc.add")) {
                     CouponCodes.getModTransformer().scheduleRunnable(new AddCommand(sender, args));
@@ -106,7 +105,7 @@ public class SimpleCommandHandler implements CommandHandler {
             return false;
     }
 
-    // Handle a command with no args
+    @Override
     public boolean handleCommand(String command, CommandSender sender) {
         if (command.equalsIgnoreCase("coupon")) {
             help(sender);
@@ -115,7 +114,31 @@ public class SimpleCommandHandler implements CommandHandler {
             return false;
     }
 
-    //Help
+    @Override
+    public boolean handleCommandEvent(CommandSender.Type type, CommandSender sender, String message) {
+        message = trimCommand(message);
+        int indexOfSpace = message.indexOf(" ");
+
+        if (indexOfSpace != -1) {
+            String command = message.substring(0, indexOfSpace);
+            String args[] = message.substring(indexOfSpace + 1).split(" ");
+            return handleCommand(command, args, sender);
+        } else {
+            return handleCommand(message, sender);
+        }
+    }
+
+    private String trimCommand(String command) {
+        if (command.startsWith("/")) {
+            if (command.length() == 1) {
+                return "";
+            } else {
+                command = command.substring(1);
+            }
+        }
+        return command.trim();
+    }
+
     private void help(CommandSender sender) {
         sender.sendMessage(LocaleHandler.getString("Command.Help.Header"));
         sender.sendMessage(LocaleHandler.getString("Command.Help.Instructions"));
