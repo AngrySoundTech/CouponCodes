@@ -1,6 +1,6 @@
 name: CouponCodes
 author: AngrySoundTech
-main: com.drevelopment.couponcodes.bukkit.BukkitPlugin
+main: tech.feldman.couponcodes.bukkit.BukkitPlugin
 version: ${version}
 softdepend: [Vault]
 commands:

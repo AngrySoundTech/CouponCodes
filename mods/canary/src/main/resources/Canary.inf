@@ -1,4 +1,4 @@
-main-class = com.drevelopment.couponcodes.canary.CanaryPlugin
+main-class = tech.feldman.couponcodes.canary.CanaryPlugin
 name = CouponCodes
 author = AngrySoundTech
 version = ${project.version}

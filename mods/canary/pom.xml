@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>com.drevelopment.couponcodes</groupId>
+        <groupId>tech.feldman.couponcodes</groupId>
         <artifactId>parent</artifactId>
         <version>3.2.1</version>
         <relativePath>../../</relativePath>
@@ -30,7 +30,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.drevelopment.couponcodes</groupId>
+            <groupId>tech.feldman.couponcodes</groupId>
             <artifactId>core</artifactId>
             <version>3.2.1</version>
             <scope>compile</scope>
@@ -72,7 +72,7 @@
                     <createSourcesJar>true</createSourcesJar>
                     <artifactSet>
                         <includes>
-                            <include>com.drevelopment.couponcodes:core</include>
+                            <include>tech.feldman.couponcodes:core</include>
                         </includes>
                     </artifactSet>
                 </configuration>

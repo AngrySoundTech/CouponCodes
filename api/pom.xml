@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>com.drevelopment.couponcodes</groupId>
+        <groupId>tech.feldman.couponcodes</groupId>
         <artifactId>parent</artifactId>
         <version>3.2.1</version>
     </parent>

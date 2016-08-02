@@ -23,7 +23,7 @@ Maven
 
 	<dependencies>
 	    <dependency>
-	        <groupId>com.drevelopment.couponcodes</groupId>
+	        <groupId>tech.feldman.couponcodes</groupId>
 	        <artifactId>api</artifactId>
 	        <version>3.1.2</version>
 	    </dependency>
@@ -41,5 +41,5 @@ Gradle
 	}
 
 	dependencies {
-	    compile 'com.drevelopment.couponcodes:api:3.1.2'
+	    compile 'tech.feldman.couponcodes:api:3.1.2'
 	}

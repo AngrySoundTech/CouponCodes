@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.drevelopment.couponcodes.core;
+package tech.feldman.couponcodes.core;
 
 public class Version {
     public static final String PLUGIN_ID = "${plugin.id}";
