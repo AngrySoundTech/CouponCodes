@@ -51,8 +51,6 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>${project.basedir}/src/main/</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test</testSourceDirectory>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
