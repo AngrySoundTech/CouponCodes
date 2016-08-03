@@ -22,11 +22,11 @@
  */
 package tech.feldman.couponcodes.api.coupon;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import tech.feldman.couponcodes.api.command.CommandSender;
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface CouponHandler {
 
@@ -89,13 +89,6 @@ public interface CouponHandler {
      * @return The coupon
      */
     Coupon getCoupon(String coupon);
-
-    /**
-     * Gets the basic {@link Coupon} from the database.
-     * @param coupon The name of the coupon to get
-     * @return The basic coupon
-     */
-    Coupon getBasicCoupon(String coupon);
 
     /**
      * Gets the amount of a certain type of coupon in the databaes

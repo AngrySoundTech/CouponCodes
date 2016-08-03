@@ -1,17 +1,20 @@
 /**
  * The MIT License
  * Copyright (c) 2015 Nicholas Feldman (AngrySoundTech)
- * <p/>
+ *
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * <p/>
+ *
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * <p/>
+ *
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,27 +23,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tech.feldman.couponcodes.bukkit.economy;
+package tech.feldman.couponcodes.bukkit.economy
 
-import java.util.UUID;
+import net.milkbowl.vault.economy.Economy
+import org.bukkit.Bukkit
+import tech.feldman.couponcodes.api.economy.EconomyHandler
+import java.util.*
 
-import org.bukkit.Bukkit;
+class VaultEconomyHandler(private val econ: Economy) : EconomyHandler {
 
-import net.milkbowl.vault.economy.Economy;
-
-import tech.feldman.couponcodes.api.economy.EconomyHandler;
-
-public class VaultEconomyHandler implements EconomyHandler {
-
-    private Economy econ;
-
-    public VaultEconomyHandler(Economy econ) {
-        this.econ = econ;
-    }
-
-    @Override
-    public void giveMoney(String uuid, int amount) {
-        econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(uuid)), amount);
+    override fun giveMoney(uuid: String, amount: Int) {
+        econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(uuid)), amount.toDouble())
     }
 
 }

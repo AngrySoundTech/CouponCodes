@@ -50,7 +50,7 @@ abstract class SimpleCouponHandler : CouponHandler {
         var cmd = 0
 
         for (name in list) {
-            val c = getBasicCoupon(name)
+            val c = getCoupon(name)
             if (c is ItemCoupon)
                 item++
             if (c is EconomyCoupon)
@@ -107,7 +107,7 @@ abstract class SimpleCouponHandler : CouponHandler {
     }
 
     @Throws(UnknownMaterialException::class)
-    override fun itemStringToHash(args: String, sender: CommandSender): HashMap<String, Int> {
+    override fun itemStringToHash(args: String, sender: CommandSender?): HashMap<String, Int> {
         val ids = HashMap<String, Int>()
         val sp = args.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         try {

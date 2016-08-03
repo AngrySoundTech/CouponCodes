@@ -1,17 +1,20 @@
 /**
  * The MIT License
  * Copyright (c) 2015 Nicholas Feldman (AngrySoundTech)
- * <p/>
+ *
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * <p/>
+ *
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * <p/>
+ *
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,43 +23,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tech.feldman.couponcodes.bukkit.database.options;
+package tech.feldman.couponcodes.bukkit.entity
 
-public class MySQLOptions implements DatabaseOptions {
+import org.bukkit.command.CommandSender
+import tech.feldman.couponcodes.core.commands.ServerSender
 
-    private final String hostname;
-    private final String port;
-    private final String database;
-    private final String username;
-    private final String password;
+class BukkitServerSender(internal var bukkitSender:
 
-    public MySQLOptions(String hostname, String port, String database, String username, String password) {
-        this.hostname = hostname;
-        this.port = port;
-        this.database = database;
-        this.username = username;
-        this.password = password;
+                         CommandSender) : ServerSender() {
 
-    }
-
-    public String getHostname() {
-        return hostname;
-    }
-
-    public String getPort() {
-        return port;
-    }
-
-    public String getDatabase() {
-        return database;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
+    override fun sendMessage(message: String) {
+        bukkitSender.sendMessage(message)
     }
 
 }
