@@ -22,40 +22,37 @@
  */
 package tech.feldman.couponcodes.canary.database;
 
-import net.canarymod.database.Column;
-import net.canarymod.database.DataAccess;
-import net.canarymod.database.Column.DataType;
+import net.canarymod.database.Column
+import net.canarymod.database.Column.DataType
+import net.canarymod.database.DataAccess
 
-public class CanaryDataAccess extends DataAccess {
+class CanaryDataAccess : DataAccess("canary_coupon_object") {
 
     @Column(columnName = "name", dataType = DataType.STRING)
-    public String name;
+    var couponName: String? = null
     @Column(columnName = "ctype", dataType = DataType.STRING)
-    public String ctype;
+    var ctype: String? = null
     @Column(columnName = "usetimes", dataType = DataType.INTEGER)
-    public int usetimes;
+    var usetimes: Int = 0
     @Column(columnName = "usedplayers", dataType = DataType.STRING)
-    public String usedplayers;
+    var usedplayers: String? = null
     @Column(columnName = "ids", dataType = DataType.STRING)
-    public String ids;
+    var ids: String? = null
     @Column(columnName = "money", dataType = DataType.INTEGER)
-    public int money;
+    var money: Int = 0
     @Column(columnName = "groupname", dataType = DataType.STRING)
-    public String groupname;
+    var groupname: String? = null
     @Column(columnName = "timeuse", dataType = DataType.INTEGER)
-    public int timeuse;
+    var timeuse: Int = 0
     @Column(columnName = "xp", dataType = DataType.INTEGER)
-    public int xp;
+    var xp: Int = 0
     @Column(columnName = "command", dataType = DataType.STRING)
-    public String command;
+    var command: String? = null
 
-    public CanaryDataAccess() {
-        super("canary_coupon_object");
-    }
 
     @Override
-    public DataAccess getInstance() {
-        return new CanaryDataAccess();
+    override fun getInstance(): DataAccess {
+        return CanaryDataAccess();
     }
 
 }

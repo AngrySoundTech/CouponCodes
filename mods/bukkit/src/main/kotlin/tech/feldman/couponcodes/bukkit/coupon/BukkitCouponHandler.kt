@@ -25,24 +25,15 @@
  */
 package tech.feldman.couponcodes.bukkit.coupon
 
-import java.sql.Connection
-import java.sql.PreparedStatement
-import java.sql.ResultSet
-import java.sql.SQLException
-import java.util.ArrayList
-import java.util.HashMap
-
-import tech.feldman.couponcodes.api.coupon.CommandCoupon
-import tech.feldman.couponcodes.api.coupon.Coupon
-import tech.feldman.couponcodes.api.coupon.EconomyCoupon
-import tech.feldman.couponcodes.api.coupon.ItemCoupon
-import tech.feldman.couponcodes.api.coupon.RankCoupon
-import tech.feldman.couponcodes.api.coupon.XpCoupon
+import tech.feldman.couponcodes.api.coupon.*
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
 import tech.feldman.couponcodes.bukkit.BukkitPlugin
 import tech.feldman.couponcodes.bukkit.database.SQLDatabaseHandler
 import tech.feldman.couponcodes.bukkit.database.options.MySQLOptions
 import tech.feldman.couponcodes.core.coupon.SimpleCouponHandler
+import java.sql.PreparedStatement
+import java.sql.SQLException
+import java.util.*
 
 class BukkitCouponHandler(val plugin: BukkitPlugin, val databaseHandler: SQLDatabaseHandler) : SimpleCouponHandler() {
 
@@ -130,7 +121,7 @@ class BukkitCouponHandler(val plugin: BukkitPlugin, val databaseHandler: SQLData
 
     }
 
-    override fun getCoupons(): ArrayList<String> {
+    override fun getCoupons(): List<String> {
         val c = ArrayList<String>()
         try {
             val rs = databaseHandler.query("SELECT name FROM couponcodes") ?: return c

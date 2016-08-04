@@ -25,8 +25,8 @@ package tech.feldman.couponcodes.api.coupon;
 import tech.feldman.couponcodes.api.command.CommandSender;
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public interface CouponHandler {
 
@@ -69,7 +69,7 @@ public interface CouponHandler {
      * Gets a list of all the coupons in the database.
      * @return a list of all the coupons in the database
      */
-    ArrayList<String> getCoupons();
+    List<String> getCoupons();
 
     /**
      * Updates a coupon in the database.
