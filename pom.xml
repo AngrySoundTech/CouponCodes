@@ -7,12 +7,13 @@
     <inceptionYear>2015</inceptionYear>
     <url>https://github.com/AngrySoundTech/CouponCodes3</url>
     <packaging>pom</packaging>
-    <version>3.2.1</version>
+    <version>${couponcodes.version}</version>
 
     <properties>
+        <couponcodes.version>3.3-SNAPSHOT</couponcodes.version>
         <minecraft.version>1.8.8</minecraft.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>1.0.3</kotlin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <ciManagement>
