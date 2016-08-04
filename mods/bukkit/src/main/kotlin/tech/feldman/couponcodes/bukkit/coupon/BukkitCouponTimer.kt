@@ -29,12 +29,11 @@ import tech.feldman.couponcodes.api.CouponCodes
 import tech.feldman.couponcodes.api.event.coupon.CouponTimeChangeEvent
 import tech.feldman.couponcodes.bukkit.database.options.MySQLOptions
 import java.sql.SQLException
-import java.util.*
 
 class BukkitCouponTimer : Runnable {
 
     private val ch: BukkitCouponHandler
-    private var cl: ArrayList<String>? = null
+    private var cl: List<String>? = null
 
     init {
         ch = CouponCodes.getCouponHandler() as BukkitCouponHandler
@@ -48,7 +47,6 @@ class BukkitCouponTimer : Runnable {
 
         }
 
-        cl = ArrayList<String>()
     }
 
     override fun run() {
