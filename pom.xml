@@ -98,7 +98,7 @@
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>2.10</version>
+                <version>3.0.rc1</version>
                 <configuration>
                     <header>MIT.txt</header>
                     <properties>
@@ -113,6 +113,9 @@
                         <exclude>src/test/resources/**</exclude>
                         <exclude>src/main/resources/**</exclude>
                     </excludes>
+                    <mapping>
+                        <kt>JAVADOC_STYLE</kt>
+                    </mapping>
                 </configuration>
                 <executions>
                     <execution>
