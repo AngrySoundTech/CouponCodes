@@ -22,25 +22,19 @@
  */
 package tech.feldman.couponcodes.canary.coupon;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException;
 import net.canarymod.database.DataAccess;
 import net.canarymod.database.Database;
 import net.canarymod.database.exceptions.DatabaseReadException;
 import net.canarymod.database.exceptions.DatabaseWriteException;
-
-import tech.feldman.couponcodes.api.coupon.CommandCoupon;
-import tech.feldman.couponcodes.api.coupon.Coupon;
-import tech.feldman.couponcodes.api.coupon.EconomyCoupon;
-import tech.feldman.couponcodes.api.coupon.ItemCoupon;
-import tech.feldman.couponcodes.api.coupon.RankCoupon;
-import tech.feldman.couponcodes.api.coupon.XpCoupon;
+import tech.feldman.couponcodes.api.coupon.*;
+import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException;
 import tech.feldman.couponcodes.canary.database.CanaryDataAccess;
 import tech.feldman.couponcodes.core.coupon.SimpleCouponHandler;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CanaryCouponHandler extends SimpleCouponHandler {
 
@@ -196,38 +190,6 @@ public class CanaryCouponHandler extends SimpleCouponHandler {
             return createNewXpCoupon(coupon, da.xp, usetimes, time, usedplayers);
         else if (da.ctype.equalsIgnoreCase("Command"))
             return createNewCommandCoupon(coupon, da.command, usetimes, time, usedplayers);
-        else
-            return null;
-    }
-
-    @Override
-    public Coupon getBasicCoupon(String coupon) {
-        if (!couponExists(coupon))
-            return null;
-        CanaryDataAccess da = new CanaryDataAccess();
-        HashMap<String, Object> filter = new HashMap<>();
-        filter.put("name", coupon);
-
-        try {
-            Database.get().load(da, filter);
-        } catch (DatabaseReadException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        int usetimes = da.usetimes;
-        int time = da.timeuse;
-
-        if (da.ctype.equalsIgnoreCase("Item"))
-            return createNewItemCoupon(coupon, usetimes, time, null, null);
-        else if (da.ctype.equalsIgnoreCase("Economy"))
-            return createNewEconomyCoupon(coupon, usetimes, time, null, 0);
-        else if (da.ctype.equalsIgnoreCase("Rank"))
-            return createNewRankCoupon(coupon, null, usetimes, time, null);
-        else if (da.ctype.equalsIgnoreCase("Xp"))
-            return createNewXpCoupon(coupon, 0, usetimes, time, null);
-        else if (da.ctype.equalsIgnoreCase("Command"))
-            return createNewCommandCoupon(coupon, null, usetimes, time, null);
         else
             return null;
     }

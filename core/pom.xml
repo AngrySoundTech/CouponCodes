@@ -34,7 +34,7 @@
 
         <resources>
             <resource>
-                <targetPath>com/drevelopment/couponcodes/locale</targetPath>
+                <targetPath>tech/feldman/couponcodes/locale</targetPath>
                 <filtering>true</filtering>
                 <directory>${basedir}/src/main/resources/locale/</directory>
                 <includes>

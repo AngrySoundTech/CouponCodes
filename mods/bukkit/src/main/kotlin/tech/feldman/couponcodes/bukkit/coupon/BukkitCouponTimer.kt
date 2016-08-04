@@ -58,9 +58,9 @@ class BukkitCouponTimer : Runnable {
                 return
 
             for (name in cl!!) {
-                if (ch.databaseHandler.connection.isClosed)
+                if (ch.databaseHandler.connection!!.isClosed)
                     return
-                val c = ch.getBasicCoupon(name) ?: continue
+                val c = ch.getCoupon(name) ?: continue
                 if (c.isExpired || c.time == -1)
                     continue
 

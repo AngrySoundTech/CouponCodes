@@ -96,7 +96,7 @@ class InfoCommand(private val sender: CommandSender, private val args: Array<Str
                 val d = DecimalFormat("##.##")
                 for (name in co) {
                     sb1.append(name).append(", ")
-                    val coo = CouponCodes.getCouponHandler().getBasicCoupon(name)
+                    val coo = CouponCodes.getCouponHandler().getCoupon(name)
                     if (coo is ItemCoupon)
                         it++
                     if (coo is EconomyCoupon)
