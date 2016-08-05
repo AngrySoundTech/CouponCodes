@@ -29,25 +29,25 @@ import net.canarymod.database.DataAccess
 class CanaryDataAccess : DataAccess("canary_coupon_object") {
 
     @Column(columnName = "name", dataType = DataType.STRING)
-    var couponName: String? = null
+    lateinit var couponName: String
     @Column(columnName = "ctype", dataType = DataType.STRING)
-    var ctype: String? = null
+    lateinit var ctype: String
     @Column(columnName = "usetimes", dataType = DataType.INTEGER)
     var usetimes: Int = 0
     @Column(columnName = "usedplayers", dataType = DataType.STRING)
-    var usedplayers: String? = null
+    lateinit var usedplayers: String
     @Column(columnName = "ids", dataType = DataType.STRING)
-    var ids: String? = null
+    lateinit var ids: String
     @Column(columnName = "money", dataType = DataType.INTEGER)
     var money: Int = 0
     @Column(columnName = "groupname", dataType = DataType.STRING)
-    var groupname: String? = null
+    lateinit var groupname: String
     @Column(columnName = "timeuse", dataType = DataType.INTEGER)
     var timeuse: Int = 0
     @Column(columnName = "xp", dataType = DataType.INTEGER)
     var xp: Int = 0
     @Column(columnName = "command", dataType = DataType.STRING)
-    var command: String? = null
+    lateinit var command: String
 
 
     @Override
