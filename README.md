@@ -1,4 +1,4 @@
-CouponCodes 3! [![Build Status](https://travis-ci.org/AngrySoundTech/CouponCodes3.svg?branch=master)](https://travis-ci.org/AngrySoundTech/CouponCodes3)
+CouponCodes 3! [![Build Status](https://travis-ci.org/AngrySoundTech/CouponCodes.svg?branch=master)](https://travis-ci.org/AngrySoundTech/CouponCodes)
 ========
 <!--Because I'm super lazy every image here is going to be stitched
     together. Please don't kill me. http://imgur.com/a/W4aYd -->
