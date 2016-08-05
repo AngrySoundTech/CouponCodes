@@ -121,7 +121,7 @@ class BukkitCouponHandler(val plugin: BukkitPlugin, val databaseHandler: SQLData
     override fun getCoupons(): List<String> {
         val c = ArrayList<String>()
         try {
-            val rs = databaseHandler.query("SELECT name FROM couponcodes") ?: return c
+            val rs = databaseHandler.query("SELECT name FROM couponcodes")
             while (rs.next())
                 c.add(rs.getString(1))
         } catch (e: NullPointerException) {

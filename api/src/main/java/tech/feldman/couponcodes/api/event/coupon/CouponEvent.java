@@ -30,7 +30,7 @@ import tech.feldman.couponcodes.api.event.Event;
  */
 public abstract class CouponEvent extends Event {
 
-    private Coupon coupon;
+    private final Coupon coupon;
 
     public CouponEvent(Coupon coupon) {
         this.coupon = coupon;

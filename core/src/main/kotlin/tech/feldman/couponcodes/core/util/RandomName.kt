@@ -31,7 +31,7 @@ object RandomName {
     fun generateName(): String {
         var ref = ""
         while (ref.length < 5)
-            ref = ref + "qwertyuiopasdfghjklzxcvbnm1234567890"[random.nextInt(36)]
+            ref += "qwertyuiopasdfghjklzxcvbnm1234567890"[random.nextInt(36)]
         return ref
     }
 }

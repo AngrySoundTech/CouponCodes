@@ -174,11 +174,11 @@ class CanaryCouponHandler : SimpleCouponHandler() {
 
         val usetimes = da.usetimes
         val time = da.timeuse
-        val usedplayers = playerStringToHash(da.usedplayers!!)
+        val usedplayers = playerStringToHash(da.usedplayers)
 
         if (da.ctype.equals("Item", ignoreCase = true))
             try {
-                return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(da.ids!!, null), usedplayers)
+                return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(da.ids, null), usedplayers)
             } catch (e: UnknownMaterialException) {
                 // This should never happen, unless the database was modified by something not this plugin
                 return null
@@ -186,11 +186,11 @@ class CanaryCouponHandler : SimpleCouponHandler() {
         else if (da.ctype.equals("Economy", ignoreCase = true))
             return createNewEconomyCoupon(coupon, usetimes, time, usedplayers, da.money)
         else if (da.ctype.equals("Rank", ignoreCase = true))
-            return createNewRankCoupon(coupon, da.groupname!!, usetimes, time, usedplayers)
+            return createNewRankCoupon(coupon, da.groupname, usetimes, time, usedplayers)
         else if (da.ctype.equals("Xp", ignoreCase = true))
             return createNewXpCoupon(coupon, da.xp, usetimes, time, usedplayers)
         else if (da.ctype.equals("Command", ignoreCase = true))
-            return createNewCommandCoupon(coupon, da.command!!, usetimes, time, usedplayers)
+            return createNewCommandCoupon(coupon, da.command, usetimes, time, usedplayers)
         else
             return null
     }

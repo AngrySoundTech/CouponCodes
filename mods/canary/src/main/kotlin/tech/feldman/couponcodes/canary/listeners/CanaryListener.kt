@@ -51,6 +51,6 @@ class CanaryListener : CommandListener {
 
     @HookHandler
     fun onPlayerQuit(event: DisconnectionHook) {
-        CouponCodes.getModTransformer().removePlayer(CouponCodes.getModTransformer().getPlayer(event.getPlayer().getUUIDString()))
+        CouponCodes.getModTransformer().removePlayer(CouponCodes.getModTransformer().getPlayer(event.player.uuidString))
     }
 }

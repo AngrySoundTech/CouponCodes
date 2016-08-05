@@ -24,7 +24,7 @@ package tech.feldman.couponcodes.api.exceptions;
 
 public class UnknownMaterialException extends Exception {
 
-    private String name;
+    private final String name;
 
     public UnknownMaterialException(String name) {
         this.name = name;

@@ -28,11 +28,11 @@ import java.util.*
 
 abstract class ServerModTransformer : ModTransformer {
 
-    protected val players: MutableMap<String, Player> = HashMap<String, Player>()
+    protected val players: MutableMap<String, Player> = HashMap()
 
     override fun getPlayer(UUID: String): Player? {
         if (players.containsKey(UUID))
-            return players.get(UUID)
+            return players[UUID]
         val player = getModPlayer(UUID)
         if (player != null) {
             players.put(UUID, player)
@@ -42,6 +42,6 @@ abstract class ServerModTransformer : ModTransformer {
     }
 
     override fun removePlayer(player: Player) {
-        players.remove(player.getUUID())
+        players.remove(player.uuid)
     }
 }

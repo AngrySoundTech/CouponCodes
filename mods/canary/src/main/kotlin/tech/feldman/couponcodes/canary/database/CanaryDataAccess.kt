@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tech.feldman.couponcodes.canary.database;
+package tech.feldman.couponcodes.canary.database
 
 import net.canarymod.database.Column
 import net.canarymod.database.Column.DataType
@@ -52,7 +52,7 @@ class CanaryDataAccess : DataAccess("canary_coupon_object") {
 
     @Override
     override fun getInstance(): DataAccess {
-        return CanaryDataAccess();
+        return CanaryDataAccess()
     }
 
 }
