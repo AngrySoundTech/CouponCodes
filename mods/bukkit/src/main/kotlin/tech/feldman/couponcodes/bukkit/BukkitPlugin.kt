@@ -70,6 +70,8 @@ class BukkitPlugin : JavaPlugin(), Listener {
         CouponCodes.setConfigHandler(BukkitConfigHandler(this))
         CouponCodes.setCommandHandler(SimpleCommandHandler())
 
+        LocaleHandler.locale = CouponCodes.getConfigHandler().locale
+
         //SQL
         if ((CouponCodes.getConfigHandler() as BukkitConfigHandler).sqlValue.equals("MYSQL", ignoreCase = true)) {
             CouponCodes.setDatabaseHandler(SQLDatabaseHandler(this, MySQLOptions((CouponCodes.getConfigHandler() as BukkitConfigHandler).hostname, (CouponCodes.getConfigHandler() as BukkitConfigHandler).port, (CouponCodes.getConfigHandler() as BukkitConfigHandler).database, (CouponCodes.getConfigHandler() as BukkitConfigHandler).username, (CouponCodes.getConfigHandler() as BukkitConfigHandler).password)))

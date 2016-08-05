@@ -22,6 +22,8 @@
  */
 package tech.feldman.couponcodes.api.config;
 
+import java.util.Locale;
+
 public interface ConfigHandler {
 
     /**
@@ -54,6 +56,6 @@ public interface ConfigHandler {
      * Gets the default locale to use
      * @return the default locale specified in the config, in the form <code>en_US</code>
      */
-    String getLocale();
+    Locale getLocale();
 
 }

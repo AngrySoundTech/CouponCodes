@@ -22,7 +22,6 @@
  */
 package tech.feldman.couponcodes.core.util
 
-import tech.feldman.couponcodes.api.CouponCodes
 import java.text.MessageFormat
 import java.util.*
 
@@ -30,112 +29,64 @@ object LocaleHandler {
 
     private val BUNDLE_ROOT = "tech.feldman.couponcodes.locale.locale"
 
-    private var bundle: ResourceBundle
-    private var enBundle: ResourceBundle
+    private var bundle: ResourceBundle = ResourceBundle.getBundle(BUNDLE_ROOT, Locale.US)
+    private val enBundle: ResourceBundle = ResourceBundle.getBundle(BUNDLE_ROOT, Locale.US)
 
-    init {
-        Locale.setDefault(Locale("en", "US"))
-        var locale: Locale? = null
-        val myLocale = CouponCodes.getConfigHandler().locale.split("[-_ ]".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-
-        if (myLocale.size == 1) {
-            locale = Locale(myLocale[0])
-        } else if (myLocale.size >= 2) {
-            locale = Locale(myLocale[0], myLocale[1])
+    var locale: Locale
+        get() = bundle.locale
+        set(value) {
+            bundle = ResourceBundle.getBundle(BUNDLE_ROOT, value)
         }
-
-        bundle = ResourceBundle.getBundle(BUNDLE_ROOT, locale!!)
-        enBundle = ResourceBundle.getBundle(BUNDLE_ROOT, Locale.US)
-    }
 
     /**
      * Gets the appropriate string from the Locale files.
 
      * @param key The key to look up the string with
-     * *
      * @param messageArguments Any arguments to be added to the string
-     * *
      * @return The properly formatted locale string
      */
-    @JvmOverloads
-    fun getString(key: String, vararg messageArguments: Any = null as Array<Any>): String {
-        if (bundle == null) {
-            initialize()
-        }
-
+    fun getString(key: String, vararg messageArguments: Any): String {
         try {
-            return getString(key, bundle, *messageArguments)
-        } catch (ex: MissingResourceException) {
-            try {
-                return getString(key, enBundle, *messageArguments)
-            } catch (ex2: MissingResourceException) {
-                if (!key.contains("Guides")) {
-                    println("Could not find locale string: " + key)
-                }
-
-                return "!$key!"
-            }
-
+            return getString(key, if (bundle.containsKey(key)) bundle else enBundle, *messageArguments)
+        } catch (e: MissingResourceException) {
+            return key
         }
 
     }
 
-    @Throws(MissingResourceException::class)
     private fun getString(key: String, bundle: ResourceBundle, vararg messageArguments: Any): String {
         return formatString(bundle.getString(key), *messageArguments)
     }
 
-    fun formatString(string: String, vararg messageArguments: Any): String {
-        var string = string
-        if (messageArguments != null) {
-            val formatter = MessageFormat("")
-            formatter.applyPattern(string)
-            string = formatter.format(messageArguments)
-        }
-
-        string = addColors(string)
-
-        return string
-    }
-
-    val currentLocale: Locale
-        get() {
-            if (bundle == null) {
-                initialize()
-            }
-            return bundle!!.locale
-        }
-
-    private fun initialize() {
-
+    private fun formatString(string: String, vararg messageArguments: Any): String {
+        return addColors(MessageFormat(string).format(messageArguments))
     }
 
     private fun addColors(input: String): String {
-        var input = input
-        input = input.replace("\\Q[[BLACK]]\\E".toRegex(), Color.BLACK)
-        input = input.replace("\\Q[[DARK_BLUE]]\\E".toRegex(), Color.DARK_BLUE)
-        input = input.replace("\\Q[[DARK_GREEN]]\\E".toRegex(), Color.DARK_GREEN)
-        input = input.replace("\\Q[[DARK_AQUA]]\\E".toRegex(), Color.DARK_AQUA)
-        input = input.replace("\\Q[[DARK_RED]]\\E".toRegex(), Color.DARK_RED)
-        input = input.replace("\\Q[[DARK_PURPLE]]\\E".toRegex(), Color.DARK_PURPLE)
-        input = input.replace("\\Q[[GOLD]]\\E".toRegex(), Color.GOLD)
-        input = input.replace("\\Q[[GRAY]]\\E".toRegex(), Color.GRAY)
-        input = input.replace("\\Q[[DARK_GRAY]]\\E".toRegex(), Color.DARK_GRAY)
-        input = input.replace("\\Q[[BLUE]]\\E".toRegex(), Color.BLUE)
-        input = input.replace("\\Q[[GREEN]]\\E".toRegex(), Color.GREEN)
-        input = input.replace("\\Q[[AQUA]]\\E".toRegex(), Color.AQUA)
-        input = input.replace("\\Q[[RED]]\\E".toRegex(), Color.RED)
-        input = input.replace("\\Q[[LIGHT_PURPLE]]\\E".toRegex(), Color.LIGHT_PURPLE)
-        input = input.replace("\\Q[[YELLOW]]\\E".toRegex(), Color.YELLOW)
-        input = input.replace("\\Q[[WHITE]]\\E".toRegex(), Color.WHITE)
-        input = input.replace("\\Q[[BOLD]]\\E".toRegex(), Color.BOLD)
-        input = input.replace("\\Q[[UNDERLINE]]\\E".toRegex(), Color.UNDERLINE)
-        input = input.replace("\\Q[[ITALIC]]\\E".toRegex(), Color.ITALIC)
-        input = input.replace("\\Q[[STRIKE]]\\E".toRegex(), Color.STRIKETHROUGH)
-        input = input.replace("\\Q[[MAGIC]]\\E".toRegex(), Color.MAGIC)
-        input = input.replace("\\Q[[RESET]]\\E".toRegex(), Color.RESET)
-
         return input
+                .replace("\\Q[[BLACK]]\\E".toRegex(), Color.BLACK)
+                .replace("\\Q[[DARK_BLUE]]\\E".toRegex(), Color.DARK_BLUE)
+                .replace("\\Q[[DARK_GREEN]]\\E".toRegex(), Color.DARK_GREEN)
+                .replace("\\Q[[DARK_AQUA]]\\E".toRegex(), Color.DARK_AQUA)
+                .replace("\\Q[[DARK_RED]]\\E".toRegex(), Color.DARK_RED)
+                .replace("\\Q[[DARK_PURPLE]]\\E".toRegex(), Color.DARK_PURPLE)
+                .replace("\\Q[[GOLD]]\\E".toRegex(), Color.GOLD)
+                .replace("\\Q[[GRAY]]\\E".toRegex(), Color.GRAY)
+                .replace("\\Q[[DARK_GRAY]]\\E".toRegex(), Color.DARK_GRAY)
+                .replace("\\Q[[BLUE]]\\E".toRegex(), Color.BLUE)
+                .replace("\\Q[[GREEN]]\\E".toRegex(), Color.GREEN)
+                .replace("\\Q[[AQUA]]\\E".toRegex(), Color.AQUA)
+                .replace("\\Q[[RED]]\\E".toRegex(), Color.RED)
+                .replace("\\Q[[LIGHT_PURPLE]]\\E".toRegex(), Color.LIGHT_PURPLE)
+                .replace("\\Q[[YELLOW]]\\E".toRegex(), Color.YELLOW)
+                .replace("\\Q[[WHITE]]\\E".toRegex(), Color.WHITE)
+                .replace("\\Q[[BOLD]]\\E".toRegex(), Color.BOLD)
+                .replace("\\Q[[UNDERLINE]]\\E".toRegex(), Color.UNDERLINE)
+                .replace("\\Q[[ITALIC]]\\E".toRegex(), Color.ITALIC)
+                .replace("\\Q[[STRIKE]]\\E".toRegex(), Color.STRIKETHROUGH)
+                .replace("\\Q[[MAGIC]]\\E".toRegex(), Color.MAGIC)
+                .replace("\\Q[[RESET]]\\E".toRegex(), Color.RESET)
+
     }
 
 }

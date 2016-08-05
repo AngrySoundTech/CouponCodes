@@ -30,6 +30,7 @@ import tech.feldman.couponcodes.bukkit.BukkitPlugin
 import tech.feldman.couponcodes.core.entity.SimplePlayer
 import tech.feldman.couponcodes.core.util.Color
 import java.lang.reflect.Method
+import java.util.*
 
 class BukkitPlayer(val plugin: BukkitPlugin, val bukkitPlayer: org.bukkit.entity.Player) : SimplePlayer() {
 
@@ -39,11 +40,11 @@ class BukkitPlayer(val plugin: BukkitPlugin, val bukkitPlayer: org.bukkit.entity
         }
     }
 
-    override fun getLocale(): String {
+    override fun getLocale(): Locale {
         val ep = getMethod("getHandle", bukkitPlayer.javaClass)!!.invoke(bukkitPlayer, *null as Array<Any>)
         val f = ep.javaClass.getDeclaredField("locale")
         f.isAccessible = true
-        return f.get(ep) as String
+        return Locale.forLanguageTag(f.get(ep) as String)
     }
 
     override fun getName(): String? {

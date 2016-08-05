@@ -20,35 +20,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tech.feldman.couponcodes.api.command;
+package tech.feldman.couponcodes.core.util;
 
-import tech.feldman.couponcodes.api.permission.PermissionHandler;
+import org.junit.Test;
 
-import java.util.Locale;
+public class LocaleHandlerTest {
 
-public interface CommandSender {
+    @Test
+    public void knownKey() {
+        assert LocaleHandler.INSTANCE.getString("Console.Vault.Enabled").equals("Vault support is enabled");
+    }
 
-    /**
-     * Sends a message to the player
-     * @param message The message to send
-     */
-    void sendMessage(String message);
-
-    /**
-     * Checks whether the player has a certain permission node.
-     * @param node The node to check
-     * @return True if the player has the specified permission node.
-     * @see PermissionHandler PermissionHandler
-     */
-    boolean hasPermission(String node);
-
-    /**
-     * Gets the locale of the player
-     * <p>Locales are returned in the form <code>en_US</code>, <code>de_DE</code>, etc. <br>
-     * This will be the current language the player's client is set to. If the sender is the console,
-     * the returned locale will be the one specified in the config.
-     * @return The current language of the player's client
-     */
-    Locale getLocale();
+    @Test
+    public void unknownKey() {
+        assert LocaleHandler.INSTANCE.getString("notakey").equals("notakey");
+    }
 
 }

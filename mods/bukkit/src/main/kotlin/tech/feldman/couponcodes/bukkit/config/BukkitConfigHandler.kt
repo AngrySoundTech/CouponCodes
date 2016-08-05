@@ -26,6 +26,7 @@ import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.plugin.Plugin
 import tech.feldman.couponcodes.api.config.ConfigHandler
 import java.io.File
+import java.util.*
 
 class BukkitConfigHandler(plugin: Plugin) : ConfigHandler {
 
@@ -56,8 +57,8 @@ class BukkitConfigHandler(plugin: Plugin) : ConfigHandler {
         return config.getBoolean("auto-update", true)
     }
 
-    override fun getLocale(): String {
-        return config.getString("locale")
+    override fun getLocale(): Locale {
+        return Locale.forLanguageTag(config.getString("locale"))
     }
 
     val sqlValue: String

@@ -23,9 +23,9 @@
 package tech.feldman.couponcodes.canary.config
 
 import net.visualillusionsent.utils.PropertiesFile
-
 import tech.feldman.couponcodes.api.config.ConfigHandler
 import tech.feldman.couponcodes.canary.CanaryPlugin
+import java.util.*
 
 class CanaryConfigHandler(plugin: CanaryPlugin) : ConfigHandler {
 
@@ -53,8 +53,8 @@ class CanaryConfigHandler(plugin: CanaryPlugin) : ConfigHandler {
         return config.getBoolean("auto-update", true)
     }
 
-    override fun getLocale(): String {
-        return config.getString("locale", "en_US")
+    override fun getLocale(): Locale {
+        return Locale.forLanguageTag(config.getString("locale", "en_US"))
     }
 
     private fun populateConfig() {

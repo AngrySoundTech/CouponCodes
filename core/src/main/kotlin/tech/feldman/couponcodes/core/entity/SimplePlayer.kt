@@ -26,6 +26,7 @@ import tech.feldman.couponcodes.api.CouponCodes
 import tech.feldman.couponcodes.api.command.CommandSender
 import tech.feldman.couponcodes.api.entity.Player
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
+import java.util.*
 
 abstract class SimplePlayer : CommandSender, Player {
 
@@ -36,7 +37,7 @@ abstract class SimplePlayer : CommandSender, Player {
         return CouponCodes.getPermissionHandler().hasPermission(this, node)
     }
 
-    abstract override fun getLocale(): String
+    abstract override fun getLocale(): Locale
 
     override fun getName(): String? {
         return null

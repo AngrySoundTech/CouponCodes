@@ -26,6 +26,7 @@ import net.canarymod.Canary
 import net.canarymod.api.inventory.ItemType
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
 import tech.feldman.couponcodes.core.entity.SimplePlayer
+import java.util.*
 
 class CanaryPlayer(private val canaryPlayer: net.canarymod.api.entity.living.humanoid.Player) : SimplePlayer() {
 
@@ -33,8 +34,8 @@ class CanaryPlayer(private val canaryPlayer: net.canarymod.api.entity.living.hum
         return canaryPlayer.hasPermission(node)
     }
 
-    override fun getLocale(): String {
-        return canaryPlayer.locale
+    override fun getLocale(): Locale {
+        return Locale.forLanguageTag(canaryPlayer.locale)
     }
 
     override fun getUUID(): String? {

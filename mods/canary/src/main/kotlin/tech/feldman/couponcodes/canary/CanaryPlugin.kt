@@ -36,6 +36,7 @@ import tech.feldman.couponcodes.canary.metrics.Metrics
 import tech.feldman.couponcodes.canary.permission.CanaryPermissionHandler
 import tech.feldman.couponcodes.core.commands.SimpleCommandHandler
 import tech.feldman.couponcodes.core.event.SimpleEventHandler
+import tech.feldman.couponcodes.core.util.LocaleHandler
 import java.io.IOException
 
 class CanaryPlugin : Plugin() {
@@ -46,9 +47,10 @@ class CanaryPlugin : Plugin() {
         CouponCodes.setCommandHandler(SimpleCommandHandler())
         CouponCodes.setModTransformer(CanaryModTransformer(this))
         CouponCodes.setConfigHandler(CanaryConfigHandler(this))
-
         CouponCodes.setDatabaseHandler(CanaryDatabaseHandler())
         CouponCodes.setCouponHandler(CanaryCouponHandler())
+
+        LocaleHandler.locale = CouponCodes.getConfigHandler().locale
 
         CouponCodes.setPermissionHandler(CanaryPermissionHandler())
 

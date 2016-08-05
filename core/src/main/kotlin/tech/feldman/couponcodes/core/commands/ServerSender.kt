@@ -24,10 +24,11 @@ package tech.feldman.couponcodes.core.commands
 
 import tech.feldman.couponcodes.api.CouponCodes
 import tech.feldman.couponcodes.api.command.CommandSender
+import java.util.*
 
 abstract class ServerSender : CommandSender {
 
-    override fun getLocale(): String {
+    override fun getLocale(): Locale {
         return CouponCodes.getConfigHandler().locale
     }
 
