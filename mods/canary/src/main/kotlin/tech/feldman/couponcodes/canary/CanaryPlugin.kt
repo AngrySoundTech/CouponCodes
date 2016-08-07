@@ -27,8 +27,8 @@ import net.canarymod.commandsys.CommandDependencyException
 import net.canarymod.plugin.Plugin
 import tech.feldman.couponcodes.api.CouponCodes
 import tech.feldman.couponcodes.canary.config.CanaryConfigHandler
-import tech.feldman.couponcodes.canary.coupon.CanaryCouponHandler
 import tech.feldman.couponcodes.canary.coupon.CanaryCouponTimer
+import tech.feldman.couponcodes.canary.database.CanaryDatabase
 import tech.feldman.couponcodes.canary.database.CanaryDatabaseHandler
 import tech.feldman.couponcodes.canary.listeners.CanaryListener
 import tech.feldman.couponcodes.canary.metrics.CustomDataSender
@@ -47,8 +47,8 @@ class CanaryPlugin : Plugin() {
         CouponCodes.setCommandHandler(SimpleCommandHandler())
         CouponCodes.setModTransformer(CanaryModTransformer(this))
         CouponCodes.setConfigHandler(CanaryConfigHandler(this))
+        CouponCodes.setDatabase(CanaryDatabase())
         CouponCodes.setDatabaseHandler(CanaryDatabaseHandler())
-        CouponCodes.setCouponHandler(CanaryCouponHandler())
 
         LocaleHandler.locale = CouponCodes.getConfigHandler().locale
 

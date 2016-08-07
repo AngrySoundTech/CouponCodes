@@ -35,7 +35,7 @@ class InfoCommand(private val sender: CommandSender, private val args: Array<Str
 
     override fun run() {
         if (args.size == 2) {
-            val c = CouponCodes.getCouponHandler().getCoupon(args[1])
+            val c = CouponCodes.getDatabaseHandler().getCoupon(args[1])
             if (c != null) {
                 sender.sendMessage(LocaleHandler.getString("Command.Info.FancyWrap"))
                 sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Header", c.name))
@@ -61,7 +61,7 @@ class InfoCommand(private val sender: CommandSender, private val args: Array<Str
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", sb.toString()))
                 }
                 if (c is ItemCoupon)
-                    sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Items", CouponCodes.getCouponHandler().itemHashToString(c.items)))
+                    sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Items", CouponCodes.getDatabaseHandler().itemHashToString(c.items)))
                 else if (c is EconomyCoupon)
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Money", c.money))
                 else if (c is RankCoupon)
@@ -75,7 +75,7 @@ class InfoCommand(private val sender: CommandSender, private val args: Array<Str
         } else {
             val sb1 = StringBuilder()
             val sb2 = StringBuilder()
-            val co = CouponCodes.getCouponHandler().coupons
+            val co = CouponCodes.getDatabaseHandler().coupons
             var total = 0
             if (co.isEmpty() || co == null) {
                 sb1.append(LocaleHandler.getString("Command.Info.None"))
@@ -93,7 +93,7 @@ class InfoCommand(private val sender: CommandSender, private val args: Array<Str
                 val d = DecimalFormat("##.##")
                 for (name in co) {
                     sb1.append(name).append(", ")
-                    val coo = CouponCodes.getCouponHandler().getCoupon(name)
+                    val coo = CouponCodes.getDatabaseHandler().getCoupon(name)
                     if (coo is ItemCoupon)
                         it++
                     if (coo is EconomyCoupon)

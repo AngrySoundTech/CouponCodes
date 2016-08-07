@@ -30,8 +30,8 @@ import org.bukkit.plugin.java.JavaPlugin
 import tech.feldman.couponcodes.api.CouponCodes
 import tech.feldman.couponcodes.api.entity.Player
 import tech.feldman.couponcodes.bukkit.config.BukkitConfigHandler
-import tech.feldman.couponcodes.bukkit.coupon.BukkitCouponHandler
 import tech.feldman.couponcodes.bukkit.coupon.BukkitCouponTimer
+import tech.feldman.couponcodes.bukkit.database.SQLDatabase
 import tech.feldman.couponcodes.bukkit.database.SQLDatabaseHandler
 import tech.feldman.couponcodes.bukkit.database.options.MySQLOptions
 import tech.feldman.couponcodes.bukkit.database.options.SQLiteOptions
@@ -57,7 +57,7 @@ class BukkitPlugin : JavaPlugin(), Listener {
         CouponCodes.setModTransformer(null)
 
         try {
-            (CouponCodes.getDatabaseHandler() as SQLDatabaseHandler).close()
+            (CouponCodes.getDatabase() as SQLDatabase).close()
         } catch (e: SQLException) {
             logger!!.severe(LocaleHandler.getString("Console.SQL.CloseFailed"))
         }
@@ -74,9 +74,9 @@ class BukkitPlugin : JavaPlugin(), Listener {
 
         //SQL
         if ((CouponCodes.getConfigHandler() as BukkitConfigHandler).sqlValue.equals("MYSQL", ignoreCase = true)) {
-            CouponCodes.setDatabaseHandler(SQLDatabaseHandler(this, MySQLOptions((CouponCodes.getConfigHandler() as BukkitConfigHandler).hostname, (CouponCodes.getConfigHandler() as BukkitConfigHandler).port, (CouponCodes.getConfigHandler() as BukkitConfigHandler).database, (CouponCodes.getConfigHandler() as BukkitConfigHandler).username, (CouponCodes.getConfigHandler() as BukkitConfigHandler).password)))
+            CouponCodes.setDatabase(SQLDatabase(this, MySQLOptions((CouponCodes.getConfigHandler() as BukkitConfigHandler).hostname, (CouponCodes.getConfigHandler() as BukkitConfigHandler).port, (CouponCodes.getConfigHandler() as BukkitConfigHandler).database, (CouponCodes.getConfigHandler() as BukkitConfigHandler).username, (CouponCodes.getConfigHandler() as BukkitConfigHandler).password)))
         } else if ((CouponCodes.getConfigHandler() as BukkitConfigHandler).sqlValue.equals("SQLite", ignoreCase = true)) {
-            CouponCodes.setDatabaseHandler(SQLDatabaseHandler(this, SQLiteOptions(File("$dataFolder/coupon_data.db"))))
+            CouponCodes.setDatabase(SQLDatabase(this, SQLiteOptions(File("$dataFolder/coupon_data.db"))))
         } else if (!(CouponCodes.getConfigHandler() as BukkitConfigHandler).sqlValue.equals("MYSQL", ignoreCase = true) && !(CouponCodes.getConfigHandler() as BukkitConfigHandler).sqlValue.equals("SQLite", ignoreCase = true)) {
             logger!!.severe(LocaleHandler.getString("Console.SQL.UnknownValue", (CouponCodes.getConfigHandler() as BukkitConfigHandler).sqlValue))
             logger!!.severe(LocaleHandler.getString("Console.SQL.SetupFailed"))
@@ -84,9 +84,9 @@ class BukkitPlugin : JavaPlugin(), Listener {
             return
         }
         try {
-            (CouponCodes.getDatabaseHandler() as SQLDatabaseHandler).open()
-            (CouponCodes.getDatabaseHandler() as SQLDatabaseHandler).createTable("CREATE TABLE IF NOT EXISTS couponcodes (name VARCHAR(24), ctype VARCHAR(10), usetimes INT(10), usedplayers TEXT(1024), ids VARCHAR(255), money INT(10), groupname VARCHAR(20), timeuse INT(100), xp INT(10), command VARCHAR(255))")
-            CouponCodes.setCouponHandler(BukkitCouponHandler(this, CouponCodes.getDatabaseHandler() as SQLDatabaseHandler))
+            (CouponCodes.getDatabase() as SQLDatabase).open()
+            (CouponCodes.getDatabase() as SQLDatabase).createTable("CREATE TABLE IF NOT EXISTS couponcodes (name VARCHAR(24), ctype VARCHAR(10), usetimes INT(10), usedplayers TEXT(1024), ids VARCHAR(255), money INT(10), groupname VARCHAR(20), timeuse INT(100), xp INT(10), command VARCHAR(255))")
+            CouponCodes.setDatabaseHandler(SQLDatabaseHandler(this, CouponCodes.getDatabase() as SQLDatabase))
         } catch (e: SQLException) {
             e.printStackTrace()
             logger!!.severe(LocaleHandler.getString("Console.SQL.SetupFailed"))

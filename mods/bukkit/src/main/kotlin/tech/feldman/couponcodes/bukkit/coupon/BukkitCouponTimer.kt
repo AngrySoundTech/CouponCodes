@@ -24,21 +24,22 @@ package tech.feldman.couponcodes.bukkit.coupon
 
 import tech.feldman.couponcodes.api.CouponCodes
 import tech.feldman.couponcodes.api.event.coupon.CouponTimeChangeEvent
+import tech.feldman.couponcodes.bukkit.database.SQLDatabaseHandler
 import tech.feldman.couponcodes.bukkit.database.options.MySQLOptions
 import java.sql.SQLException
 
 class BukkitCouponTimer : Runnable {
 
-    private val ch: BukkitCouponHandler
+    private val ch: SQLDatabaseHandler
     private var cl: List<String>? = null
 
     init {
-        ch = CouponCodes.getCouponHandler() as BukkitCouponHandler
+        ch = CouponCodes.getDatabaseHandler() as SQLDatabaseHandler
 
         // Make sure SQL is open
-        if (ch.databaseHandler.databaseOptions is MySQLOptions) {
+        if (ch.database.databaseOptions is MySQLOptions) {
             try {
-                ch.databaseHandler.open()
+                ch.database.open()
             } catch (ignored: SQLException) {
             }
 
@@ -53,7 +54,7 @@ class BukkitCouponTimer : Runnable {
                 return
 
             for (name in cl!!) {
-                if (ch.databaseHandler.connection!!.isClosed)
+                if (ch.database.connection!!.isClosed)
                     return
                 val c = ch.getCoupon(name) ?: continue
                 if (c.isExpired || c.time == -1)

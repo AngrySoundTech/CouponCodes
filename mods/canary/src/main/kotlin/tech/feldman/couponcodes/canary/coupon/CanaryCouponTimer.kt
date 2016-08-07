@@ -30,10 +30,10 @@ import tech.feldman.couponcodes.api.event.coupon.CouponTimeChangeEvent
 class CanaryCouponTimer(owner: TaskOwner, delay: Long) : ServerTask(owner, delay, true) {
 
     override fun run() {
-        val cl = CouponCodes.getCouponHandler().coupons ?: return
+        val cl = CouponCodes.getDatabaseHandler().coupons ?: return
 
         for (name in cl) {
-            val c = CouponCodes.getCouponHandler().getCoupon(name) ?: continue
+            val c = CouponCodes.getDatabaseHandler().getCoupon(name) ?: continue
             if (c.isExpired || c.time == -1)
                 continue
 
@@ -46,7 +46,7 @@ class CanaryCouponTimer(owner: TaskOwner, delay: Long) : ServerTask(owner, delay
             } else {
                 c.time = c.time - 10
             }
-            CouponCodes.getCouponHandler().updateCouponTime(c)
+            CouponCodes.getDatabaseHandler().updateCouponTime(c)
             CouponCodes.getEventHandler().post(CouponTimeChangeEvent(c))
         }
     }

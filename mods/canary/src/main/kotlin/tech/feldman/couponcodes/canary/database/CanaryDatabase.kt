@@ -20,29 +20,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tech.feldman.couponcodes.core.commands.runnables
+package tech.feldman.couponcodes.canary.database
 
-import tech.feldman.couponcodes.api.CouponCodes
-import tech.feldman.couponcodes.api.command.CommandSender
-import tech.feldman.couponcodes.core.util.LocaleHandler
+import tech.feldman.couponcodes.api.database.Database
 
-class ListCommand(private val sender: CommandSender, args: Array<String>) : Runnable {
+class CanaryDatabase : Database {
 
-    override fun run() {
-        val sb = StringBuilder()
-        val c = CouponCodes.getDatabaseHandler().coupons
-        if (c!!.isEmpty() || c.size <= 0 || c == null) {
-            sender.sendMessage(LocaleHandler.getString("Command.List.NoFound"))
-        } else {
-            sb.append(LocaleHandler.getString("Command.List.List"))
-            for (i in c.indices) {
-                sb.append(c[i])
-                if (Integer.valueOf(i + 1) != c.size) {
-                    sb.append(", ")
-                }
-            }
-            sender.sendMessage(sb.toString())
-        }
+    override fun getDatabaseType(): String {
+        return "Canary"
     }
 
 }

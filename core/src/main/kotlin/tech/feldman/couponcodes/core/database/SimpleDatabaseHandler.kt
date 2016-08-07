@@ -20,15 +20,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tech.feldman.couponcodes.core.coupon
+package tech.feldman.couponcodes.core.database
 
 import tech.feldman.couponcodes.api.CouponCodes
 import tech.feldman.couponcodes.api.command.CommandSender
 import tech.feldman.couponcodes.api.coupon.*
+import tech.feldman.couponcodes.api.database.DatabaseHandler
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
+import tech.feldman.couponcodes.core.coupon.*
 import java.util.*
 
-abstract class SimpleCouponHandler : CouponHandler {
+abstract class SimpleDatabaseHandler : DatabaseHandler {
 
     override fun couponExists(coupon: Coupon): Boolean {
         return coupons.contains(coupon.name)

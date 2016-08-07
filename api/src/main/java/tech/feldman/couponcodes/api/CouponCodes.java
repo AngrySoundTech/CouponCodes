@@ -24,8 +24,8 @@ package tech.feldman.couponcodes.api;
 
 import tech.feldman.couponcodes.api.command.CommandHandler;
 import tech.feldman.couponcodes.api.config.ConfigHandler;
-import tech.feldman.couponcodes.api.coupon.CouponHandler;
 import tech.feldman.couponcodes.api.database.DatabaseHandler;
+import tech.feldman.couponcodes.api.database.Database;
 import tech.feldman.couponcodes.api.economy.EconomyHandler;
 import tech.feldman.couponcodes.api.event.EventHandler;
 import tech.feldman.couponcodes.api.permission.PermissionHandler;
@@ -35,11 +35,11 @@ public class CouponCodes {
     private static ModTransformer modTransformer;
     private static PermissionHandler permissionHandler;
     private static EconomyHandler economyHandler;
-    private static CouponHandler couponHandler;
+    private static DatabaseHandler databaseHandler;
     private static ConfigHandler configHandler;
     private static EventHandler eventHandler;
     private static CommandHandler commandHandler;
-    private static DatabaseHandler databaseHandler;
+    private static Database database;
 
     public static ModTransformer getModTransformer() {
         return modTransformer;
@@ -65,12 +65,12 @@ public class CouponCodes {
         economyHandler = eh;
     }
 
-    public static CouponHandler getCouponHandler() {
-        return couponHandler;
+    public static DatabaseHandler getDatabaseHandler() {
+        return databaseHandler;
     }
 
-    public static void setCouponHandler(CouponHandler ch) {
-        couponHandler = ch;
+    public static void setDatabaseHandler(DatabaseHandler ch) {
+        databaseHandler = ch;
     }
 
     public static ConfigHandler getConfigHandler() {
@@ -97,12 +97,12 @@ public class CouponCodes {
         commandHandler = ch;
     }
 
-    public static DatabaseHandler getDatabaseHandler() {
-        return databaseHandler;
+    public static Database getDatabase() {
+        return database;
     }
 
-    public static void setDatabaseHandler(DatabaseHandler dh) {
-        databaseHandler = dh;
+    public static void setDatabase(Database dh) {
+        database = dh;
     }
 
 }

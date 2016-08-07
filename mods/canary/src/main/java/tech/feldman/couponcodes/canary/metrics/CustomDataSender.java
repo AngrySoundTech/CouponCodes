@@ -23,17 +23,17 @@
 package tech.feldman.couponcodes.canary.metrics;
 
 import tech.feldman.couponcodes.api.CouponCodes;
-import tech.feldman.couponcodes.api.coupon.CouponHandler;
+import tech.feldman.couponcodes.api.database.DatabaseHandler;
 import tech.feldman.couponcodes.canary.metrics.Metrics.Graph;
 
 public class CustomDataSender implements Runnable {
 
     private Metrics metrics;
-    private CouponHandler ch;
+    private DatabaseHandler ch;
 
     public CustomDataSender(Metrics metrics) {
         this.metrics = metrics;
-        this.ch = CouponCodes.getCouponHandler();
+        this.ch = CouponCodes.getDatabaseHandler();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class CustomDataSender implements Runnable {
         });
         // Database types
         Graph dbTypesGraph = metrics.createGraph("Database Type");
-        dbTypesGraph.addPlotter(new Metrics.Plotter(CouponCodes.getDatabaseHandler().getDatabaseType()) {
+        dbTypesGraph.addPlotter(new Metrics.Plotter(CouponCodes.getDatabase().getDatabaseType()) {
             @Override
             public int getValue() {
                 return 1;

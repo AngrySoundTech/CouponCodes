@@ -30,7 +30,7 @@ class UsesCommand(private val sender: CommandSender, private val args: Array<Str
 
     override fun run() {
         if (args.size == 3) {
-            val c = CouponCodes.getCouponHandler().getCoupon(args[1])
+            val c = CouponCodes.getDatabaseHandler().getCoupon(args[1])
             if (c != null) {
                 try {
                     c.useTimes = Integer.parseInt(args[2])

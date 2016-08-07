@@ -33,7 +33,7 @@ class RedeemCommand(private val sender: CommandSender, private val args: Array<S
 
     override fun run() {
         if (args.size == 2) {
-            val coupon = CouponCodes.getCouponHandler().getCoupon(args[1])
+            val coupon = CouponCodes.getDatabaseHandler().getCoupon(args[1])
 
             if (sender !is Player) {
                 sender.sendMessage(LocaleHandler.getString("Command.Redeem.NotPlayer"))
@@ -105,7 +105,7 @@ class RedeemCommand(private val sender: CommandSender, private val args: Array<S
             up.put(sender.uuid, true)
             coupon.usedPlayers = up
             coupon.useTimes = coupon.useTimes - 1
-            CouponCodes.getCouponHandler().updateCoupon(coupon)
+            CouponCodes.getDatabaseHandler().updateCoupon(coupon)
         } else {
             sender.sendMessage(LocaleHandler.getString("Command.Help.Redeem"))
         }

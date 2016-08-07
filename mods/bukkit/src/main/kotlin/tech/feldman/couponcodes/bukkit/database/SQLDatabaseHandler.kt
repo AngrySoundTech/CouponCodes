@@ -22,100 +22,180 @@
  */
 package tech.feldman.couponcodes.bukkit.database
 
-import tech.feldman.couponcodes.api.database.DatabaseHandler
+import tech.feldman.couponcodes.api.coupon.*
+import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
 import tech.feldman.couponcodes.bukkit.BukkitPlugin
-import tech.feldman.couponcodes.bukkit.database.options.DatabaseOptions
 import tech.feldman.couponcodes.bukkit.database.options.MySQLOptions
-import tech.feldman.couponcodes.bukkit.database.options.SQLiteOptions
-import java.io.IOException
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.ResultSet
+import tech.feldman.couponcodes.core.database.SimpleDatabaseHandler
+import java.sql.PreparedStatement
 import java.sql.SQLException
+import java.util.*
 
-class SQLDatabaseHandler(plugin: BukkitPlugin, val databaseOptions: DatabaseOptions) : DatabaseHandler {
-    var connection: Connection? = null
-        private set
+class SQLDatabaseHandler(val plugin: BukkitPlugin, val database: SQLDatabase) : SimpleDatabaseHandler() {
 
-    init {
-        plugin.dataFolder.mkdirs()
+    override fun addCouponToDatabase(coupon: Coupon): Boolean {
+        if (couponExists(coupon))
+            return false
+        try {
+            val con = database.connection
+            var p: PreparedStatement? = null
 
-        if (databaseOptions is SQLiteOptions) {
-            try {
-                databaseOptions.sqlFile.createNewFile()
-            } catch (e: IOException) {
-                e.printStackTrace()
+            if (coupon is ItemCoupon) {
+                p = con!!.prepareStatement("INSERT INTO couponcodes (name, ctype, usetimes, usedplayers, ids, timeuse) " + "VALUES (?, ?, ?, ?, ?, ?)")
+                p!!.setString(1, coupon.name)
+                p.setString(2, coupon.type)
+                p.setInt(3, coupon.useTimes)
+                p.setString(4, playerHashToString(coupon.usedPlayers))
+                p.setString(5, itemHashToString(coupon.items))
+                p.setInt(6, coupon.time)
+            } else if (coupon is EconomyCoupon) {
+                p = con!!.prepareStatement("INSERT INTO couponcodes (name, ctype, usetimes, usedplayers, money, timeuse) " + "VALUES (?, ?, ?, ?, ?, ?)")
+                p!!.setString(1, coupon.name)
+                p.setString(2, coupon.type)
+                p.setInt(3, coupon.useTimes)
+                p.setString(4, playerHashToString(coupon.usedPlayers))
+                p.setInt(5, coupon.money)
+                p.setInt(6, coupon.time)
+            } else if (coupon is RankCoupon) {
+                p = con!!.prepareStatement("INSERT INTO couponcodes (name, ctype, usetimes, usedplayers, groupname, timeuse) " + "VALUES (?, ?, ?, ?, ?, ?)")
+                p!!.setString(1, coupon.name)
+                p.setString(2, coupon.type)
+                p.setInt(3, coupon.useTimes)
+                p.setString(4, playerHashToString(coupon.usedPlayers))
+                p.setString(5, coupon.group)
+                p.setInt(6, coupon.time)
+            } else if (coupon is XpCoupon) {
+                p = con!!.prepareStatement("INSERT INTO couponcodes (name, ctype, usetimes, usedplayers, timeuse, xp) " + "VALUES (?, ?, ?, ?, ?, ?)")
+                p!!.setString(1, coupon.name)
+                p.setString(2, coupon.type)
+                p.setInt(3, coupon.useTimes)
+                p.setString(4, playerHashToString(coupon.usedPlayers))
+                p.setInt(5, coupon.time)
+                p.setInt(6, coupon.xp)
+            } else if (coupon is CommandCoupon) {
+                p = con!!.prepareStatement("INSERT INTO couponcodes (name, ctype, usetimes, usedplayers, timeuse, command) " + "VALUES (?, ?, ?, ?, ?, ?)")
+                p!!.setString(1, coupon.name)
+                p.setString(2, coupon.type)
+                p.setInt(3, coupon.useTimes)
+                p.setString(4, playerHashToString(coupon.usedPlayers))
+                p.setInt(5, coupon.time)
+                p.setString(6, coupon.cmd)
             }
 
-        }
-    }
-
-    @Throws(SQLException::class)
-    fun open(): Boolean {
-        try {
-            Class.forName("org.sqlite.JDBC")
-        } catch (e: ClassNotFoundException) {
-            e.printStackTrace()
-            connection = null
-            return false
-        }
-
-        if (databaseOptions is MySQLOptions) {
-            this.connection = DriverManager.getConnection("jdbc:mysql://" + databaseOptions.hostname + ":" +
-                    databaseOptions.port + "/" +
-                    databaseOptions.database + "?autoReconnect=true",
-                    databaseOptions.username,
-                    databaseOptions.password)
+            p!!.addBatch()
+            con!!.autoCommit = false
+            p.executeBatch()
+            con.autoCommit = true
             return true
-        } else if (databaseOptions is SQLiteOptions) {
-            this.connection = DriverManager.getConnection("jdbc:sqlite:" + databaseOptions.sqlFile.absolutePath)
-            return true
-        } else {
-            return false
-        }
-    }
-
-    @Throws(SQLException::class)
-    fun close() {
-        connection!!.close()
-    }
-
-    fun reload(): Boolean {
-        try {
-            close()
-            return open()
         } catch (e: SQLException) {
             return false
         }
 
     }
 
-    @Throws(SQLException::class)
-    fun query(query: String): ResultSet {
-        val st = connection!!.createStatement()
-        var rs: ResultSet? = null
-
-        if (query.toLowerCase().contains("delete") || query.toLowerCase().contains("update") || query.toLowerCase().contains("insert") || query.toLowerCase().contains("alter")) {
-            st.executeUpdate(query)
-            return rs!!
-        } else {
-            rs = st.executeQuery(query)
-            return rs
+    override fun removeCouponFromDatabase(coupon: Coupon): Boolean {
+        if (!couponExists(coupon))
+            return false
+        try {
+            database.query("DELETE FROM couponcodes WHERE name='" + coupon.name + "'")
+            return true
+        } catch (e: SQLException) {
+            return false
         }
+
     }
 
-    @Throws(SQLException::class)
-    fun createTable(table: String): Boolean {
-        val st = connection!!.createStatement()
-        return st.execute(table)
-    }
-
-    override fun getDatabaseType(): String {
-        if (databaseOptions is MySQLOptions) {
-            return "MySQL"
-        } else if (databaseOptions is SQLiteOptions) {
-            return "SQLite"
+    override fun removeCouponFromDatabase(coupon: String): Boolean {
+        if (!couponExists(coupon))
+            return false
+        try {
+            database.query("DELETE FROM couponcodes WHERE name='$coupon'")
+            return true
+        } catch (e: SQLException) {
+            return false
         }
-        return "None"
+
     }
+
+    override fun getCoupons(): List<String> {
+        val c = ArrayList<String>()
+        try {
+            val rs = database.query("SELECT name FROM couponcodes")
+            while (rs.next())
+                c.add(rs.getString(1))
+        } catch (e: NullPointerException) {
+            e.printStackTrace()
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+
+        return c
+    }
+
+    override fun updateCoupon(coupon: Coupon) {
+        try {
+            database.query("UPDATE couponcodes SET usetimes='" + coupon.useTimes + "' WHERE name='" + coupon.name + "'")
+            database.query("UPDATE couponcodes SET usedplayers='" + playerHashToString(coupon.usedPlayers) + "' WHERE name='" + coupon.name + "'")
+            database.query("UPDATE couponcodes SET timeuse='" + coupon.time + "' WHERE name='" + coupon.name + "'")
+
+            if (coupon is ItemCoupon)
+                database.query("UPDATE couponcodes SET ids='" + itemHashToString(coupon.items) + "' WHERE name='" + coupon.getName() + "'")
+            else if (coupon is EconomyCoupon)
+                database.query("UPDATE couponcodes SET money='" + coupon.money + "' WHERE name='" + coupon.getName() + "'")
+            else if (coupon is RankCoupon)
+                database.query("UPDATE couponcodes SET groupname='" + coupon.group + "' WHERE name='" + coupon.getName() + "'")
+            else if (coupon is XpCoupon)
+                database.query("UPDATE couponcodes SET xp='" + coupon.xp + "' WHERE name='" + coupon.getName() + "'")
+            else if (coupon is CommandCoupon)
+                database.query("UPDATE couponcodes SET command='" + coupon.cmd + "' WHERE name='" + coupon.getName() + "'")
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun updateCouponTime(coupon: Coupon) {
+        try {
+            database.query("UPDATE couponcodes SET timeuse='" + coupon.time + "' WHERE name='" + coupon.name + "'")
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun getCoupon(coupon: String): Coupon? {
+        if (!couponExists(coupon))
+            return null
+        try {
+            val rs = database.query("SELECT * FROM couponcodes WHERE name='$coupon'")
+            if (database.databaseOptions is MySQLOptions)
+                rs.first()
+            val usetimes = rs.getInt("usetimes")
+            val time = rs.getInt("timeuse")
+            val usedplayers = playerStringToHash(rs.getString("usedplayers"))
+
+            if (rs.getString("ctype").equals("Item", ignoreCase = true))
+                try {
+                    return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(rs.getString("ids"), null), usedplayers)
+                } catch (e: UnknownMaterialException) {
+                    // This should never happen, unless the database was modified by something not this plugin
+                    return null
+                }
+            else if (rs.getString("ctype").equals("Economy", ignoreCase = true))
+                return createNewEconomyCoupon(coupon, usetimes, time, usedplayers, rs.getInt("money"))
+            else if (rs.getString("ctype").equals("Rank", ignoreCase = true))
+                return createNewRankCoupon(coupon, rs.getString("groupname"), usetimes, time, usedplayers)
+            else if (rs.getString("ctype").equals("Xp", ignoreCase = true))
+                return createNewXpCoupon(coupon, rs.getInt("xp"), usetimes, time, usedplayers)
+            else if (rs.getString("ctype").equals("Command", ignoreCase = true))
+                return createNewCommandCoupon(coupon, rs.getString("command"), usetimes, time, usedplayers)
+            else
+                return null
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            return null
+        }
+
+    }
+
 }

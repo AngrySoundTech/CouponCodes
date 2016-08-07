@@ -32,19 +32,19 @@ class RemoveCommand(private val sender: CommandSender, private val args: Array<S
         if (args.size == 2) {
             if (args[1].equals("all", ignoreCase = true)) {
                 var j = 0
-                val cs = CouponCodes.getCouponHandler().coupons
+                val cs = CouponCodes.getDatabaseHandler().coupons
                 for (i in cs) {
-                    CouponCodes.getCouponHandler().removeCouponFromDatabase(i)
+                    CouponCodes.getDatabaseHandler().removeCouponFromDatabase(i)
                     j++
                 }
                 sender.sendMessage(LocaleHandler.getString("Command.Remove.AllRemoved", j))
                 return
             }
-            if (!CouponCodes.getCouponHandler().couponExists(args[1])) {
+            if (!CouponCodes.getDatabaseHandler().couponExists(args[1])) {
                 sender.sendMessage(LocaleHandler.getString("Command.Shared.DoesNotExist"))
                 return
             }
-            CouponCodes.getCouponHandler().removeCouponFromDatabase(CouponCodes.getCouponHandler().createNewItemCoupon(args[1], 0, -1, null, null))
+            CouponCodes.getDatabaseHandler().removeCouponFromDatabase(CouponCodes.getDatabaseHandler().createNewItemCoupon(args[1], 0, -1, null, null))
             sender.sendMessage(LocaleHandler.getString("Command.Remove.Removed", args[1]))
         } else {
             sender.sendMessage(LocaleHandler.getString("Command.Help.Remove"))

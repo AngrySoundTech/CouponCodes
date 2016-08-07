@@ -37,7 +37,7 @@ open class SimpleCoupon(private var name: String, private var usetimes: Int, pri
     }
 
     override fun addToDatabase(): Boolean {
-        if (CouponCodes.getCouponHandler().addCouponToDatabase(this)) {
+        if (CouponCodes.getDatabaseHandler().addCouponToDatabase(this)) {
             CouponCodes.getEventHandler().post(CouponAddToDatabaseEvent(this))
             return true
         }
@@ -45,7 +45,7 @@ open class SimpleCoupon(private var name: String, private var usetimes: Int, pri
     }
 
     override fun removeFromDatabase(): Boolean {
-        if (CouponCodes.getCouponHandler().removeCouponFromDatabase(this)) {
+        if (CouponCodes.getDatabaseHandler().removeCouponFromDatabase(this)) {
             CouponCodes.getEventHandler().post(CouponRemoveFromDatabaseEvent(this))
             return true
         }
@@ -53,15 +53,15 @@ open class SimpleCoupon(private var name: String, private var usetimes: Int, pri
     }
 
     override fun isInDatabase(): Boolean {
-        return CouponCodes.getCouponHandler().couponExists(this)
+        return CouponCodes.getDatabaseHandler().couponExists(this)
     }
 
     override fun updateWithDatabase() {
-        CouponCodes.getCouponHandler().updateCoupon(this)
+        CouponCodes.getDatabaseHandler().updateCoupon(this)
     }
 
     override fun updateTimeWithDatabase() {
-        CouponCodes.getCouponHandler().updateCouponTime(this)
+        CouponCodes.getDatabaseHandler().updateCouponTime(this)
     }
 
     override fun getName(): String {
