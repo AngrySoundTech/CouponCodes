@@ -1,7 +1,8 @@
 CouponCodes
 ===========
 
-[![Build Status](https://travis-ci.org/AngrySoundTech/CouponCodes.svg?branch=master)](https://travis-ci.org/AngrySoundTech/CouponCodes)
+[![Travis](https://img.shields.io/travis/AngrySoundTech/CouponCodes.svg?style=flat-square)](https://travis-ci.org/AngrySoundTech/CouponCodes)
+[![Version](https://img.shields.io/github/release/AngrySoundTech/CouponCodes.svg?style=flat-square)](https://github.com/AngrySoundTech/CouponCodes/releases)
  
 | Server Mod | Status  |
 | ---------- | ------  |
