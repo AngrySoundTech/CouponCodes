@@ -31,7 +31,7 @@ class ListCommand(private val sender: CommandSender, args: Array<String>) : Runn
     override fun run() {
         val sb = StringBuilder()
         val c = CouponCodes.getDatabaseHandler().coupons
-        if (c!!.isEmpty() || c.size <= 0 || c == null) {
+        if (c.isEmpty()) {
             sender.sendMessage(LocaleHandler.getString("Command.List.NoFound"))
         } else {
             sb.append(LocaleHandler.getString("Command.List.List"))

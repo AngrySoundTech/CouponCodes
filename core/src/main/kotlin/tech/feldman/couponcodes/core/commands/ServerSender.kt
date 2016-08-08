@@ -28,11 +28,7 @@ import java.util.*
 
 abstract class ServerSender : CommandSender {
 
-    override fun getLocale(): Locale {
-        return CouponCodes.getConfigHandler().locale
-    }
+    override fun getLocale(): Locale = CouponCodes.getConfigHandler().locale
 
-    override fun hasPermission(node: String): Boolean {
-        return true
-    }
+    override fun hasPermission(node: String) = true
 }

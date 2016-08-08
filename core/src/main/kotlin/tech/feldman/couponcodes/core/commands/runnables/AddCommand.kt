@@ -37,126 +37,130 @@ class AddCommand(private val sender: CommandSender, private val args: Array<Stri
             return
         }
 
-        if (args[1].equals("item", ignoreCase = true)) {
-            if (args.size >= 4) {
-                var name = args[2]
+        when(args[1].toLowerCase()) {
+            "item" -> {
+                if (args.size >= 4) {
+                    var name = args[2]
 
-                if (name.equals("random", ignoreCase = true))
-                    name = RandomName.generateName()
-                if (args.size >= 5) {
+                    if (name.equals("random", ignoreCase = true))
+                        name = RandomName.generateName()
+                    if (args.size >= 5) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"))
+                        return
+                    }
+
+                    val itemHash: HashMap<String, Int>
+                    try {
+                        itemHash = CouponCodes.getDatabaseHandler().itemStringToHash(args[3], sender)
+                    } catch (e: UnknownMaterialException) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.InvalidName", e.itemName))
+                        return
+                    }
+
+                    val ic = CouponCodes.getDatabaseHandler().createNewItemCoupon(name, 1, -1, itemHash, HashMap<String, Boolean>())
+
+                    if (ic.addToDatabase()) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
+                    } else {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
+                    }
+                } else {
                     sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"))
-                    return
                 }
-
-                val itemHash: HashMap<String, Int>
-                try {
-                    itemHash = CouponCodes.getDatabaseHandler().itemStringToHash(args[3], sender)
-                } catch (e: UnknownMaterialException) {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.InvalidName", e.itemName))
-                    return
-                }
-
-                val ic = CouponCodes.getDatabaseHandler().createNewItemCoupon(name, 1, -1, itemHash, HashMap<String, Boolean>())
-
-                if (ic.addToDatabase()) {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
-                }
-            } else {
-                sender.sendMessage(LocaleHandler.getString("Command.Help.AddItem"))
             }
-        } else if (args[1].equals("econ", ignoreCase = true)) {
-            if (args.size >= 4) {
-                var name = args[2]
-                val money = Integer.parseInt(args[3])
+            "econ" -> {
+                if (args.size >= 4) {
+                    var name = args[2]
+                    val money = Integer.parseInt(args[3])
 
-                if (name.equals("random", ignoreCase = true))
-                    name = RandomName.generateName()
-                if (args.size >= 5) {
+                    if (name.equals("random", ignoreCase = true))
+                        name = RandomName.generateName()
+                    if (args.size >= 5) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"))
+                        return
+                    }
+
+                    val ec = CouponCodes.getDatabaseHandler().createNewEconomyCoupon(name, 1, -1, HashMap<String, Boolean>(), money)
+
+                    if (ec.addToDatabase()) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
+                    } else {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
+                    }
+                } else {
                     sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"))
-                    return
                 }
-
-                val ec = CouponCodes.getDatabaseHandler().createNewEconomyCoupon(name, 1, -1, HashMap<String, Boolean>(), money)
-
-                if (ec.addToDatabase()) {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
-                }
-            } else {
-                sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"))
             }
+            "rank" -> {
+                if (args.size >= 4) {
+                    var name = args[2]
+                    val group = args[3]
 
-        } else if (args[1].equals("rank", ignoreCase = true)) {
-            if (args.size >= 4) {
-                var name = args[2]
-                val group = args[3]
+                    if (name.equals("random", ignoreCase = true))
+                        name = RandomName.generateName()
+                    if (args.size >= 5) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"))
+                        return
+                    }
 
-                if (name.equals("random", ignoreCase = true))
-                    name = RandomName.generateName()
-                if (args.size >= 5) {
+                    val rc = CouponCodes.getDatabaseHandler().createNewRankCoupon(name, group, 1, -1, HashMap<String, Boolean>())
+
+                    if (rc.addToDatabase()) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
+                    } else {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
+                    }
+                } else {
                     sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"))
-                    return
                 }
-
-                val rc = CouponCodes.getDatabaseHandler().createNewRankCoupon(name, group, 1, -1, HashMap<String, Boolean>())
-
-                if (rc.addToDatabase()) {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
-                }
-            } else {
-                sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"))
             }
-        } else if (args[1].equals("xp", ignoreCase = true)) {
-            if (args.size >= 4) {
-                var name = args[2]
-                val xp = Integer.parseInt(args[3])
+            "xp" -> {
+                if (args.size >= 4) {
+                    var name = args[2]
+                    val xp = Integer.parseInt(args[3])
 
-                if (name.equals("random", ignoreCase = true))
-                    name = RandomName.generateName()
-                if (args.size >= 5) {
+                    if (name.equals("random", ignoreCase = true))
+                        name = RandomName.generateName()
+                    if (args.size >= 5) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"))
+                        return
+                    }
+
+                    val xc = CouponCodes.getDatabaseHandler().createNewXpCoupon(name, xp, 1, -1, HashMap<String, Boolean>())
+
+                    if (xc.addToDatabase()) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
+                    } else {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
+                    }
+                } else {
                     sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"))
-                    return
                 }
-
-                val xc = CouponCodes.getDatabaseHandler().createNewXpCoupon(name, xp, 1, -1, HashMap<String, Boolean>())
-
-                if (xc.addToDatabase()) {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
-                }
-            } else {
-                sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"))
             }
-        } else if (args[1].equals("cmd", ignoreCase = true)) {
-            if (args.size >= 4) {
-                var name = args[2]
-                val sb = StringBuilder()
-                for (i in 3..args.size - 1) {
-                    sb.append(args[i]).append(" ")
-                }
-                val cmd = sb.toString()
+            "cmd" -> {
+                if (args.size >= 4) {
+                    var name = args[2]
+                    val sb = StringBuilder()
+                    for (i in 3..args.size - 1) {
+                        sb.append(args[i]).append(" ")
+                    }
+                    val cmd = sb.toString()
 
-                if (name.equals("random", ignoreCase = true))
-                    name = RandomName.generateName()
+                    if (name.equals("random", ignoreCase = true))
+                        name = RandomName.generateName()
 
-                val cc = CouponCodes.getDatabaseHandler().createNewCommandCoupon(name, cmd, 1, -1, HashMap<String, Boolean>())
+                    val cc = CouponCodes.getDatabaseHandler().createNewCommandCoupon(name, cmd, 1, -1, HashMap<String, Boolean>())
 
-                if (cc.addToDatabase()) {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
+                    if (cc.addToDatabase()) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
+                    } else {
+                        sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
+                    }
                 } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.Add.AlreadyExists"))
+                    sender.sendMessage(LocaleHandler.getString("Command.Help.AddCmd"))
                 }
-            } else {
-                sender.sendMessage(LocaleHandler.getString("Command.Help.AddCmd"))
             }
-        } else {
-            helpAdd(sender)
+            else -> helpAdd(sender)
         }
     }
 
@@ -166,5 +170,6 @@ class AddCommand(private val sender: CommandSender, private val args: Array<Stri
         sender.sendMessage(LocaleHandler.getString("Command.Help.AddEcon"))
         sender.sendMessage(LocaleHandler.getString("Command.Help.AddRank"))
         sender.sendMessage(LocaleHandler.getString("Command.Help.AddXp"))
+        sender.sendMessage(LocaleHandler.getString("Command.Help.AddCmd"))
     }
 }

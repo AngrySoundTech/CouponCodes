@@ -32,70 +32,35 @@ class SimpleCommandHandler : CommandHandler {
 
     override fun handleCommand(command: String, args: Array<String>, sender: CommandSender): Boolean {
         if (command.equals("coupon", ignoreCase = true)) {
-            if (args[0].equals("help", ignoreCase = true)) {
-                help(sender)
-                return true
-            } else if (args[0].equals("add", ignoreCase = true)) {
-                if (sender.hasPermission("cc.add")) {
+            when (command.toLowerCase()) {
+                "help" -> help(sender)
+                "add" -> if (checkPermission(sender, "cc.add"))
                     CouponCodes.getModTransformer().scheduleRunnable(AddCommand(sender, args))
-                    return true
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.NoPermission"))
-                    return true
-                }
-            } else if (args[0].equals("time", ignoreCase = true)) {
-                if (sender.hasPermission("cc.time")) {
+                "time" -> if (checkPermission(sender, "cc.time"))
                     CouponCodes.getModTransformer().scheduleRunnable(TimeCommand(sender, args))
-                    return true
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.NoPermission"))
-                    return true
-                }
-            } else if (args[0].equals("uses", ignoreCase = true)) {
-                if (sender.hasPermission("cc.uses")) {
+                "uses" -> if (checkPermission(sender, "cc.uses"))
                     CouponCodes.getModTransformer().scheduleRunnable(UsesCommand(sender, args))
-                    return true
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.NoPermission"))
-                    return true
-                }
-            }
-            if (args[0].equals("remove", ignoreCase = true)) {
-                if (sender.hasPermission("cc.remove")) {
+                "remove" -> if (checkPermission(sender, "cc.remove"))
                     CouponCodes.getModTransformer().scheduleRunnable(RemoveCommand(sender, args))
-                    return true
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.NoPermission"))
-                    return true
-                }
-            } else if (args[0].equals("redeem", ignoreCase = true)) {
-                if (sender.hasPermission("cc.redeem")) {
+                "redeem" -> if (checkPermission(sender, "cc.redeem"))
                     CouponCodes.getModTransformer().scheduleRunnable(RedeemCommand(sender, args))
-                    return true
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.NoPermission"))
-                    return true
-                }
-            } else if (args[0].equals("list", ignoreCase = true)) {
-                if (sender.hasPermission("cc.list")) {
+                "list" -> if (checkPermission(sender, "cc.list"))
                     CouponCodes.getModTransformer().scheduleRunnable(ListCommand(sender, args))
-                    return true
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.NoPermission"))
-                    return true
-                }
-            } else if (args[0].equals("info", ignoreCase = true)) {
-                if (sender.hasPermission("cc.info")) {
+                "info" -> if (checkPermission(sender, "cc.info"))
                     CouponCodes.getModTransformer().scheduleRunnable(InfoCommand(sender, args))
-                    return true
-                } else {
-                    sender.sendMessage(LocaleHandler.getString("Command.NoPermission"))
-                    return true
-                }
-            } else
-                return false
+                else -> return false
+            }
+            return true
         } else
             return false
+    }
+
+    private fun checkPermission(sender: CommandSender, node: String): Boolean {
+        if (sender.hasPermission(node))
+            return true
+        else
+            sender.sendMessage(LocaleHandler.getString("Command.NoPermission"))
+        return false
     }
 
     override fun handleCommand(command: String, sender: CommandSender): Boolean {

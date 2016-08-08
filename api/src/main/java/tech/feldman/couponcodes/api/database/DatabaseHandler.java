@@ -93,7 +93,7 @@ public interface DatabaseHandler {
 
     /**
      * Gets the amount of a certain type of coupon in the databaes
-     * <p> Type can be <code>item</code>, <code>econ</code>, <code>rank</code>, or <code>xp</code>,
+     * <p> Type can be <code>item</code>, <code>econ</code>, <code>rank</code>, <code>xp</code>, or <code>cmd</code>
      * @param type The type of coupon to get the amount of
      * @return The amount of the specified coupon type
      */

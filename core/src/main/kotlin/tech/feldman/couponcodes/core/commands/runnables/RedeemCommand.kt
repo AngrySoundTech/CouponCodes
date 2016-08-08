@@ -51,11 +51,10 @@ class RedeemCommand(private val sender: CommandSender, private val args: Array<S
             if (coupon.usedPlayers != null) {
                 if (!coupon.usedPlayers.isEmpty()) {
                     if (coupon.usedPlayers.containsKey(sender.uuid)) {
-                        //TODO: CHECK IF USED
-                        //if (coupon.usedPlayers[sender.uuid]) {
+                        if (coupon.usedPlayers.containsKey(sender.uuid) && coupon.usedPlayers[sender.uuid]!!) {
                             sender.sendMessage(LocaleHandler.getString("Command.Redeem.AlreadyUsed"))
                             return
-                        //}
+                        }
                     }
                 }
             }
@@ -68,37 +67,44 @@ class RedeemCommand(private val sender: CommandSender, private val args: Array<S
                 return
             }
 
-            if (coupon is ItemCoupon) {
-                for ((key, value) in coupon.items) {
-                    try {
-                        sender.giveItem(key, value)
-                    } catch (ignored: UnknownMaterialException) {
-                    }
+            when (coupon) {
+                is ItemCoupon -> {
+                    for ((key, value) in coupon.items) {
+                        try {
+                            sender.giveItem(key, value)
+                        } catch (ignored: UnknownMaterialException) {
+                        }
 
+                    }
+                    sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemItem", coupon.name))
                 }
-                sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemItem", coupon.name))
-            } else if (coupon is EconomyCoupon) {
-                if (CouponCodes.getEconomyHandler() == null) {
-                    sender.sendMessage(LocaleHandler.getString("Command.Redeem.EconDisabled"))
-                    return
-                } else {
-                    CouponCodes.getEconomyHandler().giveMoney(sender.uuid, coupon.money)
-                    sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemEcon", coupon.name))
+                is EconomyCoupon -> {
+                    if (CouponCodes.getEconomyHandler() == null) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Redeem.EconDisabled"))
+                        return
+                    } else {
+                        CouponCodes.getEconomyHandler().giveMoney(sender.uuid, coupon.money)
+                        sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemEcon", coupon.name))
+                    }
                 }
-            } else if (coupon is RankCoupon) {
-                if (!CouponCodes.getPermissionHandler().groupSupport()) {
-                    sender.sendMessage(LocaleHandler.getString("Command.Redeem.RankDisabled"))
-                    return
-                } else {
-                    CouponCodes.getPermissionHandler().setPlayerGroup(sender, coupon.group)
-                    sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemRank", coupon.name, coupon.group))
+                is RankCoupon -> {
+                    if (!CouponCodes.getPermissionHandler().groupSupport()) {
+                        sender.sendMessage(LocaleHandler.getString("Command.Redeem.RankDisabled"))
+                        return
+                    } else {
+                        CouponCodes.getPermissionHandler().setPlayerGroup(sender, coupon.group)
+                        sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemRank", coupon.name, coupon.group))
+                    }
                 }
-            } else if (coupon is XpCoupon) {
-                sender.level = sender.level + coupon.xp
-                sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemXp", coupon.name, coupon.xp))
-            } else if (coupon is CommandCoupon) {
-                CouponCodes.getModTransformer().runCommand(null, coupon.cmd.replace("%p", sender.name))
-                sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemCmd", coupon.name))
+                is XpCoupon -> {
+                    sender.level = sender.level + coupon.xp
+                    sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemXp", coupon.name, coupon.xp))
+                }
+
+                is CommandCoupon -> {
+                    CouponCodes.getModTransformer().runCommand(null, coupon.cmd.replace("%p", sender.name))
+                    sender.sendMessage(LocaleHandler.getString("Command.Redeem.RedeemCmd", coupon.name))
+                }
             }
 
             val up = coupon.usedPlayers
