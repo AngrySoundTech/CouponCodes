@@ -44,7 +44,7 @@ class RemoveCommand(private val sender: CommandSender, private val args: Array<S
                 sender.sendMessage(LocaleHandler.getString("Command.Shared.DoesNotExist"))
                 return
             }
-            CouponCodes.getDatabaseHandler().removeCouponFromDatabase(CouponCodes.getDatabaseHandler().createNewItemCoupon(args[1], 0, -1, null, null))
+            CouponCodes.getDatabaseHandler().removeCouponFromDatabase(args[1])
             sender.sendMessage(LocaleHandler.getString("Command.Remove.Removed", args[1]))
         } else {
             sender.sendMessage(LocaleHandler.getString("Command.Help.Remove"))

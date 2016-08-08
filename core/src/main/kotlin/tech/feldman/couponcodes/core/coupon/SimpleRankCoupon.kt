@@ -25,7 +25,7 @@ package tech.feldman.couponcodes.core.coupon
 import tech.feldman.couponcodes.api.coupon.RankCoupon
 import java.util.*
 
-class SimpleRankCoupon(name: String, private var group: String, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>) : SimpleCoupon(name, usetimes, time, usedplayers), RankCoupon {
+class SimpleRankCoupon(name: String, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>, private var group: String) : SimpleCoupon(name, usetimes, time, usedplayers), RankCoupon {
 
     override fun getGroup(): String {
         return group

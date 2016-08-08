@@ -25,6 +25,7 @@ package tech.feldman.couponcodes.core.commands.runnables
 import tech.feldman.couponcodes.api.CouponCodes
 import tech.feldman.couponcodes.api.command.CommandSender
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
+import tech.feldman.couponcodes.core.coupon.*
 import tech.feldman.couponcodes.core.util.LocaleHandler
 import tech.feldman.couponcodes.core.util.RandomName
 import java.util.*
@@ -57,7 +58,7 @@ class AddCommand(private val sender: CommandSender, private val args: Array<Stri
                         return
                     }
 
-                    val ic = CouponCodes.getDatabaseHandler().createNewItemCoupon(name, 1, -1, itemHash, HashMap<String, Boolean>())
+                    val ic = SimpleItemCoupon(name, 1, -1, HashMap(), itemHash)
 
                     if (ic.addToDatabase()) {
                         sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
@@ -80,7 +81,7 @@ class AddCommand(private val sender: CommandSender, private val args: Array<Stri
                         return
                     }
 
-                    val ec = CouponCodes.getDatabaseHandler().createNewEconomyCoupon(name, 1, -1, HashMap<String, Boolean>(), money)
+                    val ec = SimpleEconomyCoupon(name, 1, -1, HashMap(), money)
 
                     if (ec.addToDatabase()) {
                         sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
@@ -103,7 +104,7 @@ class AddCommand(private val sender: CommandSender, private val args: Array<Stri
                         return
                     }
 
-                    val rc = CouponCodes.getDatabaseHandler().createNewRankCoupon(name, group, 1, -1, HashMap<String, Boolean>())
+                    val rc = SimpleRankCoupon(name, 1, -1, HashMap(), group)
 
                     if (rc.addToDatabase()) {
                         sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
@@ -126,7 +127,7 @@ class AddCommand(private val sender: CommandSender, private val args: Array<Stri
                         return
                     }
 
-                    val xc = CouponCodes.getDatabaseHandler().createNewXpCoupon(name, xp, 1, -1, HashMap<String, Boolean>())
+                    val xc = SimpleXpCoupon(name, 1, -1, HashMap(), xp)
 
                     if (xc.addToDatabase()) {
                         sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))
@@ -149,7 +150,7 @@ class AddCommand(private val sender: CommandSender, private val args: Array<Stri
                     if (name.equals("random", ignoreCase = true))
                         name = RandomName.generateName()
 
-                    val cc = CouponCodes.getDatabaseHandler().createNewCommandCoupon(name, cmd, 1, -1, HashMap<String, Boolean>())
+                    val cc = SimpleCommandCoupon(name, 1, -1, HashMap(), cmd)
 
                     if (cc.addToDatabase()) {
                         sender.sendMessage(LocaleHandler.getString("Command.Add.Added", name))

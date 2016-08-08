@@ -99,61 +99,6 @@ public interface DatabaseHandler {
      */
     int getAmountOf(String type);
 
-    /**
-     * Creates a new {@link ItemCoupon}
-     * @param name The name of the coupon
-     * @param usetimes The amount of times the coupon can be used
-     * @param time The time the coupon has to be redeemed
-     * @param items The items the coupon is for
-     * @param usedplayers The players who have used this coupon
-     * @return The newly created coupon
-     */
-    ItemCoupon createNewItemCoupon(String name, int usetimes, int time, HashMap<String, Integer> items, HashMap<String, Boolean> usedplayers);
-
-    /**
-     * Creates a new {@link EconomyCoupon}
-     * @param name The name of the coupon
-     * @param usetimes The amount of times the coupon can be used
-     * @param time The time the coupon has to be redeemed
-     * @param money The money the coupon is for
-     * @param usedplayers The players who have used this coupon
-     * @return The newly created coupon
-     */
-    EconomyCoupon createNewEconomyCoupon(String name, int usetimes, int time, HashMap<String, Boolean> usedplayers, int money);
-
-    /**
-     * Creates a new {@link RankCoupon}
-     * @param name The name of the coupon
-     * @param usetimes The amount of times the coupon can be used
-     * @param time The time the coupon has to be redeemed
-     * @param group The group the coupon is for
-     * @param usedplayers The players who have used this coupon
-     * @return The newly created coupon
-     */
-    RankCoupon createNewRankCoupon(String name, String group, int usetimes, int time, HashMap<String, Boolean> usedplayers);
-
-    /**
-     * Creates a new {@link XpCoupon}
-     * @param name The name of the coupon
-     * @param usetimes The amount of times the coupon can be used
-     * @param time The time the coupon has to be redeemed
-     * @param xp The amount of xp the coupon is for
-     * @param usedplayers The players who have used this coupon
-     * @return The newly created coupon
-     */
-    XpCoupon createNewXpCoupon(String name, int xp, int usetimes, int time, HashMap<String, Boolean> usedplayers);
-
-    /**
-     * Creates a new {@link CommandCoupon}
-     * @param name The name of the coupon
-     * @param cmd The command the coupon will execute
-     * @param usetimes The amount of times the coupon can be used
-     * @param time The time the coupon has to be redeemed
-     * @param usedplayers The players who have used this coupon
-     * @return The newly created coupon
-     */
-    CommandCoupon createNewCommandCoupon(String name, String cmd, int usetimes, int time, HashMap<String, Boolean> usedplayers);
-
     String itemHashToString(HashMap<String, Integer> hash);
 
     HashMap<String, Integer> itemStringToHash(String args, CommandSender sender) throws UnknownMaterialException;

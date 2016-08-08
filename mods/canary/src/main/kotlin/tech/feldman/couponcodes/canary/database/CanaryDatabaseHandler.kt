@@ -27,6 +27,7 @@ import net.canarymod.database.exceptions.DatabaseReadException
 import net.canarymod.database.exceptions.DatabaseWriteException
 import tech.feldman.couponcodes.api.coupon.*
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
+import tech.feldman.couponcodes.core.coupon.*
 import tech.feldman.couponcodes.core.database.SimpleDatabaseHandler
 import java.util.*
 
@@ -177,19 +178,19 @@ class CanaryDatabaseHandler : SimpleDatabaseHandler() {
 
         if (da.ctype.equals("Item", ignoreCase = true))
             try {
-                return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(da.ids, null), usedplayers)
+                return SimpleItemCoupon(coupon, usetimes, time, usedplayers, itemStringToHash(da.ids, null))
             } catch (e: UnknownMaterialException) {
                 // This should never happen, unless the database was modified by something not this plugin
                 return null
             }
         else if (da.ctype.equals("Economy", ignoreCase = true))
-            return createNewEconomyCoupon(coupon, usetimes, time, usedplayers, da.money)
+            return SimpleEconomyCoupon(coupon, usetimes, time, usedplayers, da.money)
         else if (da.ctype.equals("Rank", ignoreCase = true))
-            return createNewRankCoupon(coupon, da.groupname, usetimes, time, usedplayers)
+            return SimpleRankCoupon(coupon, usetimes, time, usedplayers, da.groupname)
         else if (da.ctype.equals("Xp", ignoreCase = true))
-            return createNewXpCoupon(coupon, da.xp, usetimes, time, usedplayers)
+            return SimpleXpCoupon(coupon, usetimes, time, usedplayers, da.xp)
         else if (da.ctype.equals("Command", ignoreCase = true))
-            return createNewCommandCoupon(coupon, da.command, usetimes, time, usedplayers)
+            return SimpleCommandCoupon(coupon, usetimes, time, usedplayers, da.command)
         else
             return null
     }

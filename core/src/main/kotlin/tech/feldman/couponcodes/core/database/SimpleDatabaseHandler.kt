@@ -27,7 +27,6 @@ import tech.feldman.couponcodes.api.command.CommandSender
 import tech.feldman.couponcodes.api.coupon.*
 import tech.feldman.couponcodes.api.database.DatabaseHandler
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
-import tech.feldman.couponcodes.core.coupon.*
 import java.util.*
 
 abstract class SimpleDatabaseHandler : DatabaseHandler {
@@ -76,26 +75,6 @@ abstract class SimpleDatabaseHandler : DatabaseHandler {
             return 0
     }
 
-    override fun createNewItemCoupon(name: String, usetimes: Int, time: Int, items: HashMap<String, Int>, usedplayers: HashMap<String, Boolean>): ItemCoupon {
-        return SimpleItemCoupon(name, usetimes, time, usedplayers, items)
-    }
-
-    override fun createNewEconomyCoupon(name: String, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>, money: Int): EconomyCoupon {
-        return SimpleEconomyCoupon(name, usetimes, time, usedplayers, money)
-    }
-
-    override fun createNewRankCoupon(name: String, group: String, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>): RankCoupon {
-        return SimpleRankCoupon(name, group, usetimes, time, usedplayers)
-    }
-
-    override fun createNewXpCoupon(name: String, xp: Int, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>): XpCoupon {
-        return SimpleXpCoupon(name, usetimes, time, usedplayers, xp)
-    }
-
-    override fun createNewCommandCoupon(name: String, cmd: String, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>): CommandCoupon {
-        return SimpleCommandCoupon(name, usetimes, time, usedplayers, cmd)
-    }
-
     override fun itemHashToString(hash: HashMap<String, Int>): String {
         val sb = StringBuilder()
         for ((key, value) in hash) {
@@ -130,8 +109,8 @@ abstract class SimpleDatabaseHandler : DatabaseHandler {
         return ids
     }
 
-    override fun playerHashToString(hash: HashMap<String, Boolean>?): String {
-        if (hash!!.isEmpty() || hash == null || hash.size < 1)
+    override fun playerHashToString(hash: HashMap<String, Boolean>): String {
+        if (hash.isEmpty())
             return ""
         val sb = StringBuilder()
         for ((key, value) in hash) {
@@ -143,7 +122,7 @@ abstract class SimpleDatabaseHandler : DatabaseHandler {
 
     override fun playerStringToHash(args: String): HashMap<String, Boolean> {
         val pl = HashMap<String, Boolean>()
-        if (args == null || args.length < 1)
+        if (args.length < 1)
             return pl
         val sp = args.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         try {

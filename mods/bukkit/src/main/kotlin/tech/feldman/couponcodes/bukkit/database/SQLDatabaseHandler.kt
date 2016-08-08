@@ -26,6 +26,7 @@ import tech.feldman.couponcodes.api.coupon.*
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
 import tech.feldman.couponcodes.bukkit.BukkitPlugin
 import tech.feldman.couponcodes.bukkit.database.options.MySQLOptions
+import tech.feldman.couponcodes.core.coupon.*
 import tech.feldman.couponcodes.core.database.SimpleDatabaseHandler
 import java.sql.PreparedStatement
 import java.sql.SQLException
@@ -176,19 +177,19 @@ class SQLDatabaseHandler(val plugin: BukkitPlugin, val database: SQLDatabase) : 
 
             if (rs.getString("ctype").equals("Item", ignoreCase = true))
                 try {
-                    return createNewItemCoupon(coupon, usetimes, time, itemStringToHash(rs.getString("ids"), null), usedplayers)
+                    return SimpleItemCoupon(coupon, usetimes, time, usedplayers, itemStringToHash(rs.getString("ids"), null))
                 } catch (e: UnknownMaterialException) {
                     // This should never happen, unless the database was modified by something not this plugin
                     return null
                 }
             else if (rs.getString("ctype").equals("Economy", ignoreCase = true))
-                return createNewEconomyCoupon(coupon, usetimes, time, usedplayers, rs.getInt("money"))
+                return SimpleEconomyCoupon(coupon, usetimes, time, usedplayers, rs.getInt("money"))
             else if (rs.getString("ctype").equals("Rank", ignoreCase = true))
-                return createNewRankCoupon(coupon, rs.getString("groupname"), usetimes, time, usedplayers)
+                return SimpleRankCoupon(coupon, usetimes, time, usedplayers, rs.getString("groupname"))
             else if (rs.getString("ctype").equals("Xp", ignoreCase = true))
-                return createNewXpCoupon(coupon, rs.getInt("xp"), usetimes, time, usedplayers)
+                return SimpleXpCoupon(coupon, usetimes, time, usedplayers, rs.getInt("xp"))
             else if (rs.getString("ctype").equals("Command", ignoreCase = true))
-                return createNewCommandCoupon(coupon, rs.getString("command"), usetimes, time, usedplayers)
+                return SimpleCommandCoupon(coupon, usetimes, time, usedplayers, rs.getString("command"))
             else
                 return null
         } catch (e: SQLException) {
