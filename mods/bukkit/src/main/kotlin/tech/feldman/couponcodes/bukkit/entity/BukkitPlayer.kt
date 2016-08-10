@@ -47,18 +47,11 @@ class BukkitPlayer(val plugin: BukkitPlugin, val bukkitPlayer: org.bukkit.entity
         return Locale.forLanguageTag(f.get(ep) as String)
     }
 
-    override fun getName(): String? {
-        return bukkitPlayer.name
-    }
+    override fun getName(): String = bukkitPlayer.name
 
-    override fun getUUID(): String? {
-        return bukkitPlayer.uniqueId.toString()
-    }
+    override fun getUUID(): String = bukkitPlayer.uniqueId.toString()
 
-    override fun getLevel(): Int {
-        return bukkitPlayer.level
-    }
-
+    override fun getLevel() = bukkitPlayer.level
     override fun setLevel(level: Int) {
         bukkitPlayer.level = level
     }

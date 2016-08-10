@@ -25,11 +25,7 @@ package tech.feldman.couponcodes.canary.entity
 import net.canarymod.chat.MessageReceiver
 import tech.feldman.couponcodes.core.commands.ServerSender
 
-class CanaryServerSender(internal var canaryCaller:
+class CanaryServerSender(internal var canaryCaller: MessageReceiver) : ServerSender() {
 
-                         MessageReceiver) : ServerSender() {
-
-    override fun sendMessage(message: String) {
-        canaryCaller.message(message)
-    }
+    override fun sendMessage(message: String) = canaryCaller.message(message)
 }

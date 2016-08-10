@@ -25,12 +25,8 @@ package tech.feldman.couponcodes.bukkit.entity
 import org.bukkit.command.CommandSender
 import tech.feldman.couponcodes.core.commands.ServerSender
 
-class BukkitServerSender(internal var bukkitSender:
+class BukkitServerSender(internal var bukkitSender: CommandSender) : ServerSender() {
 
-                         CommandSender) : ServerSender() {
-
-    override fun sendMessage(message: String) {
-        bukkitSender.sendMessage(message)
-    }
+    override fun sendMessage(message: String) = bukkitSender.sendMessage(message)
 
 }

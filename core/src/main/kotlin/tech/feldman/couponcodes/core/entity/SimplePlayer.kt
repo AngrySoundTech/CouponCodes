@@ -30,22 +30,13 @@ import java.util.*
 
 abstract class SimplePlayer : CommandSender, Player {
 
-    /**
-     * Gets whether the player has a certain permission node
-     */
-    override fun hasPermission(node: String): Boolean {
-        return CouponCodes.getPermissionHandler().hasPermission(this, node)
-    }
+    override fun hasPermission(node: String) = CouponCodes.getPermissionHandler().hasPermission(this, node)
+
+    override fun getName(): String? = null
+
+    override fun getUUID(): String? = null
 
     abstract override fun getLocale(): Locale
-
-    override fun getName(): String? {
-        return null
-    }
-
-    override fun getUUID(): String? {
-        return null
-    }
 
     abstract override fun getLevel(): Int
 

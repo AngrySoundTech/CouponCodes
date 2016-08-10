@@ -30,22 +30,15 @@ import java.util.*
 
 class CanaryPlayer(private val canaryPlayer: net.canarymod.api.entity.living.humanoid.Player) : SimplePlayer() {
 
-    override fun hasPermission(node: String): Boolean {
-        return canaryPlayer.hasPermission(node)
-    }
+    override fun hasPermission(node: String) = canaryPlayer.hasPermission(node)
 
-    override fun getLocale(): Locale {
-        return Locale.forLanguageTag(canaryPlayer.locale)
-    }
+    override fun getLocale() = Locale.forLanguageTag(canaryPlayer.locale)
 
-    override fun getUUID(): String? {
-        return canaryPlayer.uuidString
-    }
+    override fun getUUID() = canaryPlayer.uuidString
 
-    override fun getLevel(): Int {
-        return canaryPlayer.level
-    }
+    override fun sendMessage(message: String) = canaryPlayer.message(message)
 
+    override fun getLevel() = canaryPlayer.level
     override fun setLevel(level: Int) {
         canaryPlayer.level = level
     }
@@ -56,10 +49,6 @@ class CanaryPlayer(private val canaryPlayer: net.canarymod.api.entity.living.hum
             canaryPlayer.giveItem(Canary.factory().itemFactory.newItem(ItemType.fromString(item), 0, amount))
         } else
             throw UnknownMaterialException(item)
-    }
-
-    override fun sendMessage(message: String) {
-        canaryPlayer.message(message)
     }
 
 }
