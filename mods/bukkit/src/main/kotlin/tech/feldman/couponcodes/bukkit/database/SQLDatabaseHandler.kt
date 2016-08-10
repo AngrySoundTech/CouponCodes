@@ -177,7 +177,7 @@ class SQLDatabaseHandler(val plugin: BukkitPlugin, val database: SQLDatabase) : 
 
             if (rs.getString("ctype").equals("Item", ignoreCase = true))
                 try {
-                    return SimpleItemCoupon(coupon, usetimes, time, usedplayers, itemStringToHash(rs.getString("ids"), null))
+                    return SimpleItemCoupon(coupon, usetimes, time, usedplayers, itemStringToHash(rs.getString("ids")))
                 } catch (e: UnknownMaterialException) {
                     // This should never happen, unless the database was modified by something not this plugin
                     return null

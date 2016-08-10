@@ -23,9 +23,8 @@
 package tech.feldman.couponcodes.core.coupon
 
 import tech.feldman.couponcodes.api.coupon.CommandCoupon
-import java.util.*
 
-class SimpleCommandCoupon(name: String, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>, private var cmd: String) : SimpleCoupon(name, usetimes, time, usedplayers), CommandCoupon {
+class SimpleCommandCoupon(name: String, usetimes: Int, time: Int, usedplayers: Map<String, Boolean>, private var cmd: String) : SimpleCoupon(name, usetimes, time, usedplayers), CommandCoupon {
 
     override fun getCmd(): String {
         return cmd

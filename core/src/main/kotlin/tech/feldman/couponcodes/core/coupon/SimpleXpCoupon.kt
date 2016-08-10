@@ -23,9 +23,8 @@
 package tech.feldman.couponcodes.core.coupon
 
 import tech.feldman.couponcodes.api.coupon.XpCoupon
-import java.util.*
 
-class SimpleXpCoupon(name: String, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>, private var xp: Int) : SimpleCoupon(name, usetimes, time, usedplayers), XpCoupon {
+class SimpleXpCoupon(name: String, usetimes: Int, time: Int, usedplayers: Map<String, Boolean>, private var xp: Int) : SimpleCoupon(name, usetimes, time, usedplayers), XpCoupon {
 
     override fun getXp(): Int {
         return xp

@@ -178,7 +178,7 @@ class CanaryDatabaseHandler : SimpleDatabaseHandler() {
 
         if (da.ctype.equals("Item", ignoreCase = true))
             try {
-                return SimpleItemCoupon(coupon, usetimes, time, usedplayers, itemStringToHash(da.ids, null))
+                return SimpleItemCoupon(coupon, usetimes, time, usedplayers, itemStringToHash(da.ids))
             } catch (e: UnknownMaterialException) {
                 // This should never happen, unless the database was modified by something not this plugin
                 return null

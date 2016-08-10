@@ -28,6 +28,7 @@ import tech.feldman.couponcodes.api.coupon.EconomyCoupon
 import tech.feldman.couponcodes.api.coupon.ItemCoupon
 import tech.feldman.couponcodes.api.coupon.RankCoupon
 import tech.feldman.couponcodes.api.coupon.XpCoupon
+import tech.feldman.couponcodes.core.database.SimpleDatabaseHandler
 import tech.feldman.couponcodes.core.util.LocaleHandler
 import java.text.DecimalFormat
 
@@ -58,7 +59,7 @@ class InfoCommand(private val sender: CommandSender, private val args: Array<Str
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.UsedPlayers", sb.toString()))
                 }
                 if (c is ItemCoupon)
-                    sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Items", CouponCodes.getDatabaseHandler().itemHashToString(c.items)))
+                    sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Items", SimpleDatabaseHandler.itemHashToString(c.items)))
                 else if (c is EconomyCoupon)
                     sender.sendMessage(LocaleHandler.getString("Command.Info.Specific.Money", c.money))
                 else if (c is RankCoupon)

@@ -22,7 +22,7 @@
  */
 package tech.feldman.couponcodes.api.coupon;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface Coupon {
 
@@ -97,14 +97,14 @@ public interface Coupon {
      * <p> The the key is the UUID of the player, and the value is whether they have used it
      * @return Players who have used this coupon
      */
-    HashMap<String, Boolean> getUsedPlayers();
+    Map<String, Boolean> getUsedPlayers();
 
     /**
      * Sets the players who have used this coupon.
      * <p> The key should be the UUID of a player, and the value should be whether they have used it
      * @param usedplayers HashMap of players and whether they have used this coupon
      */
-    void setUsedPlayers(HashMap<String, Boolean> usedplayers);
+    void setUsedPlayers(Map<String, Boolean> usedplayers);
 
     /**
      * Gets the type of coupon this is.

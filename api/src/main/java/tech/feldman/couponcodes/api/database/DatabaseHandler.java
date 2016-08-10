@@ -22,11 +22,8 @@
  */
 package tech.feldman.couponcodes.api.database;
 
-import tech.feldman.couponcodes.api.command.CommandSender;
-import tech.feldman.couponcodes.api.coupon.*;
-import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException;
+import tech.feldman.couponcodes.api.coupon.Coupon;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface DatabaseHandler {
@@ -98,13 +95,5 @@ public interface DatabaseHandler {
      * @return The amount of the specified coupon type
      */
     int getAmountOf(String type);
-
-    String itemHashToString(HashMap<String, Integer> hash);
-
-    HashMap<String, Integer> itemStringToHash(String args, CommandSender sender) throws UnknownMaterialException;
-
-    String playerHashToString(HashMap<String, Boolean> hash);
-
-    HashMap<String, Boolean> playerStringToHash(String args);
 
 }

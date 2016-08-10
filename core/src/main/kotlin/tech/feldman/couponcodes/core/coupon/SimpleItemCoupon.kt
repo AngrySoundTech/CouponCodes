@@ -23,11 +23,10 @@
 package tech.feldman.couponcodes.core.coupon
 
 import tech.feldman.couponcodes.api.coupon.ItemCoupon
-import java.util.*
 
-class SimpleItemCoupon(name: String, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>, private val items: HashMap<String, Int>) : SimpleCoupon(name, usetimes, time, usedplayers), ItemCoupon {
+class SimpleItemCoupon(name: String, usetimes: Int, time: Int, usedplayers: Map<String, Boolean>, private val items: Map<String, Int>) : SimpleCoupon(name, usetimes, time, usedplayers), ItemCoupon {
 
-    override fun getItems(): HashMap<String, Int> {
+    override fun getItems(): Map<String, Int> {
         return items
     }
 }

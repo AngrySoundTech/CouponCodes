@@ -23,9 +23,8 @@
 package tech.feldman.couponcodes.core.coupon
 
 import tech.feldman.couponcodes.api.coupon.EconomyCoupon
-import java.util.*
 
-class SimpleEconomyCoupon(name: String, usetimes: Int, time: Int, usedplayers: HashMap<String, Boolean>, private var money: Int) : SimpleCoupon(name, usetimes, time, usedplayers), EconomyCoupon {
+class SimpleEconomyCoupon(name: String, usetimes: Int, time: Int, usedplayers: Map<String, Boolean>, private var money: Int) : SimpleCoupon(name, usetimes, time, usedplayers), EconomyCoupon {
 
     override fun getMoney(): Int {
         return money

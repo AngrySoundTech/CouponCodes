@@ -22,10 +22,10 @@
  */
 package tech.feldman.couponcodes.core.commands.runnables
 
-import tech.feldman.couponcodes.api.CouponCodes
 import tech.feldman.couponcodes.api.command.CommandSender
 import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
 import tech.feldman.couponcodes.core.coupon.*
+import tech.feldman.couponcodes.core.database.SimpleDatabaseHandler
 import tech.feldman.couponcodes.core.util.LocaleHandler
 import tech.feldman.couponcodes.core.util.RandomName
 import java.util.*
@@ -50,9 +50,9 @@ class AddCommand(private val sender: CommandSender, private val args: Array<Stri
                         return
                     }
 
-                    val itemHash: HashMap<String, Int>
+                    val itemHash: Map<String, Int>
                     try {
-                        itemHash = CouponCodes.getDatabaseHandler().itemStringToHash(args[3], sender)
+                        itemHash = SimpleDatabaseHandler.itemStringToHash(args[3])
                     } catch (e: UnknownMaterialException) {
                         sender.sendMessage(LocaleHandler.getString("Command.Add.InvalidName", e.itemName))
                         return

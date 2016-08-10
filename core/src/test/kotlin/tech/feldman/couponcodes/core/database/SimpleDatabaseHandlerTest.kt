@@ -20,18 +20,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package tech.feldman.couponcodes.core.coupon
+package tech.feldman.couponcodes.core.database
 
-import tech.feldman.couponcodes.api.coupon.RankCoupon
+import org.junit.Test
 
-class SimpleRankCoupon(name: String, usetimes: Int, time: Int, usedplayers: Map<String, Boolean>, private var group: String) : SimpleCoupon(name, usetimes, time, usedplayers), RankCoupon {
+class SimpleDatabaseHandlerTest {
 
-    override fun getGroup(): String {
-        return group
+    val itemHash = hashMapOf<String, Int>(
+            Pair("stone", 2),
+            Pair("grass", 3)
+    )
+    val itemStrings = listOf<String>("grass,3|stone,2", "stone,2|grass,3")
+
+    val playerHash = hashMapOf<String, Boolean>(
+            Pair("blue", true),
+            Pair("carter", false)
+    )
+    val playerStrings = listOf<String>("blue:true,carter:false", "carter:false,blue:true")
+
+    @Test
+    fun itemHashToString() {
+        assert (itemStrings.contains(SimpleDatabaseHandler.itemHashToString(itemHash)))
     }
 
-    override fun setGroup(group: String) {
-        this.group = group
+    @Test
+    fun itemStringToHash() {
+        for (s in itemStrings) {
+            assert(SimpleDatabaseHandler.itemStringToHash(s).equals(itemHash))
+        }
     }
 
+    @Test
+    fun playerHashToString() {
+        assert (playerStrings.contains(SimpleDatabaseHandler.playerHashToString(playerHash)))
+    }
+
+    @Test
+    fun playerStringToHash() {
+        for (s in playerStrings) {
+            assert(SimpleDatabaseHandler.playerStringToHash(s).equals(playerHash))
+        }
+    }
 }

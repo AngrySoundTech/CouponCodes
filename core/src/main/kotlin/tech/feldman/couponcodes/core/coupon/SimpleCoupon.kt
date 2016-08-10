@@ -29,8 +29,9 @@ import tech.feldman.couponcodes.api.event.coupon.CouponExpireEvent
 import tech.feldman.couponcodes.api.event.coupon.CouponRemoveFromDatabaseEvent
 import java.util.*
 
-open class SimpleCoupon(private var name: String, private var usetimes: Int, private var time: Int, private var usedplayers: HashMap<String, Boolean>) : Coupon {
-    private var expired: Boolean = false
+abstract class SimpleCoupon(private var name: String, private var usetimes: Int, private var time: Int, private var usedplayers: Map<String, Boolean>) : Coupon {
+
+    private var expired: Boolean
 
     init {
         this.expired = usetimes <= 0 || time == 0
@@ -52,76 +53,52 @@ open class SimpleCoupon(private var name: String, private var usetimes: Int, pri
         return false
     }
 
-    override fun isInDatabase(): Boolean {
-        return CouponCodes.getDatabaseHandler().couponExists(this)
-    }
+    override fun isInDatabase() = CouponCodes.getDatabaseHandler().couponExists(this)
 
-    override fun updateWithDatabase() {
-        CouponCodes.getDatabaseHandler().updateCoupon(this)
-    }
+    override fun updateWithDatabase() = CouponCodes.getDatabaseHandler().updateCoupon(this)
 
-    override fun updateTimeWithDatabase() {
-        CouponCodes.getDatabaseHandler().updateCouponTime(this)
-    }
+    override fun updateTimeWithDatabase() = CouponCodes.getDatabaseHandler().updateCouponTime(this)
 
-    override fun getName(): String {
-        return name
-    }
-
+    override fun getName()= name
     override fun setName(name: String) {
         this.name = name
     }
 
-    override fun getUseTimes(): Int {
-        return usetimes
-    }
-
+    override fun getUseTimes() = usetimes
     override fun setUseTimes(usetimes: Int) {
         this.usetimes = usetimes
         if (this.usetimes <= 0)
             this.isExpired = true
     }
 
-    override fun getTime(): Int {
-        return time
-    }
-
+    override fun getTime() = time
     override fun setTime(time: Int) {
         this.time = time
         if (this.time == 0)
             this.isExpired = true
     }
 
-    override fun getUsedPlayers(): HashMap<String, Boolean> {
-        return usedplayers
-    }
-
-    override fun setUsedPlayers(usedplayers: HashMap<String, Boolean>) {
+    override fun getUsedPlayers(): HashMap<String, Boolean> = usedPlayers
+    override fun setUsedPlayers(usedplayers: Map<String, Boolean>) {
         this.usedplayers = usedplayers
     }
 
-    override fun getType(): String? {
-        if (this is ItemCoupon)
-            return "Item"
-        if (this is EconomyCoupon)
-            return "Economy"
-        if (this is RankCoupon)
-            return "Rank"
-        if (this is XpCoupon)
-            return "Xp"
-        if (this is CommandCoupon)
-            return "Command"
-        else
-            return null
-    }
-
-    override fun isExpired(): Boolean {
-        return expired
-    }
-
+    override fun isExpired() = expired
     override fun setExpired(expired: Boolean) {
         this.expired = expired
         if (expired)
             CouponCodes.getEventHandler().post(CouponExpireEvent(this))
     }
+
+    override fun getType(): String? {
+        return when(this) {
+            is ItemCoupon -> "Item"
+            is EconomyCoupon -> "Economy"
+            is RankCoupon -> "Rank"
+            is XpCoupon -> "Xp"
+            is CommandCoupon -> "Command"
+            else -> null
+        }
+    }
+
 }

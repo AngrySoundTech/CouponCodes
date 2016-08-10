@@ -22,120 +22,30 @@
  */
 package tech.feldman.couponcodes.core.database
 
-import tech.feldman.couponcodes.api.CouponCodes
-import tech.feldman.couponcodes.api.command.CommandSender
-import tech.feldman.couponcodes.api.coupon.*
+import tech.feldman.couponcodes.api.coupon.Coupon
 import tech.feldman.couponcodes.api.database.DatabaseHandler
-import tech.feldman.couponcodes.api.exceptions.UnknownMaterialException
-import java.util.*
 
 abstract class SimpleDatabaseHandler : DatabaseHandler {
 
-    override fun couponExists(coupon: Coupon): Boolean {
-        return coupons.contains(coupon.name)
-    }
+    override fun couponExists(coupon: Coupon) = coupons.contains(coupon.name)
 
-    override fun couponExists(coupon: String): Boolean {
-        return coupons.contains(coupon)
-    }
+    override fun couponExists(coupon: String) = coupons.contains(coupon)
 
-    override fun getAmountOf(type: String): Int {
-        val list = coupons
-        var item = 0
-        var econ = 0
-        var rank = 0
-        var xp = 0
-        var cmd = 0
+    override fun getAmountOf(type: String) = coupons.filter { getCoupon(it).type.equals(type)}.size
 
-        for (name in list) {
-            val c = getCoupon(name)
-            if (c is ItemCoupon)
-                item++
-            if (c is EconomyCoupon)
-                econ++
-            if (c is RankCoupon)
-                rank++
-            if (c is XpCoupon)
-                xp++
-            if (c is CommandCoupon)
-                cmd++
-        }
+    companion object {
 
-        if (type.equals("Item", ignoreCase = true))
-            return item
-        else if (type.equals("Economy", ignoreCase = true))
-            return econ
-        else if (type.equals("Rank", ignoreCase = true))
-            return rank
-        else if (type.equals("Xp", ignoreCase = true))
-            return xp
-        else if (type.equals("Cmd", ignoreCase = true))
-            return cmd
-        else
-            return 0
-    }
+        fun itemHashToString(hash: Map<String, Int>) =
+                hash.map { "${it.key},${it.value}" }.joinToString(separator = "|")
 
-    override fun itemHashToString(hash: HashMap<String, Int>): String {
-        val sb = StringBuilder()
-        for ((key, value) in hash) {
-            sb.append(key).append(",").append(value).append("|")
-        }
-        sb.deleteCharAt(sb.length - 1)
-        return sb.toString()
-    }
+        fun itemStringToHash(args: String) =
+                args.split("|").map { Pair(it.split(",")[0], it.split(",")[1].toInt()) }.toMap()
 
-    @Throws(UnknownMaterialException::class)
-    override fun itemStringToHash(args: String, sender: CommandSender?): HashMap<String, Int> {
-        val ids = HashMap<String, Int>()
-        val sp = args.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        try {
-            for (s in sp) {
-                val name: String
-                var amount = 0
-                if (CouponCodes.getModTransformer().isValidMaterial(s.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0].toUpperCase())) {
-                    name = s.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0].toUpperCase()
-                } else {
-                    throw UnknownMaterialException(s.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0].toUpperCase())
-                }
-                if (CouponCodes.getModTransformer().isNumeric(s.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])) {
-                    amount = Integer.parseInt(s.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
-                }
-                ids.put(name, amount)
-            }
-        } catch (e: NumberFormatException) {
-            e.printStackTrace()
-        }
+        fun playerHashToString(hash: Map<String, Boolean>) =
+                hash.map { "${it.key}:${it.value}" }.joinToString(separator = ",")
 
-        return ids
-    }
-
-    override fun playerHashToString(hash: HashMap<String, Boolean>): String {
-        if (hash.isEmpty())
-            return ""
-        val sb = StringBuilder()
-        for ((key, value) in hash) {
-            sb.append(key).append(":").append(value).append(",")
-        }
-        sb.deleteCharAt(sb.length - 1)
-        return sb.toString()
-    }
-
-    override fun playerStringToHash(args: String): HashMap<String, Boolean> {
-        val pl = HashMap<String, Boolean>()
-        if (args.length < 1)
-            return pl
-        val sp = args.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        try {
-            for (aSp in sp) {
-                val a = aSp.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0].toString()
-                val b = java.lang.Boolean.valueOf(aSp.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
-                pl.put(a, b)
-            }
-        } catch (e: NumberFormatException) {
-            e.printStackTrace()
-        }
-
-        return pl
+        fun playerStringToHash(args: String) =
+                args.split(",").map { Pair(it.split(":")[0], it.split(":")[1].toBoolean()) }.toMap()
     }
 
 }

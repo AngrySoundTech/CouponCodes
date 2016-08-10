@@ -22,7 +22,7 @@
  */
 package tech.feldman.couponcodes.api.coupon;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface ItemCoupon extends Coupon {
 
@@ -30,6 +30,6 @@ public interface ItemCoupon extends Coupon {
      * Gets the items and amounts the coupon is for
      * @return The items and amounts the coupon is for
      */
-    HashMap<String, Integer> getItems();
+    Map<String, Integer> getItems();
 
 }
