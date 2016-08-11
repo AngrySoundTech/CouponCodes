@@ -137,15 +137,15 @@
     </build>
     <distributionManagement>
         <repository>
-            <id>drevelopment.releases</id>
-            <name>Drevelopment releases</name>
-            <url>http://repo.drevelopment.com/content/repositories/releases/</url>
+            <id>internal.feldman.tech</id>
+            <name>Feldman.tech releases</name>
+            <url>http://repo.feldman.tech/repository/internal/</url>
         </repository>
 
         <snapshotRepository>
-            <id>drevelopment.snapshots</id>
-            <name>Drevelopment snapshots</name>
-            <url>http://repo.drevelopment.com/content/repositories/snapshots/</url>
+            <id>snapshots.feldman.tech</id>
+            <name>Feldman.tech snapshots</name>
+            <url>http://repo.feldman.tech/repository/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>

@@ -24,12 +24,18 @@ package tech.feldman.couponcodes.core.util
 
 import org.junit.Test
 
-class LocaleHandlerTest {
+class ColorTest {
+
 
     @Test
-    fun knownKey() = assert(LocaleHandler.getString("Console.Vault.Enabled") == "Vault support is enabled")
+    fun replaceNone() = assert(Color.replaceColors("this is a test").equals("this is a test"))
 
     @Test
-    fun unknownKey() = assert(LocaleHandler.getString("notakey") == "notakey")
+    fun replaceColors() = assert(Color.replaceColors("this is a &4test").equals("this is a \u00A74test"))
 
+    @Test
+    fun escapeAtEnd() = assert(Color.replaceColors("this is a test&").equals("this is a test&"))
+
+    @Test
+    fun invalidColor() = assert(Color.replaceColors("this is a &gtest").equals("this is a &gtest"))
 }
