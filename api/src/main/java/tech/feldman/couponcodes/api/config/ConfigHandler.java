@@ -47,12 +47,6 @@ public interface ConfigHandler {
     boolean getUseMetrics();
 
     /**
-     * Gets whether or not the plugin should update itself automatically
-     * @return boolean specified in config
-     */
-    boolean getAutoUpdate();
-
-    /**
      * Gets the default locale to use
      * @return the default locale specified in the config, in the form <code>en_US</code>
      */

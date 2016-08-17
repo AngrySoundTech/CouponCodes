@@ -53,10 +53,6 @@ class BukkitConfigHandler(plugin: Plugin) : ConfigHandler {
         return config.getBoolean("use-metrics", true)
     }
 
-    override fun getAutoUpdate(): Boolean {
-        return config.getBoolean("auto-update", true)
-    }
-
     override fun getLocale(): Locale {
         return Locale.forLanguageTag(config.getString("locale"))
     }

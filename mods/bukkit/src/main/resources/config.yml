@@ -37,6 +37,3 @@ debug: false
 # Metrics collects information about CouponCodes, such as version and amount of coupons.
 # If this is disabled, no info will be sent to http://mcstats.org/plugin/CouponCodes
 use-metrics: true
-
-# If set to false, the plugin will not update automatically
-auto-update: true

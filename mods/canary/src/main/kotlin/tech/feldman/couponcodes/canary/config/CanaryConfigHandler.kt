@@ -49,10 +49,6 @@ class CanaryConfigHandler(plugin: CanaryPlugin) : ConfigHandler {
         return config.getBoolean("use-metrics", true)
     }
 
-    override fun getAutoUpdate(): Boolean {
-        return config.getBoolean("auto-update", true)
-    }
-
     override fun getLocale(): Locale {
         return Locale.forLanguageTag(config.getString("locale", "en_US"))
     }
@@ -80,9 +76,6 @@ class CanaryConfigHandler(plugin: CanaryPlugin) : ConfigHandler {
         config.addComment("use-metrics", " ")
         config.addComment("use-metrics", "Metrics collects information about CouponCodes, such as version and amount of coupons.")
         config.addComment("use-metrics", "If this is disabled, no info will be sent to http://mcstats.org/plugin/CouponCodes")
-        config.getBoolean("auto-update", false)
-        config.addComment("auto-update", " ")
-        config.addComment("auto-update", "If set to false, the plugin will not update automatically (CURRENTLY UNAVAILABLE FOR CANARY)")
     }
 
 }

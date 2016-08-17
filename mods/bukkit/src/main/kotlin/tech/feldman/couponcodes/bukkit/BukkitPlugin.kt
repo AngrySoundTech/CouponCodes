@@ -41,7 +41,6 @@ import tech.feldman.couponcodes.bukkit.metrics.CustomDataSender
 import tech.feldman.couponcodes.bukkit.metrics.Metrics
 import tech.feldman.couponcodes.bukkit.permission.SuperPermsPermissionHandler
 import tech.feldman.couponcodes.bukkit.permission.VaultPermissionHandler
-import tech.feldman.couponcodes.bukkit.updater.Updater
 import tech.feldman.couponcodes.core.commands.SimpleCommandHandler
 import tech.feldman.couponcodes.core.event.SimpleEventHandler
 import tech.feldman.couponcodes.core.util.LocaleHandler
@@ -127,11 +126,6 @@ class BukkitPlugin : JavaPlugin(), Listener {
             } catch (ignored: IOException) {
             }
 
-        }
-
-        //Updater
-        if (CouponCodes.getConfigHandler().autoUpdate) {
-            Updater(this, 53833, this.file, Updater.UpdateType.DEFAULT, false)
         }
     }
 
