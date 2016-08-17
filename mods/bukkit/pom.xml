@@ -15,7 +15,7 @@
     </parent>
 
     <properties>
-        <bukkit.version>1.9.4-R0.1-SNAPSHOT</bukkit.version>
+        <bukkit.version>1.10-R0.1-SNAPSHOT</bukkit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
