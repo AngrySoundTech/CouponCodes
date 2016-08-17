@@ -5,11 +5,13 @@
     <name>CouponCodes-API</name>
     <url>https://github.com/AngrySoundTech/CouponCodes3</url>
     <packaging>jar</packaging>
+    <version>4.0</version>
 
     <parent>
         <groupId>tech.feldman.couponcodes</groupId>
         <artifactId>parent</artifactId>
-        <version>${couponcodes.version}</version>
+        <version>4.0</version>
+        <relativePath>..</relativePath>
     </parent>
 
     <properties>

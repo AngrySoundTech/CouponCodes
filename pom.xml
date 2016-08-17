@@ -7,11 +7,9 @@
     <inceptionYear>2015</inceptionYear>
     <url>https://github.com/AngrySoundTech/CouponCodes3</url>
     <packaging>pom</packaging>
-    <version>${couponcodes.version}</version>
+    <version>4.0</version>
 
     <properties>
-        <couponcodes.version>3.3-SNAPSHOT</couponcodes.version>
-        <minecraft.version>1.8.8</minecraft.version>
         <kotlin.version>1.0.3</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -33,7 +31,6 @@
         <module>mods/bukkit</module>
         <module>mods/sponge</module>
         <module>mods/canary</module>
-        <module>mods/universal</module>
     </modules>
 
     <repositories>

@@ -5,15 +5,17 @@
     <name>CouponCodes-Canary</name>
     <url>https://github.com/AngrySoundTech/CouponCodes3</url>
     <packaging>jar</packaging>
+    <version>${canary.version}-4.0</version>
 
     <parent>
         <groupId>tech.feldman.couponcodes</groupId>
         <artifactId>parent</artifactId>
-        <version>${couponcodes.version}</version>
+        <version>4.0</version>
         <relativePath>../../</relativePath>
     </parent>
 
     <properties>
+        <canary.version>1.2.1-SNAPSHOT</canary.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -32,13 +34,13 @@
         <dependency>
             <groupId>tech.feldman.couponcodes</groupId>
             <artifactId>core</artifactId>
-            <version>${couponcodes.version}</version>
+            <version>4.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>net.canarymod</groupId>
             <artifactId>CanaryLib</artifactId>
-            <version>1.2.1-SNAPSHOT</version>
+            <version>${canary.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

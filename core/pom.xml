@@ -5,25 +5,27 @@
     <name>CouponCodes-Core</name>
     <url>https://github.com/AngrySoundTech/CouponCodes3</url>
     <packaging>jar</packaging>
+    <version>4.0</version>
 
     <parent>
         <groupId>tech.feldman.couponcodes</groupId>
         <artifactId>parent</artifactId>
-        <version>${couponcodes.version}</version>
+        <version>4.0</version>
+        <relativePath>..</relativePath>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <plugin.id>couponcodes</plugin.id>
         <plugin.name>CouponCodes</plugin.name>
-        <plugin.version>${couponcodes.version}</plugin.version>
+        <plugin.version>${version}</plugin.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>tech.feldman.couponcodes</groupId>
             <artifactId>api</artifactId>
-            <version>${couponcodes.version}</version>
+            <version>4.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

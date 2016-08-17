@@ -5,15 +5,17 @@
     <name>CouponCodes-Bukkit</name>
     <url>https://github.com/AngrySoundTech/CouponCodes3</url>
     <packaging>jar</packaging>
+    <version>${bukkit.version}-4.0</version>
 
     <parent>
         <groupId>tech.feldman.couponcodes</groupId>
         <artifactId>parent</artifactId>
-        <version>${couponcodes.version}</version>
+        <version>4.0</version>
         <relativePath>../../</relativePath>
     </parent>
 
     <properties>
+        <bukkit.version>1.9.4-R0.1-SNAPSHOT</bukkit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -36,13 +38,13 @@
         <dependency>
             <groupId>tech.feldman.couponcodes</groupId>
             <artifactId>core</artifactId>
-            <version>${couponcodes.version}</version>
+            <version>4.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.9.4-R0.1-SNAPSHOT</version>
+            <version>${bukkit.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
