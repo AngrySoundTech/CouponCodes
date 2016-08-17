@@ -113,6 +113,8 @@
                     </properties>
                     <excludes>
                         <exclude>**/README</exclude>
+                        <exclude>**/LICENSE</exclude>
+                        <exclude>**/gradlew.bat</exclude>
                         <exclude>**/pom.xml</exclude>
                         <exclude>**/maven-eclipse.xml</exclude>
                         <exclude>**/mkdocs.yml</exclude>
